@@ -1,0 +1,115 @@
+<!-- Floating launcher button -->
+<button
+  type="button"
+  class="fab"
+  (click)="toggle()"
+  [attr.aria-expanded]="isOpen"
+  aria-label="Toggle news assistant"
+>
+  @if (isOpen) {
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+      <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z"/>
+    </svg>
+  } @else {
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+      <path d="M20 2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3l3 3 3-3h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm-2 12H6v-2h12v2Zm0-3H6V9h12v2Zm0-3H6V6h12v2Z"/>
+    </svg>
+    <span class="badge" aria-label="Chat available">●</span>
+  }
+</button>
+
+<!-- Chat panel -->
+@if (isOpen) {
+  <section class="chat-panel" role="dialog" aria-label="Wireline News Assistant">
+    <!-- Header -->
+    <header class="chat-header">
+      <div class="chat-title">
+        <span class="avatar" aria-hidden="true">W</span>
+        <div>
+          <p class="name">Wireline Assistant</p>
+          <p class="status">Ask me anything about the news</p>
+        </div>
+      </div>
+      <div class="chat-actions">
+        <button type="button" class="icon-btn" (click)="clear()" title="Clear conversation" aria-label="Clear conversation">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M6 19a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V7H6v12ZM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4Z"/></svg>
+        </button>
+        <button type="button" class="icon-btn" (click)="toggle()" aria-label="Close chat">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Suggestion chips -->
+    <div class="suggestion-chips" aria-label="Quick topics">
+      @for (chip of ['Markets', 'Technology', 'Energy', 'World', 'Policy']; track chip) {
+        <button type="button" class="chip" (click)="inputText = chip; send()">{{ chip }}</button>
+      }
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" #msgList role="log" aria-live="polite" aria-label="Conversation">
+      @for (msg of messages; track msg.id) {
+        <div class="msg-row" [class.user-row]="msg.role === 'user'" [class.bot-row]="msg.role === 'bot'">
+          @if (msg.role === 'bot') {
+            <span class="msg-avatar" aria-hidden="true">W</span>
+          }
+          <div class="bubble-wrap">
+            <div class="bubble" [class.user-bubble]="msg.role === 'user'" [class.bot-bubble]="msg.role === 'bot'">
+              <p [innerHTML]="sanitiseMarkdown(msg.content)"></p>
+
+              <!-- Attached story cards -->
+              @if (msg.stories && msg.stories.length > 0) {
+                <div class="story-cards">
+                  @for (story of msg.stories; track story.id) {
+                    <article class="story-card">
+                      <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" />
+                      <div class="card-body">
+                        <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                        <h4>{{ story.title }}</h4>
+                        <p class="card-summary">{{ story.summary }}</p>
+                      </div>
+                    </article>
+                  }
+                </div>
+              }
+            </div>
+            <time class="timestamp" [dateTime]="msg.timestamp.toISOString()">{{ formatTime(msg.timestamp) }}</time>
+          </div>
+        </div>
+      }
+
+      <!-- Typing indicator -->
+      @if (isTyping) {
+        <div class="msg-row bot-row">
+          <span class="msg-avatar" aria-hidden="true">W</span>
+          <div class="bubble bot-bubble typing-bubble">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- Input bar -->
+    <div class="input-bar">
+      <textarea
+        [(ngModel)]="inputText"
+        (keydown)="onKeyDown($event)"
+        placeholder="Ask about a topic or keyword…"
+        rows="1"
+        aria-label="Message input"
+      ></textarea>
+      <button
+        type="button"
+        class="send-btn"
+        (click)="send()"
+        [disabled]="!inputText.trim()"
+        aria-label="Send message"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="18" height="18">
+          <path d="M2 21 23 12 2 3v7l15 2-15 2v7Z"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+}

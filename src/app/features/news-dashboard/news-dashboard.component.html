@@ -1,0 +1,51 @@
+<header class="news-header" aria-label="Primary navigation">
+  <div class="brand-row">
+    <div class="brand-mark">Wireline</div>
+    <nav class="nav-links" aria-label="Sections">
+      @for (item of ['World', 'Business', 'Markets', 'Tech', 'Sports', 'Video']; track item) {
+        <a href="#">{{ item }}</a>
+      }
+    </nav>
+    <button type="button" class="subscribe-btn">Subscribe</button>
+  </div>
+
+  <div class="ticker-row" aria-label="Market ticker">
+    @for (market of marketTicker; track market.symbol) {
+      <article class="ticker-item">
+        <h4>{{ market.symbol }}</h4>
+        <p>{{ market.value }}</p>
+        <span [class.up]="market.trend === 'up'" [class.down]="market.trend === 'down'">{{ market.change }}</span>
+      </article>
+    }
+  </div>
+</header>
+
+<section class="hero-grid" aria-label="Top stories">
+  <article class="lead-story" [style.background-image]="'url(' + leadStory.imageUrl + ')'">
+    <div class="overlay"></div>
+    <div class="lead-content">
+      <p class="meta">{{ leadStory.category }} | {{ leadStory.timestamp }} | {{ leadStory.readTime }}</p>
+      <h1>{{ leadStory.title }}</h1>
+      <p>{{ leadStory.summary }}</p>
+    </div>
+  </article>
+
+  <article class="spotlight-story">
+    <img [src]="spotlightStory.imageUrl" [alt]="spotlightStory.title" loading="lazy" />
+    <div>
+      <p class="meta">{{ spotlightStory.category }} | {{ spotlightStory.timestamp }}</p>
+      <h2>{{ spotlightStory.title }}</h2>
+      <p>{{ spotlightStory.summary }}</p>
+    </div>
+  </article>
+
+  <aside class="headline-stack" aria-label="Latest headlines">
+    <h3>More Top Stories</h3>
+    @for (story of topHeadlines; track story.id) {
+      <article>
+        <p class="meta">{{ story.category }} | {{ story.timestamp }}</p>
+        <h4>{{ story.title }}</h4>
+      </article>
+    }
+  </aside>
+</section>

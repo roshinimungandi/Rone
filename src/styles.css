@@ -1,1 +1,30 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	min-height: 100%;
+}
+
+body {
+	background: #f3ede7;
+	color: #111111;
+	font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+	line-height: 1.45;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: 'Merriweather', 'Times New Roman', serif;
+}
+
+img {
+	max-width: 100%;
+	display: block;
+}
