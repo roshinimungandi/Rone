@@ -6,6 +6,11 @@ export interface NewsStory {
   timestamp: string;
   readTime: string;
   imageUrl: string;
+  /** Full article body — array of paragraphs rendered as <p> elements. */
+  body?: string[];
+  author?: string;
+  location?: string;
+  relatedIds?: string[];
 }
 
 export interface NewsSection {

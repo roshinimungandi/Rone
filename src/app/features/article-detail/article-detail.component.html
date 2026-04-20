@@ -1,0 +1,119 @@
+<!-- ── Article Detail Page ──────────────────────────────────────────────── -->
+
+@if (notFound) {
+  <div class="not-found">
+    <h2>Article not found</h2>
+    <p>This article is no longer available in the feed.</p>
+    <button type="button" class="back-btn" (click)="goBack()">← Go back</button>
+  </div>
+}
+
+@if (story) {
+  <div class="article-shell">
+
+    <!-- ── Top bar ──────────────────────────────────────────────────────── -->
+    <div class="topbar">
+      <div class="topbar-inner">
+        <button type="button" class="back-btn" (click)="goBack()" aria-label="Go back">
+          <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+          Back
+        </button>
+        <a class="reuters-wordmark" href="/" aria-label="Reuters Home">
+          <span class="r-mark" aria-hidden="true">R</span>
+          REUTERS
+        </a>
+      </div>
+    </div>
+
+    <!-- ── Article ──────────────────────────────────────────────────────── -->
+    <article class="article-body" aria-labelledby="article-title">
+
+      <!-- ── Header ──────────────────────────────────────────────────────── -->
+      <header class="article-header">
+        <div class="article-meta-top">
+          <span class="article-category">{{ story.category }}</span>
+          @if (story.location) {
+            <span class="article-location">{{ story.location }}</span>
+          }
+        </div>
+
+        <h1 id="article-title">{{ story.title }}</h1>
+
+        <p class="article-summary">{{ story.summary }}</p>
+
+        <div class="article-byline">
+          <span class="byline-author">
+            @if (story.author) { By <strong>{{ story.author }}</strong>, }
+            Reuters
+          </span>
+          <span class="byline-divider" aria-hidden="true">·</span>
+          <time class="byline-time">{{ story.timestamp }}</time>
+          <span class="byline-divider" aria-hidden="true">·</span>
+          <span class="byline-read">{{ story.readTime }}</span>
+        </div>
+      </header>
+
+      <!-- ── Hero image ───────────────────────────────────────────────────── -->
+      <figure class="article-figure">
+        <img
+          [src]="story.imageUrl"
+          [alt]="story.title"
+          class="article-hero-img"
+          loading="eager"
+        />
+        <figcaption>Reuters</figcaption>
+      </figure>
+
+      <!-- ── Body paragraphs ──────────────────────────────────────────────── -->
+      <div class="article-text" role="main">
+        @for (para of story.body; track $index) {
+          <p [class.lede]="$index === 0">{{ para }}</p>
+        }
+      </div>
+
+      <!-- ── Footer ──────────────────────────────────────────────────────── -->
+      <footer class="article-footer">
+        <p class="footer-attr">
+          Reporting by <strong>{{ story.author ?? 'Reuters Staff' }}</strong>
+          @if (story.location) { in {{ story.location | titlecase }} }
+        </p>
+        <p class="footer-legal">
+          © 2026 Thomson Reuters. All rights reserved. Republication or
+          redistribution of Reuters content, including by framing or similar
+          means, is expressly prohibited without the prior written consent of
+          Thomson Reuters.
+        </p>
+      </footer>
+
+    </article>
+
+    <!-- ── Related articles ─────────────────────────────────────────────── -->
+    @if (relatedStories.length > 0) {
+      <aside class="related" aria-labelledby="related-title">
+        <h2 id="related-title">More from Reuters</h2>
+        <div class="related-grid">
+          @for (rel of relatedStories; track rel.id) {
+            <a class="related-card" [routerLink]="['/article', rel.id]" aria-label="{{ rel.title }}">
+              <img [src]="rel.imageUrl" [alt]="rel.title" loading="lazy" class="rel-img" />
+              <div class="rel-body">
+                <span class="rel-cat">{{ rel.category }}</span>
+                <h3>{{ rel.title }}</h3>
+                <span class="rel-time">{{ rel.timestamp }}</span>
+              </div>
+            </a>
+          }
+        </div>
+      </aside>
+    }
+
+    <!-- ── Footer bar ─────────────────────────────────────────────────────── -->
+    <div class="page-footer">
+      © 2026 Thomson Reuters ·
+      <a href="#">Terms of Use</a> ·
+      <a href="#">Privacy</a>
+    </div>
+
+  </div>
+}

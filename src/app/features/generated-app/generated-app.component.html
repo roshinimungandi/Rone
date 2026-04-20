@@ -1,0 +1,448 @@
+<!-- ── Generated App (GEN-001 to GEN-010) ────────────────────────────────── -->
+
+<!-- ───────────────────── NOT FOUND STATE ──────────────────────────────── -->
+@if (notFound) {
+  <div class="not-found">
+    <div class="not-found-inner">
+      <span class="nf-r" aria-hidden="true">R</span>
+      <h1>App not found</h1>
+      <p>This Rone app could not be loaded. It may have expired or the link is incorrect.</p>
+      <button type="button" class="cta" (click)="goToBuilder()">Build a new app</button>
+    </div>
+  </div>
+}
+
+<!-- ───────────────────── GENERATED APP ────────────────────────────────── -->
+@if (app) {
+  <div
+    class="gen-shell"
+    [class]="fontClass + ' ' + layoutClass"
+    [class.dark-mode]="isDark"
+    [attr.data-layout]="app.config.layout.style"
+  >
+
+    <!-- Skip to content (WCAG / Section 8.6 accessibility) -->
+    <a href="#gen-main" class="skip-link">Skip to main content</a>
+
+    <!-- ── Header (GEN-007 – Reuters branding required) ──────────────── -->
+    <header
+      class="gen-header"
+      [class.header-sticky]="isSticky"
+      [class.header-minimal]="app.config.layout.header.style === 'minimal'"
+      role="banner"
+    >
+      <div class="header-inner">
+
+        <!-- Brand (left) — Reuters logo always present (PRS Section 8.1) -->
+        <div class="header-brand">
+          <a href="#gen-main" class="reuters-logo" aria-label="Reuters">
+            <span class="r-mark" aria-hidden="true">R</span>
+            <span class="reuters-wordmark">REUTERS</span>
+          </a>
+          @if (app.config.layout.header.appTitle) {
+            <span class="app-divider" aria-hidden="true">|</span>
+            <span class="app-title">{{ app.config.layout.header.appTitle }}</span>
+          }
+        </div>
+
+        <!-- Navigation (topics) -->
+        @if (app.config.layout.navigation === 'top') {
+          <nav class="gen-nav" aria-label="Topic navigation">
+            @for (topic of app.config.topics.slice(0, 5); track topic) {
+              <a href="#section-{{ topic.toLowerCase() }}" class="nav-link">{{ topic }}</a>
+            }
+          </nav>
+        }
+
+        <!-- Account button (PRS Section 8.2) -->
+        <div class="header-right">
+          @if (currentUser) {
+            <div class="account-wrapper">
+              <button
+                type="button"
+                class="account-btn"
+                (click)="toggleAccountMenu()"
+                [attr.aria-expanded]="showAccountMenu()"
+                aria-label="Account menu"
+              >
+                <span class="acct-avatar" aria-hidden="true">{{ currentUser.avatarInitials }}</span>
+                <span class="sub-dot sub-{{ currentUser.subscription }}" aria-label="{{ currentUser.subscription }} subscription"></span>
+              </button>
+
+              @if (showAccountMenu()) {
+                <div class="account-menu" role="menu">
+                  <div class="acct-info">
+                    <strong>{{ currentUser.name }}</strong>
+                    <span>{{ currentUser.subscription | titlecase }} subscriber</span>
+                  </div>
+                  <hr>
+                  <button role="menuitem" (click)="closeAccountMenu()">View Profile</button>
+                  <button role="menuitem" (click)="closeAccountMenu()">Subscription Status</button>
+                  <button role="menuitem" (click)="manageApp()">Manage App</button>
+                  <button role="menuitem" (click)="signOut()">Sign Out</button>
+                </div>
+              }
+            </div>
+          } @else {
+            <button type="button" class="cta-small" (click)="goToBuilder()">My apps</button>
+          }
+        </div>
+      </div>
+    </header>
+
+    <!-- ── Market Ticker Strip ──────────────────────────────────────── -->
+    @if (app.config.contentTypes.markets.enabled && app.config.cardStyles.markets === 'ticker-strip') {
+      <div class="market-ticker" role="region" aria-label="Market ticker">
+        <div class="ticker-track">
+          @for (item of marketData; track item.symbol) {
+            <span class="ticker-item">
+              <span class="t-sym">{{ item.symbol }}</span>
+              <span class="t-val">{{ item.value }}</span>
+              <span class="t-chg" [class.up]="item.trend === 'up'" [class.dn]="item.trend === 'down'">
+                {{ item.trend === 'up' ? '▲' : '▼' }} {{ item.change }}
+              </span>
+            </span>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- ── Main Content ─────────────────────────────────────────────── -->
+    <main id="gen-main" class="gen-main" tabindex="-1">
+
+      @for (section of orderedSections; track section) {
+
+        <!-- ───────── MARKETS ───────── -->
+        @if (section === 'markets' && app.config.cardStyles.markets !== 'ticker-strip') {
+          <section
+            id="section-markets"
+            class="gen-section markets-section"
+            aria-labelledby="sec-markets-title"
+          >
+            <h2 id="sec-markets-title" class="section-title">Markets</h2>
+
+            @if (app.config.cardStyles.markets === 'table') {
+              <div class="markets-table">
+                <table>
+                  <thead>
+                    <tr><th scope="col">Symbol</th><th scope="col">Value</th><th scope="col">Change</th></tr>
+                  </thead>
+                  <tbody>
+                    @for (item of marketData; track item.symbol) {
+                      <tr>
+                        <td>{{ item.symbol }}</td>
+                        <td>{{ item.value }}</td>
+                        <td [class.up]="item.trend === 'up'" [class.dn]="item.trend === 'down'">
+                          {{ item.trend === 'up' ? '▲' : '▼' }} {{ item.change }}
+                        </td>
+                      </tr>
+                    }
+                  </tbody>
+                </table>
+              </div>
+            }
+
+            @if (app.config.cardStyles.markets === 'chart-cards' || app.config.cardStyles.markets === 'sparkline-list') {
+              <div class="markets-cards">
+                @for (item of marketData; track item.symbol) {
+                  <article class="market-card" [class.up]="item.trend === 'up'" [class.dn]="item.trend === 'down'">
+                    <div class="mc-top">
+                      <strong>{{ item.symbol }}</strong>
+                      <span class="mc-chg">{{ item.trend === 'up' ? '▲' : '▼' }} {{ item.change }}</span>
+                    </div>
+                    <div class="mc-val">{{ item.value }}</div>
+                    <!-- Sparkline bar (visual only, POC) -->
+                    <div class="sparkline" aria-hidden="true">
+                      <div class="spark-bar" [class.up]="item.trend === 'up'"></div>
+                    </div>
+                    <p class="card-attr">Reuters / Markets Desk</p>
+                  </article>
+                }
+              </div>
+            }
+          </section>
+        }
+
+        <!-- ───────── ARTICLES ───────── -->
+        @if (section === 'articles') {
+          @for (ns of filteredSections; track ns.id) {
+            <section
+              [id]="'section-' + ns.id"
+              class="gen-section"
+              [attr.aria-labelledby]="'sec-' + ns.id + '-title'"
+            >
+              <h2 [id]="'sec-' + ns.id + '-title'" class="section-title">{{ ns.title }}</h2>
+
+              <!-- Article cards -->
+              <div class="article-grid" [attr.data-card-style]="app.config.cardStyles.article">
+
+                @if (app.config.cardStyles.article === 'headline-only') {
+                  @for (story of ns.stories; track story.id) {
+                    <a class="story-card card-headline-only card-link" [routerLink]="['/article', story.id]">
+                      <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                      <h3>{{ story.title }}</h3>
+                      <span class="read-more">Read full article →</span>
+                    </a>
+                  }
+                }
+
+                @if (app.config.cardStyles.article === 'thumbnail-headline' || app.config.cardStyles.article === 'full-card') {
+                  @for (story of ns.stories; track story.id) {
+                    <a class="story-card card-link" [class.card-full]="app.config.cardStyles.article === 'full-card'" [routerLink]="['/article', story.id]">
+                      <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" class="card-img" />
+                      <div class="card-body">
+                        <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                        <h3>{{ story.title }}</h3>
+                        @if (app.config.cardStyles.article === 'full-card') {
+                          <p class="card-summary">{{ story.summary }}</p>
+                        }
+                        <span class="read-more">Read full article →</span>
+                      </div>
+                    </a>
+                  }
+                }
+
+                @if (app.config.cardStyles.article === 'featured-hero') {
+                  <a class="story-card card-hero card-link" [style.background-image]="'url(' + ns.stories[0].imageUrl + ')'" [routerLink]="['/article', ns.stories[0].id]">
+                    <div class="hero-overlay" aria-hidden="true"></div>
+                    <div class="hero-body">
+                      <p class="card-meta light-meta">{{ ns.stories[0].category }} · {{ ns.stories[0].timestamp }}</p>
+                      <h3>{{ ns.stories[0].title }}</h3>
+                      <p class="card-summary">{{ ns.stories[0].summary }}</p>
+                      <span class="read-more light-meta">Read full article →</span>
+                    </div>
+                  </a>
+                  @for (story of ns.stories.slice(1); track story.id) {
+                    <a class="story-card card-thumb-sm card-link" [routerLink]="['/article', story.id]">
+                      <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" class="card-img-sm" />
+                      <div class="card-body-sm">
+                        <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                        <h3>{{ story.title }}</h3>
+                        <span class="read-more">Read →</span>
+                      </div>
+                    </a>
+                  }
+                }
+              </div>
+            </section>
+          }
+        }
+
+        <!-- ───────── VIDEOS ───────── -->
+        @if (section === 'videos') {
+          <section
+            id="section-videos"
+            class="gen-section"
+            aria-labelledby="sec-videos-title"
+          >
+            <h2 id="sec-videos-title" class="section-title">Videos</h2>
+            <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
+              @for (item of [
+                {title:'Fed Chair speaks on rate outlook', cat:'Policy', duration:'4:15'},
+                {title:'Tech earnings season recap', cat:'Technology', duration:'6:30'},
+                {title:'Commodity markets weekly review', cat:'Markets', duration:'5:00'},
+                {title:'Global trade corridor update', cat:'World', duration:'3:45'}
+              ]; track item.title) {
+                <article class="video-card">
+                  <div class="video-thumb" role="img" [attr.aria-label]="'Thumbnail for ' + item.title">
+                    <div class="play-btn" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                        <path d="M8 5v14l11-7L8 5z"/>
+                      </svg>
+                    </div>
+                    <span class="video-dur">{{ item.duration }}</span>
+                  </div>
+                  <div class="video-meta">
+                    <p class="card-meta">{{ item.cat }} · Just now</p>
+                    <h3>{{ item.title }}</h3>
+                    <p class="card-attr">Reuters Video</p>
+                  </div>
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- ───────── GALLERIES ───────── -->
+        @if (section === 'galleries') {
+          <section
+            id="section-galleries"
+            class="gen-section"
+            aria-labelledby="sec-galleries-title"
+          >
+            <h2 id="sec-galleries-title" class="section-title">Photo Galleries</h2>
+            <div class="gallery-grid">
+              @for (item of [
+                {title:'Scenes from global markets',       cat:'Markets',  imgs:12},
+                {title:'World leaders at the UN summit',   cat:'World',    imgs:8},
+                {title:'Innovation in semiconductor labs', cat:'Technology',imgs:15}
+              ]; track item.title) {
+                <article class="gallery-card">
+                  <div class="gallery-thumb" role="img" aria-label="Gallery preview">
+                    <span class="img-count" aria-label="{{ item.imgs }} photos">{{ item.imgs }} photos</span>
+                  </div>
+                  <div class="gallery-meta">
+                    <p class="card-meta">{{ item.cat }}</p>
+                    <h3>{{ item.title }}</h3>
+                    <p class="card-attr">Reuters Photos</p>
+                  </div>
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+        <!-- ───────── PODCASTS ───────── -->
+        @if (section === 'podcasts') {
+          <section
+            id="section-podcasts"
+            class="gen-section"
+            aria-labelledby="sec-podcasts-title"
+          >
+            <h2 id="sec-podcasts-title" class="section-title">Podcasts</h2>
+            <div class="podcast-list">
+              @for (item of [
+                {title:'The Big Picture: Global Macro Outlook',   ep:'Ep. 84', dur:'38 min'},
+                {title:'Tech Desk: AI in the Enterprise',         ep:'Ep. 21', dur:'45 min'},
+                {title:'Markets Close: Today\'s Trading Session', ep:'Ep. 201',dur:'22 min'}
+              ]; track item.title) {
+                <article class="podcast-card">
+                  <div class="pod-thumb" aria-hidden="true">🎙️</div>
+                  <div class="pod-meta">
+                    <span class="card-meta">{{ item.ep }} · {{ item.dur }}</span>
+                    <h3>{{ item.title }}</h3>
+                    <button type="button" class="pod-play" aria-label="Play {{ item.title }}">
+                      <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
+                        <path d="M8 5v14l11-7L8 5z"/>
+                      </svg>
+                      Play
+                    </button>
+                    <p class="card-attr">Reuters Podcasts</p>
+                  </div>
+                </article>
+              }
+            </div>
+          </section>
+        }
+
+      }<!-- /for orderedSections -->
+    </main>
+
+    <!-- ── Footer (PRS Section 8.1 – always present) ────────────────── -->
+    <footer class="gen-footer" role="contentinfo">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <a class="reuters-logo footer-logo" href="https://reuters.com" target="_blank" rel="noopener" aria-label="Reuters website">
+            <span class="r-mark small" aria-hidden="true">R</span>
+            <span class="reuters-wordmark">REUTERS</span>
+          </a>
+          <p class="footer-copy">© 2026 Thomson Reuters. All rights reserved.</p>
+        </div>
+        <nav class="footer-links" aria-label="Legal links">
+          <a href="#" rel="noopener">Terms of Use</a>
+          <a href="#" rel="noopener">Privacy Policy</a>
+          <a href="#" rel="noopener">Cookie Settings</a>
+          <a href="#" rel="noopener">Accessibility</a>
+        </nav>
+        <div class="rone-badge" aria-label="Built with Rone by Reuters">
+          Built with
+          <strong>Rone</strong>
+        </div>
+      </div>
+    </footer>
+
+    <!-- ── Floating AI Assistant (GEN-008, PRS Section 8.3) ─────────── -->
+    <button
+      type="button"
+      class="fab"
+      (click)="toggleAssistant()"
+      [attr.aria-expanded]="assistantOpen()"
+      aria-label="Open Rone AI assistant"
+    >
+      @if (assistantOpen()) {
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+          <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z"/>
+        </svg>
+      } @else {
+        <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+          <path d="M20 2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3l3 3 3-3h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm-2 12H6v-2h12v2Zm0-3H6V9h12v2Zm0-3H6V6h12v2Z"/>
+        </svg>
+        <span class="fab-badge" aria-hidden="true"></span>
+      }
+    </button>
+
+    @if (assistantOpen()) {
+      <aside
+        class="float-panel"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Rone AI assistant — edit your app"
+      >
+        <header class="float-header">
+          <div class="float-title">
+            <span class="float-avatar" aria-hidden="true">R</span>
+            <div>
+              <p class="float-name">Rone Assistant</p>
+              <p class="float-sub">Edit your personalised app</p>
+            </div>
+          </div>
+          <button type="button" class="icon-btn" (click)="closeAssistant()" aria-label="Close assistant">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+              <path d="M18.3 5.71a1 1 0 0 0-1.41 0L12 10.59 7.11 5.7A1 1 0 0 0 5.7 7.11L10.59 12 5.7 16.89a1 1 0 1 0 1.41 1.41L12 13.41l4.89 4.89a1 1 0 0 0 1.41-1.41L13.41 12l4.89-4.89a1 1 0 0 0 0-1.4Z"/>
+            </svg>
+          </button>
+        </header>
+
+        <!-- Quick actions -->
+        <div class="float-chips" aria-label="Quick edit suggestions">
+          @for (chip of ['Dark mode', 'Light mode', 'Blue accents', 'Green accents', 'Grid layout', 'Magazine layout']; track chip) {
+            <button type="button" class="fchip" (click)="assistantInput = chip; sendAssistantMessage()">
+              {{ chip }}
+            </button>
+          }
+        </div>
+
+        <div class="float-messages" role="log" aria-live="polite">
+          @for (msg of floatMessages(); track msg.id) {
+            <div class="fmsg" [class.fuser]="msg.role === 'user'" [class.fasst]="msg.role === 'assistant'">
+              @if (msg.role === 'assistant') {
+                <span class="fasst-avatar" aria-hidden="true">R</span>
+              }
+              <div class="fbubble" [innerHTML]="formatFloat(msg.content)"></div>
+            </div>
+          }
+          @if (assistantTyping) {
+            <div class="fmsg fasst">
+              <span class="fasst-avatar" aria-hidden="true">R</span>
+              <div class="fbubble typing-fb">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          }
+        </div>
+
+        <div class="float-input-bar">
+          <input
+            type="text"
+            [(ngModel)]="assistantInput"
+            (keydown)="onAssistantKeyDown($event)"
+            placeholder="Ask to change theme, layout, topics…"
+            aria-label="Edit request"
+          />
+          <button
+            type="button"
+            class="float-send"
+            (click)="sendAssistantMessage()"
+            [disabled]="!assistantInput.trim()"
+            aria-label="Send edit request"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+              <path d="M2 21 23 12 2 3v7l15 2-15 2v7Z"/>
+            </svg>
+          </button>
+        </div>
+      </aside>
+    }
+
+  </div><!-- /.gen-shell -->
+}

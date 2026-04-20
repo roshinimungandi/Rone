@@ -1,0 +1,196 @@
+<!-- ── Rone Builder — full-screen AI chat (CHAT-001 to CHAT-024) ──────────── -->
+<div class="builder-shell">
+
+  <!-- ── Header ──────────────────────────────────────────────────────────── -->
+  <header class="builder-header" role="banner">
+    <div class="header-brand">
+      <span class="reuters-r" aria-hidden="true">R</span>
+      <div class="brand-text">
+        <span class="reuters-label">REUTERS</span>
+        <span class="rone-label">RONE BUILDER</span>
+      </div>
+    </div>
+    @if (currentUser(); as user) {
+      <div class="header-user">
+        <span class="user-chip">
+          <span class="user-avatar" aria-hidden="true">{{ user.avatarInitials }}</span>
+          <span class="user-name">{{ user.name }}</span>
+          <span class="sub-badge sub-{{ user.subscription }}">{{ user.subscription }}</span>
+        </span>
+        <button type="button" class="signout-btn" (click)="logout()" aria-label="Sign out">
+          Sign out
+        </button>
+      </div>
+    }
+  </header>
+
+  <!-- ── Body ────────────────────────────────────────────────────────────── -->
+  <div class="builder-body">
+
+    <!-- ── Progress sidebar (desktop) ──────────────────────────────────── -->
+    <aside class="progress-panel" aria-label="Build progress">
+      <h2 class="progress-title">Building your app…</h2>
+
+      <ol class="progress-steps" aria-label="Steps">
+        @for (step of progressSteps; track step.stage) {
+          <li
+            class="progress-step"
+            [class.done]="isStageDone(step)"
+            [class.active]="isStageActive(step)"
+          >
+            <span class="step-dot" aria-hidden="true">
+              @if (isStageDone(step)) { ✓ } @else { {{ $index + 1 }} }
+            </span>
+            <span class="step-label">{{ step.label }}</span>
+          </li>
+        }
+      </ol>
+
+      <!-- Live config preview ──────────────────────────────────────────── -->
+      <div class="config-preview" aria-live="polite" aria-label="Current configuration">
+        <h3>Your choices so far</h3>
+        <dl>
+          <dt>Topics</dt>
+          <dd>{{ enabledTopics }}</dd>
+
+          <dt>Content</dt>
+          <dd>{{ enabledTypes }}</dd>
+
+          <dt>Theme</dt>
+          <dd>{{ config().theme.mode | titlecase }}</dd>
+
+          <dt>Layout</dt>
+          <dd>{{ config().layout.style | titlecase }}</dd>
+
+          @if (config().layout.header.appTitle) {
+            <dt>App name</dt>
+            <dd>{{ config().layout.header.appTitle }}</dd>
+          }
+        </dl>
+      </div>
+    </aside>
+
+    <!-- ── Chat area ─────────────────────────────────────────────────── -->
+    <section class="chat-area" aria-label="Rone assistant chat">
+
+      <!-- Message list (CHAT-004) -->
+      <div
+        class="messages"
+        #msgList
+        role="log"
+        aria-live="polite"
+        aria-label="Conversation messages"
+      >
+        @for (msg of messages(); track msg.id) {
+          <div class="msg-row" [class.user-row]="msg.role === 'user'" [class.assistant-row]="msg.role === 'assistant'">
+
+            @if (msg.role === 'assistant') {
+              <span class="msg-avatar" aria-hidden="true">R</span>
+            }
+
+            <div class="bubble-wrap">
+              <div
+                class="bubble"
+                [class.user-bubble]="msg.role === 'user'"
+                [class.assistant-bubble]="msg.role === 'assistant'"
+                [innerHTML]="formatMessage(msg.content)"
+              ></div>
+              <time class="msg-time" [dateTime]="msg.timestamp.toISOString()">
+                {{ formatTime(msg.timestamp) }}
+              </time>
+            </div>
+
+          </div>
+        }
+
+        <!-- Typing indicator -->
+        @if (isTyping()) {
+          <div class="msg-row assistant-row">
+            <span class="msg-avatar" aria-hidden="true">R</span>
+            <div class="bubble assistant-bubble typing">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        }
+
+        <!-- Generating progress indicator (CHAT-009) -->
+        @if (stage() === 'generating') {
+          <div class="generating-indicator" aria-live="assertive" aria-label="Generating your app">
+            <div class="gen-bar">
+              <div class="gen-fill"></div>
+            </div>
+            <p>Generating your personalised Reuters app…</p>
+          </div>
+        }
+      </div>
+
+      <!-- Input bar (CHAT-002) -->
+      <div class="input-bar" role="form" aria-label="Send a message">
+        <textarea
+          [(ngModel)]="inputText"
+          (keydown)="onKeyDown($event)"
+          placeholder="Describe your preferences or ask a question…"
+          rows="1"
+          [disabled]="stage() === 'generating' || stage() === 'complete'"
+          aria-label="Message input"
+        ></textarea>
+        <button
+          type="button"
+          class="send-btn"
+          (click)="send()"
+          [disabled]="!inputText.trim() || stage() === 'generating' || stage() === 'complete'"
+          aria-label="Send message"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+            <path d="M2 21 23 12 2 3v7l15 2-15 2v7Z"/>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Suggestion chips (CHAT-006) -->
+      @if (stage() === 'topics') {
+        <div class="chips" aria-label="Quick topic suggestions">
+          @for (chip of ['Technology', 'Markets', 'World', 'Business', 'Politics', 'Science']; track chip) {
+            <button
+              type="button"
+              class="chip"
+              (click)="inputText = chip + ' news please'; send()"
+            >{{ chip }}</button>
+          }
+        </div>
+      }
+      @if (stage() === 'theme') {
+        <div class="chips" aria-label="Quick theme suggestions">
+          @for (chip of ['Dark mode', 'Light mode', 'Dark mode with blue accents', 'Light with green highlights']; track chip) {
+            <button type="button" class="chip" (click)="inputText = chip; send()">{{ chip }}</button>
+          }
+        </div>
+      }
+      @if (stage() === 'layout') {
+        <div class="chips" aria-label="Quick layout suggestions">
+          @for (chip of ['Magazine', 'Grid', 'List', 'Newspaper', 'Single column']; track chip) {
+            <button type="button" class="chip" (click)="inputText = chip + ' layout'; send()">{{ chip }}</button>
+          }
+        </div>
+      }
+      @if (stage() === 'content_types') {
+        <div class="chips" aria-label="Quick content suggestions">
+          @for (chip of ['All content types', 'Articles only', 'No podcasts', 'No videos']; track chip) {
+            <button type="button" class="chip" (click)="inputText = chip; send()">{{ chip }}</button>
+          }
+        </div>
+      }
+      @if (stage() === 'confirmation') {
+        <div class="chips confirm-chips" aria-label="Confirmation options">
+          <button type="button" class="chip chip-confirm" (click)="inputText = 'Build it'; send()">
+            ✅ Build it!
+          </button>
+          <button type="button" class="chip" (click)="inputText = 'Start over'">
+            🔄 Start over
+          </button>
+        </div>
+      }
+
+    </section>
+  </div><!-- /.builder-body -->
+</div>

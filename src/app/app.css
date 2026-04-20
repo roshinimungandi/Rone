@@ -1,15 +1,6 @@
 :host {
-	--ink: #111111;
-	--muted: #7f7368;
-	--accent: #f1671e;
-	--border: #e3ddd4;
-	--display-font: 'Merriweather', 'Times New Roman', serif;
-	--sans-font: 'Source Sans 3', 'Segoe UI', sans-serif;
-
 	display: block;
 	min-height: 100dvh;
-	color: var(--ink);
-	font-family: var(--sans-font);
 }
 
 .page-shell {
