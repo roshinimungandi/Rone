@@ -167,51 +167,151 @@
 
 </div>
 
-<!-- ── Sign In Modal (AUTH-010, AUTH-020) ──────────────────────────────────── -->
-@if (showSignInModal()) {
-  <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
-    <div class="modal-card">
-      <h2 id="modal-title">Sign in with Reuters</h2>
-      <p class="modal-sub">Select your account to continue to Rone.</p>
+<!-- ── Auth Modal (Sign In / Sign Up) ──────────────────────────────────────── -->
+@if (showAuthModal()) {
+  <div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auth-modal-title"
+       (click)="closeAuth()" (keydown.escape)="closeAuth()">
+    <div class="auth-modal-card" (click)="$event.stopPropagation()">
 
-      <div class="user-list" role="listbox" aria-labelledby="modal-title">
-        @for (user of mockUsers; track user.id) {
-          <button
-            type="button"
-            class="user-option"
-            [class.selected]="selectedUserId === user.id"
-            (click)="selectedUserId = user.id"
-            role="option"
-            [attr.aria-selected]="selectedUserId === user.id"
-          >
-            <span class="user-avatar" aria-hidden="true">{{ user.avatarInitials }}</span>
-            <div class="user-info">
-              <span class="user-name">{{ user.name }}</span>
-              <span class="user-email">{{ user.email }}</span>
-              <span class="user-sub sub-{{ user.subscription }}">
-                {{ user.subscription | titlecase }} subscriber
-              </span>
+      <!-- Close -->
+      <button type="button" class="auth-close" (click)="closeAuth()" aria-label="Close">✕</button>
+
+      <!-- Brand -->
+      <div class="auth-brand">
+        <span class="auth-r">R</span>
+        <span class="auth-brand-name">RONE</span>
+      </div>
+
+      <!-- Tabs -->
+      <div class="auth-tabs" role="tablist">
+        <button type="button" role="tab"
+                [class.active]="authMode() === 'signin'"
+                [attr.aria-selected]="authMode() === 'signin'"
+                (click)="switchMode('signin')">Sign In</button>
+        <button type="button" role="tab"
+                [class.active]="authMode() === 'signup'"
+                [attr.aria-selected]="authMode() === 'signup'"
+                (click)="switchMode('signup')">Create Account</button>
+      </div>
+
+      <!-- ─ Sign In form ─ -->
+      @if (authMode() === 'signin') {
+        <form class="auth-form" (ngSubmit)="submitSignIn()" #siForm="ngForm" novalidate>
+          <h2 id="auth-modal-title" class="auth-heading">Welcome back</h2>
+          <p class="auth-sub">Sign in to your Reuters Rone account.</p>
+
+          <div class="form-field">
+            <label for="si-email">Email address</label>
+            <input id="si-email" type="email" placeholder="you@example.com"
+                   [(ngModel)]="siEmail" name="siEmail" autocomplete="email" required />
+          </div>
+          <div class="form-field">
+            <label for="si-password">Password</label>
+            <input id="si-password" type="password" placeholder="••••••••"
+                   [(ngModel)]="siPassword" name="siPassword" autocomplete="current-password" required />
+          </div>
+
+          @if (authError()) {
+            <p class="auth-error" role="alert">{{ authError() }}</p>
+          }
+
+          <button type="submit" class="auth-submit">Sign In →</button>
+
+          <p class="auth-switch">
+            Don't have an account?
+            <button type="button" class="link-btn" (click)="switchMode('signup')">Create one free</button>
+          </p>
+        </form>
+      }
+
+      <!-- ─ Sign Up form ─ -->
+      @if (authMode() === 'signup') {
+        <form class="auth-form" (ngSubmit)="submitSignUp()" #suForm="ngForm" novalidate>
+          <h2 id="auth-modal-title" class="auth-heading">Create your account</h2>
+          <p class="auth-sub">Get started with a personalised Reuters experience.</p>
+
+          <div class="form-field">
+            <label for="su-name">Full name</label>
+            <input id="su-name" type="text" placeholder="Jane Smith"
+                   [(ngModel)]="suName" name="suName" autocomplete="name" required />
+          </div>
+          <div class="form-field">
+            <label for="su-email">Email address</label>
+            <input id="su-email" type="email" placeholder="you@example.com"
+                   [(ngModel)]="suEmail" name="suEmail" autocomplete="email" required />
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label for="su-password">Password</label>
+              <input id="su-password" type="password" placeholder="••••••••"
+                     [(ngModel)]="suPassword" name="suPassword" autocomplete="new-password" required />
             </div>
-          </button>
-        }
-      </div>
+            <div class="form-field">
+              <label for="su-confirm">Confirm password</label>
+              <input id="su-confirm" type="password" placeholder="••••••••"
+                     [(ngModel)]="suConfirm" name="suConfirm" autocomplete="new-password" required />
+            </div>
+          </div>
 
-      <div class="modal-actions">
-        <button type="button" class="modal-cancel" (click)="closeSignIn()">Cancel</button>
-        <button
-          type="button"
-          class="modal-confirm"
-          [disabled]="!selectedUserId"
-          (click)="signIn()"
-        >
-          Continue
-        </button>
-      </div>
+          <!-- Subscription plan selector -->
+          <div class="plan-section">
+            <p class="plan-label">Choose your plan</p>
+            <div class="plan-cards">
+
+              <label class="plan-card" [class.selected]="suPlan === 'basic'">
+                <input type="radio" name="suPlan" value="basic"
+                       [(ngModel)]="suPlan" class="plan-radio" />
+                <div class="plan-top">
+                  <span class="plan-name">Basic</span>
+                  <span class="plan-price">Free</span>
+                </div>
+                <ul class="plan-features">
+                  <li>✓ Up to 3 topics</li>
+                  <li>✓ Standard article refresh</li>
+                  <li>✓ Light &amp; dark themes</li>
+                  <li class="muted">✗ Video &amp; markets data</li>
+                  <li class="muted">✗ Custom layouts</li>
+                </ul>
+              </label>
+
+              <label class="plan-card featured" [class.selected]="suPlan === 'professional'">
+                <input type="radio" name="suPlan" value="professional"
+                       [(ngModel)]="suPlan" class="plan-radio" />
+                <div class="plan-badge">Most Popular</div>
+                <div class="plan-top">
+                  <span class="plan-name">Professional</span>
+                  <span class="plan-price">$9.99<span class="plan-per">/mo</span></span>
+                </div>
+                <ul class="plan-features">
+                  <li>✓ Unlimited topics</li>
+                  <li>✓ Real-time refresh</li>
+                  <li>✓ Full theme customisation</li>
+                  <li>✓ Video &amp; markets data</li>
+                  <li>✓ Custom layouts &amp; card styles</li>
+                </ul>
+              </label>
+
+            </div>
+          </div>
+
+          @if (authError()) {
+            <p class="auth-error" role="alert">{{ authError() }}</p>
+          }
+
+          <button type="submit" class="auth-submit">Create Account →</button>
+
+          <p class="auth-switch">
+            Already have an account?
+            <button type="button" class="link-btn" (click)="switchMode('signin')">Sign in</button>
+          </p>
+        </form>
+      }
 
       <p class="modal-disclaimer">
         This is a POC environment. No real authentication is performed.
         In production, Reuters subscribers authenticate via SSO.
       </p>
+
     </div>
   </div>
 }

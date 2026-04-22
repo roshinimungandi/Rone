@@ -29,6 +29,11 @@ export type MarketsCardStyle = 'ticker-strip' | 'table' | 'chart-cards' | 'spark
 export type MarketsFormat    = 'quotes' | 'charts' | 'table' | 'mixed';
 export type RefreshInterval  = 60 | 300 | 900 | 1800 | 3600;
 
+// ── Visual customisation types (post-generation mutations) ──────────────────
+export type CardSize     = 'compact' | 'normal' | 'large';
+export type CardEffect   = 'none' | 'glass' | 'shadow' | 'bordered';
+export type BorderRadius = 'none' | 'small' | 'medium' | 'large' | 'pill';
+
 export interface ColorPalette {
   primary: string;
   secondary: string;
@@ -86,6 +91,20 @@ export interface AppConfig {
   /** Order sections appear in the generated app (PRS Section 9.8). */
   sectionOrder: string[];
   refreshInterval: RefreshInterval;
+
+  // ── Post-generation visual mutation slots ───────────────────────────────
+  cardSize: CardSize;
+  cardEffect: CardEffect;
+  borderRadius: BorderRadius;
+  /** Per-section heading background (CSS colour string, empty = default) */
+  sectionHeaderColor: string;
+  /** Full-page background image URL (empty = none) */
+  backgroundImage: string;
+  /** Granular visibility of fields inside each card type */
+  cardDetails: {
+    article: { showImage: boolean; showMeta: boolean; showSummary: boolean; showReadMore: boolean };
+    video:   { showThumbnail: boolean; showMeta: boolean };
+  };
 }
 
 /** Default slot values (PRS Section 8 – system defaults before any user input). */
@@ -132,6 +151,15 @@ export const DEFAULT_APP_CONFIG: AppConfig = {
   },
   sectionOrder:    ['markets', 'articles', 'videos', 'galleries', 'podcasts'],
   refreshInterval: 900,
+  cardSize:        'normal',
+  cardEffect:      'none',
+  borderRadius:    'small',
+  sectionHeaderColor: '',
+  backgroundImage:    '',
+  cardDetails: {
+    article: { showImage: true, showMeta: true, showSummary: true, showReadMore: true },
+    video:   { showThumbnail: true, showMeta: true },
+  },
 };
 
 // ── Builder conversation types ────────────────────────────────────────────────

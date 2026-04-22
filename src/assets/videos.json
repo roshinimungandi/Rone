@@ -1,0 +1,609 @@
+{
+  "videos": [
+    {
+      "id": "market-video-1",
+      "category": "market",
+      "title": "Morning Market Update",
+      "description": "Daily overview of stock market movements.",
+      "host": "Alex Morgan",
+      "duration": "06:20",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/market-1.jpg"
+    },
+    {
+      "id": "market-video-2",
+      "category": "market",
+      "title": "Understanding Stock Indexes",
+      "description": "Explanation of major market indices.",
+      "host": "Jamie Lee",
+      "duration": "08:45",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/market-2.jpg"
+    },
+    {
+      "id": "market-video-3",
+      "category": "market",
+      "title": "Market Volatility Explained",
+      "description": "Why markets fluctuate daily.",
+      "host": "Chris Patel",
+      "duration": "07:50",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/market-3.jpg"
+    },
+    {
+      "id": "market-video-4",
+      "category": "market",
+      "title": "Global Markets Recap",
+      "description": "Asia, Europe, and US market summary.",
+      "host": "Dana Ross",
+      "duration": "09:10",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/market-4.jpg"
+    },
+    {
+      "id": "market-video-5",
+      "category": "market",
+      "title": "Commodities Watch",
+      "description": "Trends in gold, oil, and commodities.",
+      "host": "Ryan Kim",
+      "duration": "05:55",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/market-5.jpg"
+    },
+    {
+      "id": "market-video-6",
+      "category": "market",
+      "title": "Investor Basics",
+      "description": "Beginner guide to investing.",
+      "host": "Olivia Chen",
+      "duration": "10:30",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/market-6.jpg"
+    },
+    {
+      "id": "market-video-7",
+      "category": "market",
+      "title": "Market Open Analysis",
+      "description": "Early trading insights.",
+      "host": "Sam Turner",
+      "duration": "06:10",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/market-7.jpg"
+    },
+    {
+      "id": "market-video-8",
+      "category": "market",
+      "title": "Closing Bell Recap",
+      "description": "What happened in markets today.",
+      "host": "Sophia White",
+      "duration": "07:40",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/market-8.jpg"
+    },
+    {
+      "id": "market-video-9",
+      "category": "market",
+      "title": "Market Myths Debunked",
+      "description": "Common investing misconceptions.",
+      "host": "Ethan Brooks",
+      "duration": "08:20",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/market-9.jpg"
+    },
+    {
+      "id": "market-video-10",
+      "category": "market",
+      "title": "Weekly Market Outlook",
+      "description": "What to watch this week.",
+      "host": "Nina Gomez",
+      "duration": "11:00",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/market-10.jpg"
+    },
+
+    {
+      "id": "business-video-1",
+      "category": "business",
+      "title": "Startup Fundamentals",
+      "description": "What every founder should know.",
+      "host": "Mark Johnson",
+      "duration": "12:30",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/business-1.jpg"
+    },
+    {
+      "id": "business-video-2",
+      "category": "business",
+      "title": "Building Strategy",
+      "description": "Business strategy fundamentals.",
+      "host": "Laura Smith",
+      "duration": "14:20",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/business-2.jpg"
+    },
+    {
+      "id": "business-video-3",
+      "category": "business",
+      "title": "Leadership Essentials",
+      "description": "Becoming a better leader.",
+      "host": "Daniel Reed",
+      "duration": "10:50",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/business-3.jpg"
+    },
+    {
+      "id": "business-video-4",
+      "category": "business",
+      "title": "Scaling Companies",
+      "description": "How startups scale effectively.",
+      "host": "Emily Carter",
+      "duration": "13:15",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/business-4.jpg"
+    },
+    {
+      "id": "business-video-5",
+      "category": "business",
+      "title": "Sales Fundamentals",
+      "description": "Understanding modern sales.",
+      "host": "Hannah Lewis",
+      "duration": "11:40",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/business-5.jpg"
+    },
+    {
+      "id": "business-video-6",
+      "category": "business",
+      "title": "Finance Explained",
+      "description": "Key financial concepts.",
+      "host": "Rachel Perez",
+      "duration": "12:10",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/business-6.jpg"
+    },
+    {
+      "id": "business-video-7",
+      "category": "business",
+      "title": "Operations 101",
+      "description": "Behind-the-scenes operations.",
+      "host": "Megan Scott",
+      "duration": "09:50",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/business-7.jpg"
+    },
+    {
+      "id": "business-video-8",
+      "category": "business",
+      "title": "Company Culture",
+      "description": "Building healthy teams.",
+      "host": "Tom Blake",
+      "duration": "10:35",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/business-8.jpg"
+    },
+    {
+      "id": "business-video-9",
+      "category": "business",
+      "title": "Entrepreneur Mindset",
+      "description": "Thinking like a founder.",
+      "host": "Kevin Young",
+      "duration": "13:45",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/business-9.jpg"
+    },
+    {
+      "id": "business-video-10",
+      "category": "business",
+      "title": "Business Growth Stories",
+      "description": "Lessons from growing companies.",
+      "host": "Paul Adams",
+      "duration": "14:00",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/business-10.jpg"
+    },
+
+    {
+      "id": "world-video-1",
+      "category": "world",
+      "title": "Global News Update",
+      "description": "Top world headlines.",
+      "host": "Michael Grant",
+      "duration": "07:30",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/world-1.jpg"
+    },
+    {
+      "id": "world-video-2",
+      "category": "world",
+      "title": "World Affairs Explained",
+      "description": "Understanding global events.",
+      "host": "Aisha Rahman",
+      "duration": "12:45",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/world-2.jpg"
+    },
+    {
+      "id": "world-video-3",
+      "category": "world",
+      "title": "International Economy",
+      "description": "Global economic trends.",
+      "host": "Victor Lee",
+      "duration": "10:20",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/world-3.jpg"
+    },
+    {
+      "id": "world-video-4",
+      "category": "world",
+      "title": "Diplomacy Today",
+      "description": "International relations explained.",
+      "host": "Emma Collins",
+      "duration": "11:10",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/world-4.jpg"
+    },
+    {
+      "id": "world-video-5",
+      "category": "world",
+      "title": "Global Conflicts",
+      "description": "Understanding global tensions.",
+      "host": "Sarah Nolan",
+      "duration": "13:25",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/world-5.jpg"
+    },
+    {
+      "id": "world-video-6",
+      "category": "world",
+      "title": "World Cultures",
+      "description": "Exploring global cultures.",
+      "host": "Luis Fernandez",
+      "duration": "09:40",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/world-6.jpg"
+    },
+    {
+      "id": "world-video-7",
+      "category": "world",
+      "title": "Climate Around the World",
+      "description": "Global climate issues.",
+      "host": "Tom Green",
+      "duration": "08:55",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/world-7.jpg"
+    },
+    {
+      "id": "world-video-8",
+      "category": "world",
+      "title": "World History Moments",
+      "description": "Major historical events.",
+      "host": "Julia Zhang",
+      "duration": "10:10",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/world-8.jpg"
+    },
+    {
+      "id": "world-video-9",
+      "category": "world",
+      "title": "Global Innovation",
+      "description": "Innovation across countries.",
+      "host": "Aaron Miller",
+      "duration": "09:05",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/world-9.jpg"
+    },
+    {
+      "id": "world-video-10",
+      "category": "world",
+      "title": "The World Ahead",
+      "description": "What’s next globally.",
+      "host": "Natalie Brooks",
+      "duration": "14:30",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/world-10.jpg"
+    },
+
+    {
+      "id": "science-video-1",
+      "category": "science",
+      "title": "Science Weekly",
+      "description": "Latest science discoveries.",
+      "host": "Dr. Alan Hughes",
+      "duration": "11:20",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/science-1.jpg"
+    },
+    {
+      "id": "science-video-2",
+      "category": "science",
+      "title": "Space Exploration",
+      "description": "Exploring the universe.",
+      "host": "Dr. Elena Petrova",
+      "duration": "13:45",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/science-2.jpg"
+    },
+    {
+      "id": "science-video-3",
+      "category": "science",
+      "title": "Human Biology",
+      "description": "Understanding the body.",
+      "host": "Dr. Susan Patel",
+      "duration": "10:35",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/science-3.jpg"
+    },
+    {
+      "id": "science-video-4",
+      "category": "science",
+      "title": "Climate Science",
+      "description": "Climate explained simply.",
+      "host": "Tom Green",
+      "duration": "09:50",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/science-4.jpg"
+    },
+    {
+      "id": "science-video-5",
+      "category": "science",
+      "title": "Future Technologies",
+      "description": "Science shaping tomorrow.",
+      "host": "Kevin Moore",
+      "duration": "12:10",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/science-5.jpg"
+    },
+    {
+      "id": "science-video-6",
+      "category": "science",
+      "title": "Earth Science",
+      "description": "Our planet explained.",
+      "host": "Rachel Kim",
+      "duration": "08:40",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/science-6.jpg"
+    },
+    {
+      "id": "science-video-7",
+      "category": "science",
+      "title": "Physics Basics",
+      "description": "Understanding physics.",
+      "host": "Liam O’Connor",
+      "duration": "11:05",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/science-7.jpg"
+    },
+    {
+      "id": "science-video-8",
+      "category": "science",
+      "title": "Chemistry Today",
+      "description": "Chemistry in daily life.",
+      "host": "James Wilson",
+      "duration": "09:55",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/science-8.jpg"
+    },
+    {
+      "id": "science-video-9",
+      "category": "science",
+      "title": "Medical Advances",
+      "description": "Breakthroughs in health.",
+      "host": "Mark Reynolds",
+      "duration": "12:30",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/science-9.jpg"
+    },
+    {
+      "id": "science-video-10",
+      "category": "science",
+      "title": "Research Recap",
+      "description": "Recent scientific studies.",
+      "host": "Priya Menon",
+      "duration": "10:15",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/science-10.jpg"
+    },
+
+    {
+      "id": "politics-video-1",
+      "category": "politics",
+      "title": "Daily Political Brief",
+      "description": "Political news update.",
+      "host": "Laura Bennett",
+      "duration": "08:20",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/politics-1.jpg"
+    },
+    {
+      "id": "politics-video-2",
+      "category": "politics",
+      "title": "Policy Explained",
+      "description": "Understanding public policy.",
+      "host": "Andrew Collins",
+      "duration": "12:00",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/politics-2.jpg"
+    },
+    {
+      "id": "politics-video-3",
+      "category": "politics",
+      "title": "Inside Government",
+      "description": "How government works.",
+      "host": "Monica Rivera",
+      "duration": "10:45",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/politics-3.jpg"
+    },
+    {
+      "id": "politics-video-4",
+      "category": "politics",
+      "title": "Elections Explained",
+      "description": "How elections function.",
+      "host": "Brian Murphy",
+      "duration": "11:30",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/politics-4.jpg"
+    },
+    {
+      "id": "politics-video-5",
+      "category": "politics",
+      "title": "Global Politics",
+      "description": "International political trends.",
+      "host": "Omar Hassan",
+      "duration": "13:10",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/politics-5.jpg"
+    },
+    {
+      "id": "politics-video-6",
+      "category": "politics",
+      "title": "Political Debates",
+      "description": "Key political debates.",
+      "host": "Steven Park",
+      "duration": "14:25",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/politics-6.jpg"
+    },
+    {
+      "id": "politics-video-7",
+      "category": "politics",
+      "title": "Public Opinion",
+      "description": "Voter sentiment insights.",
+      "host": "Claire Thompson",
+      "duration": "09:40",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/politics-7.jpg"
+    },
+    {
+      "id": "politics-video-8",
+      "category": "politics",
+      "title": "Law & Democracy",
+      "description": "Democratic principles.",
+      "host": "Natalie Wright",
+      "duration": "12:55",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/politics-8.jpg"
+    },
+    {
+      "id": "politics-video-9",
+      "category": "politics",
+      "title": "Power Dynamics",
+      "description": "Understanding political power.",
+      "host": "Sophie Laurent",
+      "duration": "11:05",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/politics-9.jpg"
+    },
+    {
+      "id": "politics-video-10",
+      "category": "politics",
+      "title": "Civic Education",
+      "description": "Politics for everyone.",
+      "host": "Eric Johnson",
+      "duration": "10:30",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/politics-10.jpg"
+    },
+
+    {
+      "id": "technology-video-1",
+      "category": "technology",
+      "title": "Tech News Today",
+      "description": "Latest tech headlines.",
+      "host": "Jason Park",
+      "duration": "07:10",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/tech-1.jpg"
+    },
+    {
+      "id": "technology-video-2",
+      "category": "technology",
+      "title": "Software Development Basics",
+      "description": "Introduction to coding.",
+      "host": "Anita Rao",
+      "duration": "12:45",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/tech-2.jpg"
+    },
+    {
+      "id": "technology-video-3",
+      "category": "technology",
+      "title": "AI Explained",
+      "description": "Understanding artificial intelligence.",
+      "host": "Chris Nolan",
+      "duration": "11:20",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/tech-3.jpg"
+    },
+    {
+      "id": "technology-video-4",
+      "category": "technology",
+      "title": "Cloud Computing",
+      "description": "How the cloud works.",
+      "host": "Daniel Cho",
+      "duration": "10:35",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/tech-4.jpg"
+    },
+    {
+      "id": "technology-video-5",
+      "category": "technology",
+      "title": "Cybersecurity Basics",
+      "description": "Staying safe online.",
+      "host": "Nora Mitchell",
+      "duration": "09:50",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/tech-5.jpg"
+    },
+    {
+      "id": "technology-video-6",
+      "category": "technology",
+      "title": "UI/UX Design",
+      "description": "Designing great experiences.",
+      "host": "Felix Brown",
+      "duration": "10:10",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/tech-6.jpg"
+    },
+    {
+      "id": "technology-video-7",
+      "category": "technology",
+      "title": "Mobile App Development",
+      "description": "Building mobile apps.",
+      "host": "Maria Gonzalez",
+      "duration": "12:40",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/tech-7.jpg"
+    },
+    {
+      "id": "technology-video-8",
+      "category": "technology",
+      "title": "Data & Analytics",
+      "description": "Turning data into insights.",
+      "host": "Robert Lang",
+      "duration": "11:30",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/tech-8.jpg"
+    },
+    {
+      "id": "technology-video-9",
+      "category": "technology",
+      "title": "Tech Careers",
+      "description": "Building a tech career.",
+      "host": "Olivia Martin",
+      "duration": "09:55",
+      "videoUrl": "https://www.w3schools.com/html/mov_bbb.mp4",
+      "thumbnailUrl": "/images/videos/tech-9.jpg"
+    },
+    {
+      "id": "technology-video-10",
+      "category": "technology",
+      "title": "Future of Technology",
+      "description": "What’s next in tech.",
+      "host": "Samantha Lee",
+      "duration": "14:00",
+      "videoUrl": "https://media.w3.org/2010/05/sintel/trailer.mp4",
+      "thumbnailUrl": "/images/videos/tech-10.jpg"
+    }
+  ]
+}

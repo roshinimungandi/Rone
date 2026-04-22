@@ -1,0 +1,92 @@
+<div class="collections-shell">
+
+  <!-- Header -->
+  <header class="coll-header">
+    <button type="button" class="back-btn" (click)="goBack()">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+      </svg>
+      Back
+    </button>
+
+    <div class="coll-title-group">
+      <h1>My Library</h1>
+      
+    </div>
+
+   
+  </header>
+
+  <!-- Content -->
+  <main class="coll-main">
+
+    @if (!currentUser) {
+      <div class="coll-empty">
+        <p>Sign in to view your saved content.</p>
+      </div>
+    } @else if (collections.savedItems().length === 0) {
+      <div class="coll-empty">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="48" height="48" aria-hidden="true" class="empty-icon">
+          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+        </svg>
+        <h2>No saved content yet</h2>
+        <p>Hit the bookmark icon on any article, video, gallery, or podcast to save it here.</p>
+      </div>
+    } @else {
+      <div class="coll-grid">
+        @for (item of collections.savedItems(); track item.id) {
+          <article class="coll-card" (click)="openItem(item)" role="button" tabindex="0"
+                   (keydown.enter)="openItem(item)">
+            @if (item.imageUrl) {
+              <img [src]="item.imageUrl" [alt]="item.title" loading="lazy" class="coll-img" />
+            } @else {
+              <div class="coll-img-placeholder" aria-hidden="true">{{ typeIcon(item.type) }}</div>
+            }
+            <div class="coll-body">
+              <div class="coll-type-row">
+                <span class="coll-type-badge coll-type-{{ item.type }}">{{ typeLabel(item.type) }}</span>
+                @if (item.category) {
+                  <span class="coll-meta">{{ item.category }}</span>
+                }
+                @if (item.timestamp) {
+                  <span class="coll-meta">· {{ item.timestamp }}</span>
+                }
+              </div>
+              <h2 class="coll-story-title">{{ item.title }}</h2>
+              @if (item.summary) {
+                <p class="coll-summary">{{ item.summary }}</p>
+              }
+              @if (item.meta) {
+                <p class="coll-item-meta">{{ item.meta }}</p>
+              }
+            </div>
+            <div class="coll-actions">
+              <button
+                type="button"
+                class="coll-share-btn"
+                (click)="shareItem(item, $event)"
+                aria-label="Share"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                  <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                </svg>
+                Share
+              </button>
+              <button
+                type="button"
+                class="coll-remove-btn"
+                (click)="$event.stopPropagation(); removeItem(item.id)"
+                aria-label="Remove from collections"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                  <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2zm0 14-5-2.18L7 17V5h10v12z"/>
+                </svg>
+                Remove
+              </button>
+            </div>
+          </article>
+        }
+      </div>
+    }
+  </main>
+</div>

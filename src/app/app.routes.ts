@@ -4,6 +4,7 @@ import { WelcomeComponent }       from './features/welcome/welcome.component';
 import { BuilderComponent }       from './features/builder/builder.component';
 import { GeneratedAppComponent }  from './features/generated-app/generated-app.component';
 import { ArticleDetailComponent } from './features/article-detail/article-detail.component';
+import { CollectionsComponent }   from './features/collections/collections.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,11 @@ export const routes: Routes = [
   {
     path: 'article/:id',
     component: ArticleDetailComponent,
+  },
+  {
+    path: 'collections',
+    component: CollectionsComponent,
+    canActivate: [authGuard],
   },
   {
     path: '**',

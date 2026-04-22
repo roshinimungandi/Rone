@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Location, TitleCasePipe } from '@angular/common';
 import { NewsContentService } from '../../services/news-content.service';
+import { ArticleService } from '../../services/article.service';
 import { NewsStory } from '../../models/news.model';
 
 @Component({
@@ -21,24 +22,34 @@ export class ArticleDetailComponent implements OnInit {
     private readonly router: Router,
     private readonly location: Location,
     private readonly contentService: NewsContentService,
+    private readonly articleService: ArticleService,
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';
-    const found = this.contentService.getStoryById(id);
 
-    if (!found || !found.body) {
-      this.notFound = true;
-      return;
-    }
+    // First try the JSON asset (covers all SCI-*, MKT-*, BIZ-*, etc. ids)
+    this.articleService.getById(id).subscribe(found => {
+      if (found) {
+        this.story = found;
+        return;
+      }
 
-    this.story = found;
+      // Fallback: static/hardcoded stories (lead, spotlight, headlines)
+      const staticFound = this.contentService.getStoryById(id);
+      if (!staticFound || !staticFound.body) {
+        this.notFound = true;
+        return;
+      }
 
-    // Load related articles
-    this.relatedStories = (found.relatedIds ?? [])
-      .map((rid) => this.contentService.getStoryById(rid))
-      .filter((s): s is NewsStory => s !== undefined && !!s.body)
-      .slice(0, 3);
+      this.story = staticFound;
+
+      // Load related articles for static stories
+      this.relatedStories = (staticFound.relatedIds ?? [])
+        .map((rid) => this.contentService.getStoryById(rid))
+        .filter((s): s is NewsStory => s !== undefined && !!s.body)
+        .slice(0, 3);
+    });
   }
 
   goBack(): void {

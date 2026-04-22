@@ -33,7 +33,7 @@
     >
       <div class="header-inner">
 
-        <!-- Brand (left) — Reuters logo always present (PRS Section 8.1) -->
+        <!-- Brand (left) — Reuters logo always present -->
         <div class="header-brand">
           <a href="#gen-main" class="reuters-logo" aria-label="Reuters">
             <span class="r-mark" aria-hidden="true">R</span>
@@ -54,58 +54,80 @@
           </nav>
         }
 
-        <!-- Account button (PRS Section 8.2) -->
+        <!-- Account menu (always visible) -->
         <div class="header-right">
-          @if (currentUser) {
-            <div class="account-wrapper">
-              <button
-                type="button"
-                class="account-btn"
-                (click)="toggleAccountMenu()"
-                [attr.aria-expanded]="showAccountMenu()"
-                aria-label="Account menu"
-              >
+          <div class="account-wrapper">
+            <button
+              type="button"
+              class="account-btn"
+              (click)="toggleAccountMenu()"
+              [attr.aria-expanded]="showAccountMenu()"
+              aria-label="Account menu"
+            >
+              @if (currentUser) {
                 <span class="acct-avatar" aria-hidden="true">{{ currentUser.avatarInitials }}</span>
                 <span class="sub-dot sub-{{ currentUser.subscription }}" aria-label="{{ currentUser.subscription }} subscription"></span>
-              </button>
+              } @else {
+                <span class="acct-avatar acct-avatar-guest" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                    <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
+                  </svg>
+                </span>
+              }
+            </button>
 
-              @if (showAccountMenu()) {
-                <div class="account-menu" role="menu">
+            @if (showAccountMenu()) {
+              <div class="account-menu" role="menu">
+                @if (currentUser) {
                   <div class="acct-info">
                     <strong>{{ currentUser.name }}</strong>
                     <span>{{ currentUser.subscription | titlecase }} subscriber</span>
                   </div>
                   <hr>
                   <button role="menuitem" (click)="closeAccountMenu()">View Profile</button>
-                  <button role="menuitem" (click)="closeAccountMenu()">Subscription Status</button>
+                  <button role="menuitem" (click)="openSubscriptionStatus()">Subscription Status</button>
+                  <button role="menuitem" (click)="goToCollections()">My Collections</button>
                   <button role="menuitem" (click)="manageApp()">Manage App</button>
                   <button role="menuitem" (click)="signOut()">Sign Out</button>
-                </div>
-              }
-            </div>
-          } @else {
-            <button type="button" class="cta-small" (click)="goToBuilder()">My apps</button>
-          }
+                } @else {
+                  <div class="acct-info">
+                    <strong>Guest</strong>
+                    <span>Not signed in</span>
+                  </div>
+                  <hr>
+                  <button role="menuitem" (click)="signOut()">Sign In</button>
+                }
+              </div>
+            }
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- ── Market Ticker Strip ──────────────────────────────────────── -->
-    @if (app.config.contentTypes.markets.enabled && app.config.cardStyles.markets === 'ticker-strip') {
-      <div class="market-ticker" role="region" aria-label="Market ticker">
-        <div class="ticker-track">
-          @for (item of marketData; track item.symbol) {
-            <span class="ticker-item">
-              <span class="t-sym">{{ item.symbol }}</span>
-              <span class="t-val">{{ item.value }}</span>
-              <span class="t-chg" [class.up]="item.trend === 'up'" [class.dn]="item.trend === 'down'">
-                {{ item.trend === 'up' ? '▲' : '▼' }} {{ item.change }}
-              </span>
-            </span>
-          }
-        </div>
-      </div>
-    }
+    <!-- Market ticker strip removed -->
+
+    <!-- ── Live / Offline status bar ────────────────────────────────────── -->
+    <div class="data-status-bar" [class.status-live]="isLive()" [class.status-offline]="!isLive()" role="status" aria-live="polite">
+      @if (isLive()) {
+        <span class="status-dot live-dot" aria-hidden="true"></span>
+        <span>Live content — refreshes every 15 min</span>
+      } @else {
+        <span class="status-dot offline-dot" aria-hidden="true"></span>
+        <span>Showing curated content — add a <code>NEWS_API_KEY</code> to server.ts for live data</span>
+      }
+      @if (loadState() === 'loading') {
+        <span class="status-loading" aria-label="Loading…">⟳</span>
+      }
+      <button type="button" class="back-btn" (click)="goToBuilder()" aria-label="Back to builder">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+        </svg>
+        Back to Builder
+      </button>
+    </div>
+
+    
+        
 
     <!-- ── Main Content ─────────────────────────────────────────────── -->
     <main id="gen-main" class="gen-main" tabindex="-1">
@@ -165,65 +187,192 @@
 
         <!-- ───────── ARTICLES ───────── -->
         @if (section === 'articles') {
-          @for (ns of filteredSections; track ns.id) {
-            <section
-              [id]="'section-' + ns.id"
-              class="gen-section"
-              [attr.aria-labelledby]="'sec-' + ns.id + '-title'"
-            >
-              <h2 [id]="'sec-' + ns.id + '-title'" class="section-title">{{ ns.title }}</h2>
 
-              <!-- Article cards -->
-              <div class="article-grid" [attr.data-card-style]="app.config.cardStyles.article">
-
-                @if (app.config.cardStyles.article === 'headline-only') {
-                  @for (story of ns.stories; track story.id) {
-                    <a class="story-card card-headline-only card-link" [routerLink]="['/article', story.id]">
-                      <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
-                      <h3>{{ story.title }}</h3>
-                      <span class="read-more">Read full article →</span>
-                    </a>
-                  }
-                }
-
-                @if (app.config.cardStyles.article === 'thumbnail-headline' || app.config.cardStyles.article === 'full-card') {
-                  @for (story of ns.stories; track story.id) {
-                    <a class="story-card card-link" [class.card-full]="app.config.cardStyles.article === 'full-card'" [routerLink]="['/article', story.id]">
-                      <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" class="card-img" />
-                      <div class="card-body">
-                        <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
-                        <h3>{{ story.title }}</h3>
-                        @if (app.config.cardStyles.article === 'full-card') {
-                          <p class="card-summary">{{ story.summary }}</p>
-                        }
-                        <span class="read-more">Read full article →</span>
-                      </div>
-                    </a>
-                  }
-                }
-
-                @if (app.config.cardStyles.article === 'featured-hero') {
-                  <a class="story-card card-hero card-link" [style.background-image]="'url(' + ns.stories[0].imageUrl + ')'" [routerLink]="['/article', ns.stories[0].id]">
-                    <div class="hero-overlay" aria-hidden="true"></div>
-                    <div class="hero-body">
-                      <p class="card-meta light-meta">{{ ns.stories[0].category }} · {{ ns.stories[0].timestamp }}</p>
-                      <h3>{{ ns.stories[0].title }}</h3>
-                      <p class="card-summary">{{ ns.stories[0].summary }}</p>
-                      <span class="read-more light-meta">Read full article →</span>
+          <!-- Loading skeleton while API fetches -->
+          @if (loadingArticles()) {
+            <section class="gen-section" aria-label="Loading articles">
+              <div class="skeleton-section-title"></div>
+              <div class="article-grid">
+                @for (n of [1,2,3,4,5,6]; track n) {
+                  <div class="story-card skeleton-card">
+                    <div class="skeleton-img"></div>
+                    <div class="skeleton-body">
+                      <div class="skeleton-line short"></div>
+                      <div class="skeleton-line"></div>
+                      <div class="skeleton-line medium"></div>
                     </div>
-                  </a>
-                  @for (story of ns.stories.slice(1); track story.id) {
-                    <a class="story-card card-thumb-sm card-link" [routerLink]="['/article', story.id]">
-                      <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" class="card-img-sm" />
-                      <div class="card-body-sm">
-                        <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
-                        <h3>{{ story.title }}</h3>
-                        <span class="read-more">Read →</span>
-                      </div>
-                    </a>
-                  }
+                  </div>
                 }
               </div>
+            </section>
+          }
+
+          <!-- Live articles from API -->
+          @if (!loadingArticles() && filteredSections.length > 0) {
+            @for (ns of filteredSections; track ns.id) {
+              <section
+                [id]="'section-' + ns.id"
+                class="gen-section"
+                [attr.aria-labelledby]="'sec-' + ns.id + '-title'"
+              >
+                <h2 [id]="'sec-' + ns.id + '-title'" class="section-title"
+                    [style.background-color]="app.config.sectionHeaderColor || null">{{ ns.title }}</h2>
+
+                <!-- Article cards -->
+                <div class="article-grid" [attr.data-card-style]="app.config.cardStyles.article">
+
+                  @if (app.config.cardStyles.article === 'headline-only') {
+                    @for (story of ns.stories; track story.id) {
+                      <div [class]="'story-card card-headline-only ' + cardClasses" style="position:relative">
+                        <a class="card-link card-link-fill" [routerLink]="['/article', story.id]">
+                          @if (app.config.cardDetails.article.showMeta) {
+                            <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                          }
+                          <h3>{{ story.title }}</h3>
+                          @if (app.config.cardDetails.article.showReadMore) {
+                            <span class="read-more">Read full article →</span>
+                          }
+                        </a>
+                        <div class="card-action-bar">
+                          <button type="button"
+                            [class]="'card-action-btn save-btn' + (isSaved(story.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                            (click)="toggleSave(storyToSavedItem(story), $event)"
+                            [attr.aria-label]="isSaved(story.id) ? 'Remove from collections' : 'Save article'"
+                            [title]="!canSaveShare ? 'Upgrade to save articles' : (isSaved(story.id) ? 'Remove from collections' : 'Save article')">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                              <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                            </svg>
+                          </button>
+                          <button type="button"
+                            [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                            (click)="shareArticle(story, $event)"
+                            aria-label="Share article"
+                            [title]="!canSaveShare ? 'Upgrade to share articles' : 'Share article'">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    }
+                  }
+
+                  @if (app.config.cardStyles.article === 'thumbnail-headline' || app.config.cardStyles.article === 'full-card') {
+                    @for (story of ns.stories; track story.id) {
+                      <div [class]="'story-card ' + cardClasses" [class.card-full]="app.config.cardStyles.article === 'full-card'" style="position:relative">
+                        <a class="card-link card-link-fill" [routerLink]="['/article', story.id]">
+                          @if (app.config.cardDetails.article.showImage) {
+                            <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" class="card-img"
+                              (error)="$any($event.target).src='https://images.unsplash.com/photo-1495020689067-958852a7765e?w=960&q=80'" />
+                          }
+                          <div class="card-body">
+                            @if (app.config.cardDetails.article.showMeta) {
+                              <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                            }
+                            <h3>{{ story.title }}</h3>
+                            @if (app.config.cardDetails.article.showSummary && app.config.cardStyles.article === 'full-card') {
+                              <p class="card-summary">{{ story.summary }}</p>
+                            }
+                            @if (app.config.cardDetails.article.showReadMore) {
+                              <span class="read-more">Read full article →</span>
+                            }
+                          </div>
+                        </a>
+                        <div class="card-action-bar">
+                          <button type="button"
+                            [class]="'card-action-btn save-btn' + (isSaved(story.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                            (click)="toggleSave(storyToSavedItem(story), $event)"
+                            [attr.aria-label]="isSaved(story.id) ? 'Remove from collections' : 'Save article'"
+                            [title]="!canSaveShare ? 'Upgrade to save articles' : (isSaved(story.id) ? 'Remove from collections' : 'Save article')">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                              <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                            </svg>
+                          </button>
+                          <button type="button"
+                            [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                            (click)="shareArticle(story, $event)"
+                            aria-label="Share article"
+                            [title]="!canSaveShare ? 'Upgrade to share articles' : 'Share article'">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    }
+                  }
+
+                  @if (app.config.cardStyles.article === 'featured-hero') {
+                    <div class="story-card card-hero" [style.background-image]="'url(' + ns.stories[0].imageUrl + ')'" style="position:relative">
+                      <a class="card-link card-link-fill" [routerLink]="['/article', ns.stories[0].id]">
+                        <div class="hero-overlay" aria-hidden="true"></div>
+                        <div class="hero-body">
+                          <p class="card-meta light-meta">{{ ns.stories[0].category }} · {{ ns.stories[0].timestamp }}</p>
+                          <h3>{{ ns.stories[0].title }}</h3>
+                          <p class="card-summary">{{ ns.stories[0].summary }}</p>
+                          <span class="read-more light-meta">Read full article →</span>
+                        </div>
+                      </a>
+                      <div class="card-action-bar card-action-bar-hero">
+                        <button type="button"
+                          [class]="'card-action-btn save-btn save-btn-hero' + (isSaved(ns.stories[0].id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                          (click)="toggleSave(storyToSavedItem(ns.stories[0]), $event)"
+                          [title]="!canSaveShare ? 'Upgrade to save articles' : (isSaved(ns.stories[0].id) ? 'Remove from collections' : 'Save article')">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                            <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                          </svg>
+                        </button>
+                        <button type="button"
+                          [class]="'card-action-btn share-btn share-btn-hero' + (!canSaveShare ? ' action-disabled' : '')"
+                          (click)="shareArticle(ns.stories[0], $event)"
+                          [title]="!canSaveShare ? 'Upgrade to share articles' : 'Share article'">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                    @for (story of ns.stories.slice(1); track story.id) {
+                      <div class="story-card card-thumb-sm" style="position:relative">
+                        <a class="card-link card-link-fill" [routerLink]="['/article', story.id]">
+                          <img [src]="story.imageUrl" [alt]="story.title" loading="lazy" class="card-img-sm"
+                            (error)="$any($event.target).src='https://images.unsplash.com/photo-1495020689067-958852a7765e?w=960&q=80'" />
+                          <div class="card-body-sm">
+                            <p class="card-meta">{{ story.category }} · {{ story.timestamp }}</p>
+                            <h3>{{ story.title }}</h3>
+                            <span class="read-more">Read →</span>
+                          </div>
+                        </a>
+                        <div class="card-action-bar">
+                          <button type="button"
+                            [class]="'card-action-btn save-btn' + (isSaved(story.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                            (click)="toggleSave(storyToSavedItem(story), $event)"
+                            [title]="!canSaveShare ? 'Upgrade to save articles' : (isSaved(story.id) ? 'Remove from collections' : 'Save article')">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                              <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                            </svg>
+                          </button>
+                          <button type="button"
+                            [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                            (click)="shareArticle(story, $event)"
+                            [title]="!canSaveShare ? 'Upgrade to share articles' : 'Share article'">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                              <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                    }
+                  }
+                </div>
+              </section>
+            }
+          }
+
+          <!-- No articles returned (API error or empty result) -->
+          @if (!loadingArticles() && filteredSections.length === 0) {
+            <section class="gen-section no-articles-section" aria-label="No articles">
+              <p class="no-articles-msg">⚠ Could not load articles. Make sure the API server is running on port 4000.</p>
             </section>
           }
         }
@@ -236,61 +385,96 @@
             aria-labelledby="sec-videos-title"
           >
             <h2 id="sec-videos-title" class="section-title">Videos</h2>
-            <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
-              @for (item of [
-                {title:'Fed Chair speaks on rate outlook', cat:'Policy', duration:'4:15'},
-                {title:'Tech earnings season recap', cat:'Technology', duration:'6:30'},
-                {title:'Commodity markets weekly review', cat:'Markets', duration:'5:00'},
-                {title:'Global trade corridor update', cat:'World', duration:'3:45'}
-              ]; track item.title) {
-                <article class="video-card">
-                  <div class="video-thumb" role="img" [attr.aria-label]="'Thumbnail for ' + item.title">
-                    <div class="play-btn" aria-hidden="true">
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                        <path d="M8 5v14l11-7L8 5z"/>
-                      </svg>
+
+            @if (loadingVideos()) {
+              <div class="video-grid">
+                @for (n of [1,2,3,4,5,6]; track n) {
+                  <div class="video-card skeleton-card">
+                    <div class="video-thumb skeleton-thumb"></div>
+                    <div class="video-meta">
+                      <div class="skel-line short"></div>
+                      <div class="skel-line long"></div>
                     </div>
-                    <span class="video-dur">{{ item.duration }}</span>
                   </div>
-                  <div class="video-meta">
-                    <p class="card-meta">{{ item.cat }} · Just now</p>
-                    <h3>{{ item.title }}</h3>
-                    <p class="card-attr">Reuters Video</p>
+                }
+              </div>
+            } @else if (videoItems().length === 0) {
+              <p class="no-content">No videos found for your selected topics.</p>
+            } @else {
+              <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
+                @for (item of videoItems(); track item.id) {
+                  <div [class]="'video-card ' + cardClasses">
+                    <!-- Clickable play area -->
+                    <div
+                      class="video-play-area"
+                      (click)="playVideo(item)"
+                      (keydown.enter)="playVideo(item)"
+                      (keydown.space)="$event.preventDefault(); playVideo(item)"
+                      role="button"
+                      tabindex="0"
+                      [attr.aria-label]="(item.embeddable === false ? 'Open on YouTube: ' : 'Play: ') + item.title"
+                    >
+                      @if (app.config.cardDetails.video.showThumbnail) {
+                        <div class="video-thumb" aria-hidden="true">
+                          @if (item.videoUrl) {
+                            <video
+                              [src]="item.videoUrl"
+                              preload="metadata"
+                              muted
+                              playsinline
+                              class="video-thumb-preview"
+                            ></video>
+                          } @else if (item.thumbnail) {
+                            <img [src]="item.thumbnail" [alt]="" loading="lazy" />
+                          }
+                          <div class="play-btn">
+                            @if (item.embeddable === false) {
+                              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                                <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                              </svg>
+                            } @else {
+                              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                                <path d="M8 5v14l11-7L8 5z"/>
+                              </svg>
+                            }
+                          </div>
+                        </div>
+                      }
+                      <div class="video-meta">
+                        @if (app.config.cardDetails.video.showMeta) {
+                          <p class="card-meta">{{ item.channelTitle }} · {{ item.publishedAt }}@if (item.embeddable === false) {&nbsp;·&nbsp;<span class="ext-badge">YouTube ↗</span>}</p>
+                        }
+                        <h3>{{ item.title }}</h3>
+                      </div>
+                    </div>
+                    <!-- Save / Share bar -->
+                    <div class="card-action-bar">
+                      <button type="button"
+                        [class]="'card-action-btn save-btn' + (isSaved(item.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="toggleSave(videoToSavedItem(item), $event)"
+                        [attr.aria-label]="isSaved(item.id) ? 'Remove from collections' : 'Save video'"
+                        [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(item.id) ? 'Remove from collections' : 'Save video')">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                        </svg>
+                      </button>
+                      <button type="button"
+                        [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="shareItem(videoToSavedItem(item), $event)"
+                        aria-label="Share video"
+                        [title]="!canSaveShare ? 'Upgrade to share content' : 'Share video'">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                      </button>
+                    </div>
                   </div>
-                </article>
-              }
-            </div>
+                }
+              </div>
+            }
           </section>
         }
 
-        <!-- ───────── GALLERIES ───────── -->
-        @if (section === 'galleries') {
-          <section
-            id="section-galleries"
-            class="gen-section"
-            aria-labelledby="sec-galleries-title"
-          >
-            <h2 id="sec-galleries-title" class="section-title">Photo Galleries</h2>
-            <div class="gallery-grid">
-              @for (item of [
-                {title:'Scenes from global markets',       cat:'Markets',  imgs:12},
-                {title:'World leaders at the UN summit',   cat:'World',    imgs:8},
-                {title:'Innovation in semiconductor labs', cat:'Technology',imgs:15}
-              ]; track item.title) {
-                <article class="gallery-card">
-                  <div class="gallery-thumb" role="img" aria-label="Gallery preview">
-                    <span class="img-count" aria-label="{{ item.imgs }} photos">{{ item.imgs }} photos</span>
-                  </div>
-                  <div class="gallery-meta">
-                    <p class="card-meta">{{ item.cat }}</p>
-                    <h3>{{ item.title }}</h3>
-                    <p class="card-attr">Reuters Photos</p>
-                  </div>
-                </article>
-              }
-            </div>
-          </section>
-        }
 
         <!-- ───────── PODCASTS ───────── -->
         @if (section === 'podcasts') {
@@ -301,25 +485,64 @@
           >
             <h2 id="sec-podcasts-title" class="section-title">Podcasts</h2>
             <div class="podcast-list">
-              @for (item of [
-                {title:'The Big Picture: Global Macro Outlook',   ep:'Ep. 84', dur:'38 min'},
-                {title:'Tech Desk: AI in the Enterprise',         ep:'Ep. 21', dur:'45 min'},
-                {title:'Markets Close: Today\'s Trading Session', ep:'Ep. 201',dur:'22 min'}
-              ]; track item.title) {
-                <article class="podcast-card">
-                  <div class="pod-thumb" aria-hidden="true">🎙️</div>
-                  <div class="pod-meta">
-                    <span class="card-meta">{{ item.ep }} · {{ item.dur }}</span>
-                    <h3>{{ item.title }}</h3>
-                    <button type="button" class="pod-play" aria-label="Play {{ item.title }}">
-                      <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
-                        <path d="M8 5v14l11-7L8 5z"/>
-                      </svg>
-                      Play
-                    </button>
-                    <p class="card-attr">Reuters Podcasts</p>
-                  </div>
-                </article>
+              @if (loadingPodcasts()) {
+                @for (sk of [1,2,3]; track sk) {
+                  <article class="podcast-card podcast-skeleton">
+                    <div class="pod-row">
+                      <div class="pod-thumb skeleton-box" style="width:56px;height:56px;border-radius:8px"></div>
+                      <div class="pod-meta" style="flex:1;gap:6px;display:flex;flex-direction:column">
+                        <div class="skeleton-box" style="width:60%;height:12px;border-radius:4px"></div>
+                        <div class="skeleton-box" style="width:90%;height:16px;border-radius:4px"></div>
+                        <div class="skeleton-box" style="width:40%;height:12px;border-radius:4px"></div>
+                      </div>
+                    </div>
+                  </article>
+                }
+              } @else if (podcastItems().length === 0) {
+                <p class="no-content-msg">No podcasts found for your selected topics.</p>
+              } @else {
+                @for (item of podcastItems(); track item.id) {
+                  <article class="podcast-card">
+                    <!-- row: thumbnail + episode info -->
+                    <div class="pod-row">
+                      <div class="pod-thumb" aria-hidden="true">
+                        @if (item.imageUrl) {
+                          <img [src]="item.imageUrl" [alt]="item.title" style="width:56px;height:56px;object-fit:cover;border-radius:8px" loading="lazy" />
+                        } @else {
+                          🎙️
+                        }
+                      </div>
+                      <div class="pod-meta" style="flex:1">
+                        <span class="card-meta">{{ item.host }} · {{ item.duration }}</span>
+                        <h3>{{ item.title }}</h3>
+                        <p class="pod-desc">{{ item.description }}</p>
+                        <audio controls [src]="item.audioUrl" preload="none" class="pod-audio" [attr.aria-label]="'Listen to ' + item.title"></audio>
+                        <p class="card-attr" style="text-transform:capitalize">{{ item.category }}</p>
+                      </div>
+                    </div>
+                    <!-- Save / Share bar -->
+                    <div class="card-action-bar">
+                      <button type="button"
+                        [class]="'card-action-btn save-btn' + (isSaved(podcastToSavedItem(item).id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="toggleSave(podcastToSavedItem(item), $event)"
+                        [attr.aria-label]="isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast'"
+                        [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast')">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                        </svg>
+                      </button>
+                      <button type="button"
+                        [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="shareItem(podcastToSavedItem(item), $event)"
+                        aria-label="Share podcast"
+                        [title]="!canSaveShare ? 'Upgrade to share content' : 'Share podcast'">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                }
               }
             </div>
           </section>
@@ -444,5 +667,220 @@
       </aside>
     }
 
+    <!-- ── Inline video player modal ──────────────────────────────────────── -->
+    @if (activeVideo()) {
+      <div
+        class="video-modal-overlay"
+        (click)="closeVideo()"
+        (keydown.escape)="closeVideo()"
+        role="dialog"
+        aria-modal="true"
+        [attr.aria-label]="'Now playing: ' + activeVideo()!.title"
+        tabindex="-1"
+      >
+        <div class="video-modal-box" (click)="$event.stopPropagation()">
+
+          <!-- Close button -->
+          <button
+            type="button"
+            class="video-modal-close"
+            (click)="closeVideo()"
+            aria-label="Close video"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22" aria-hidden="true">
+              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+            </svg>
+          </button>
+
+          <!-- 16:9 player -->
+          <div class="video-modal-player">
+            @if (isDirectVideo()) {
+              <!-- Direct video file (MP4) -->
+              <video
+                controls
+                autoplay
+                [src]="safeVideoUrl()"
+                [title]="activeVideo()!.title"
+              ></video>
+            } @else {
+              <iframe
+                [src]="safeEmbedUrl()"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowfullscreen
+                [title]="activeVideo()!.title"
+              ></iframe>
+
+              <!-- Shown when YouTube reports error 101/150 (embedding blocked) -->
+              @if (videoEmbedError()) {
+                <div class="video-embed-error">
+                  <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40" aria-hidden="true">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/>
+                  </svg>
+                  <p>This video can't be played here.</p>
+                  <a
+                    class="video-embed-error-link"
+                    [href]="activeVideo()!.videoUrl"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Watch on YouTube ↗
+                  </a>
+                </div>
+              }
+            }
+          </div>
+
+          <!-- Video details below player -->
+          <div class="video-modal-info">
+            <h3 class="vmi-title">{{ activeVideo()!.title }}</h3>
+            <div class="vmi-meta">
+              <span class="vmi-channel">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/>
+                </svg>
+                {{ activeVideo()!.channelTitle }}
+              </span>
+              @if (activeVideo()!.publishedAt) {
+                <span class="vmi-dot" aria-hidden="true">·</span>
+                <span class="vmi-date">{{ activeVideo()!.publishedAt }}</span>
+              }
+              @if (activeVideo()!.duration) {
+                <span class="vmi-dot" aria-hidden="true">·</span>
+                <span class="vmi-dur">{{ activeVideo()!.duration }}</span>
+              }
+            </div>
+            @if (activeVideo()!.description) {
+              <p class="vmi-desc">{{ activeVideo()!.description }}</p>
+            }
+            <a
+              class="vmi-yt-link"
+              [href]="activeVideo()!.videoUrl"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+                <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+              </svg>
+              @if (isDirectVideo()) { Download / Open } @else { Watch on YouTube }
+            </a>
+          </div>
+
+        </div>
+      </div>
+    }
+
   </div><!-- /.gen-shell -->
+}
+
+<!-- ── Save Toast ──────────────────────────────────────────────────────────── -->
+@if (savedToast()) {
+  <div class="save-toast" [class.save-toast-out]="savedToast()!.removing" role="status" aria-live="polite">
+    <span class="save-toast-icon">
+      <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+        <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+      </svg>
+    </span>
+    <span class="save-toast-text">Saved to collections</span>
+    <button type="button" class="save-toast-cta" (click)="goToCollections()">View Collections →</button>
+    <button type="button" class="save-toast-close" (click)="savedToast.set(null)" aria-label="Dismiss">✕</button>
+  </div>
+}
+
+<!-- ── Subscription Status Modal ──────────────────────────────────────────── -->
+@if (showSubscriptionModal() && subscriptionDetails) {
+  <div class="sub-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="sub-modal-title"
+       (click)="closeSubscriptionModal()" (keydown.escape)="closeSubscriptionModal()">
+    <div class="sub-modal-card" (click)="$event.stopPropagation()">
+
+      <!-- Close -->
+      <button type="button" class="sub-modal-close" (click)="closeSubscriptionModal()" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+
+      <!-- Header -->
+      <div class="sub-modal-header">
+        <div class="sub-plan-badge sub-{{ subscriptionDetails.plan.toLowerCase() }}">
+          {{ subscriptionDetails.plan }}
+        </div>
+        <h2 id="sub-modal-title" class="sub-modal-title">Your Subscription</h2>
+        <p class="sub-modal-sub">{{ currentUser!.name }} · {{ currentUser!.email }}</p>
+      </div>
+
+      <!-- Status strip -->
+      <div class="sub-status-strip" [class.expiring]="subscriptionDetails.status === 'expiring-soon'">
+        <div class="sub-status-left">
+          <span class="sub-status-dot" [class.expiring]="subscriptionDetails.status === 'expiring-soon'"></span>
+          <span class="sub-status-label">{{ subscriptionDetails.statusLabel }}</span>
+        </div>
+        <div class="sub-status-right">
+          <span class="sub-days">{{ subscriptionDetails.daysLeft }} days remaining</span>
+          <span class="sub-renew">Renews {{ subscriptionDetails.renewDate }}</span>
+        </div>
+      </div>
+
+      <!-- Days countdown bar -->
+      <div class="sub-progress-wrap" aria-label="{{ subscriptionDetails.daysLeft }} of 30 days remaining">
+        <div class="sub-progress-bar"
+             [class.expiring]="subscriptionDetails.status === 'expiring-soon'"
+             [style.width.%]="(subscriptionDetails.daysLeft / 30) * 100">
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="sub-price-row">
+        <span class="sub-price-value">{{ subscriptionDetails.price }}</span>
+        <span class="sub-price-label">current plan</span>
+      </div>
+
+      <!-- Features included -->
+      <div class="sub-section">
+        <p class="sub-section-title">What's included</p>
+        <ul class="sub-feature-list">
+          @for (f of subscriptionDetails.features; track f) {
+            <li>
+              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+              </svg>
+              {{ f }}
+            </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Upgrade prompt (only for Basic) -->
+      @if (subscriptionDetails.upgrade) {
+        <div class="sub-upgrade-card">
+          <div class="sub-upgrade-header">
+            <div>
+              <p class="sub-upgrade-title">Upgrade to {{ subscriptionDetails.upgrade.plan }}</p>
+              <p class="sub-upgrade-price">{{ subscriptionDetails.upgrade.price }}</p>
+            </div>
+            <span class="sub-upgrade-badge">Recommended</span>
+          </div>
+          <ul class="sub-upgrade-perks">
+            @for (p of subscriptionDetails.upgrade.perks; track p) {
+              <li>✓ {{ p }}</li>
+            }
+          </ul>
+          <button type="button" class="sub-upgrade-btn" (click)="closeSubscriptionModal()">
+            Upgrade Now →
+          </button>
+        </div>
+      }
+
+      <!-- Renew button -->
+      <div class="sub-modal-footer">
+        <button type="button" class="sub-renew-btn" (click)="closeSubscriptionModal()">
+          Renew Subscription
+        </button>
+        <button type="button" class="sub-cancel-btn" (click)="closeSubscriptionModal()">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, signal, computed } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import {
   AppConfig,
@@ -205,12 +205,39 @@ export class AppBuilderService {
    * Process an edit command from the floating AI assistant on the generated app.
    * Implements PRS Section 11 — Prompt Mutation Rules.
    */
+  // ── Pending topic-add state (position clarification flow) ─────────────────
+  /** Topics waiting to be positioned by the user. null = no pending add. */
+  readonly pendingTopicAdd = signal<string[] | null>(null);
+
   processEditCommand(command: string): string {
     // Safety gate (PRS Section 11.2 Rule 4)
     const blocked = BLOCKED_PATTERNS.find(b => b.pattern.test(command));
     if (blocked) return blocked.message;
 
     const lower = command.toLowerCase();
+
+    // ── PENDING: user is answering the "where?" question ─────────────────────
+    const pending = this.pendingTopicAdd();
+    if (pending) {
+      const cfg = this.config();
+      const existing = cfg.topics;
+      const insertIndex = this.parsePositionAnswer(lower, existing);
+      this.pendingTopicAdd.set(null);
+
+      if (insertIndex === -1) {
+        // Could not parse — append at end
+        return this.applyMutation('update_slot', c => ({
+          ...c, topics: [...new Set([...c.topics, ...pending])],
+        }), `✅ Added **${pending.join(', ')}** at the end. App refreshed!`);
+      }
+
+      return this.applyMutation('update_slot', c => {
+        const fresh = pending.filter(t => !c.topics.includes(t));
+        const next = [...c.topics];
+        next.splice(insertIndex, 0, ...fresh);
+        return { ...c, topics: next };
+      }, `✅ Added **${pending.join(', ')}** at position **${insertIndex + 1}**. App refreshed!`);
+    }
 
     // THEME mutations
     if (/\bdark\s*(mode|theme)?\b/i.test(lower)) {
@@ -266,13 +293,221 @@ export class AppBuilderService {
       }), '✅ Layout changed to **newspaper**. App refreshed!');
     }
 
+    // ── ORDERING — reorder sections ───────────────────────────────────────
+    const SECTION_NAMES = ['markets', 'articles', 'videos', 'galleries', 'podcasts'];
+    const detectSection = (s: string) => SECTION_NAMES.find(n => s.includes(n)) ?? null;
+
+    const movePosMatch = lower.match(/move\s+(\w+)\s+to\s+(top|bottom|first|last)/);
+    if (movePosMatch) {
+      const sec = detectSection(movePosMatch[1]);
+      const pos = movePosMatch[2];
+      if (sec) {
+        return this.applyMutation('update_slot', c => {
+          const order = c.sectionOrder.filter(s => s !== sec);
+          if (pos === 'top' || pos === 'first') order.unshift(sec);
+          else order.push(sec);
+          return { ...c, sectionOrder: order };
+        }, `✅ **${sec}** moved to ${pos}. App refreshed!`);
+      }
+    }
+    const moveRelMatch = lower.match(/move\s+(\w+)\s+(before|after)\s+(\w+)/);
+    if (moveRelMatch) {
+      const sec = detectSection(moveRelMatch[1]);
+      const rel = moveRelMatch[2] as 'before' | 'after';
+      const target = detectSection(moveRelMatch[3]);
+      if (sec && target && sec !== target) {
+        return this.applyMutation('update_slot', c => {
+          const order = c.sectionOrder.filter(s => s !== sec);
+          const idx = order.indexOf(target);
+          if (idx === -1) { order.push(sec); return { ...c, sectionOrder: order }; }
+          order.splice(rel === 'before' ? idx : idx + 1, 0, sec);
+          return { ...c, sectionOrder: order };
+        }, `✅ **${sec}** moved ${rel} **${target}**. App refreshed!`);
+      }
+    }
+    // "put videos first", "put markets last"
+    const putMatch = lower.match(/put\s+(\w+)\s+(first|last|top|bottom)/);
+    if (putMatch) {
+      const sec = detectSection(putMatch[1]);
+      const pos = putMatch[2];
+      if (sec) {
+        return this.applyMutation('update_slot', c => {
+          const order = c.sectionOrder.filter(s => s !== sec);
+          if (pos === 'first' || pos === 'top') order.unshift(sec);
+          else order.push(sec);
+          return { ...c, sectionOrder: order };
+        }, `✅ **${sec}** moved to ${pos}. App refreshed!`);
+      }
+    }
+
+    // ── SIZING ────────────────────────────────────────────────────────────
+    if (/\b(compact|small)\b.*card|card.*\b(compact|small)\b|\bsmaller\s*card/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardSize: 'compact' as const }),
+        '✅ Cards are now **compact**. App refreshed!');
+    }
+    if (/\b(large|big)\b.*card|card.*\b(large|big)\b|\bbigger\s*card|\blarger\s*card/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardSize: 'large' as const }),
+        '✅ Cards are now **large**. App refreshed!');
+    }
+    if (/\bnormal\b.*card|card.*\bnormal\b|\breset.*size|\bdefault.*size/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardSize: 'normal' as const }),
+        '✅ Cards restored to **normal** size. App refreshed!');
+    }
+
+    // ── CARD EFFECTS ──────────────────────────────────────────────────────
+    if (/glass\s*(effect|style|card)?/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardEffect: 'glass' as const }),
+        '✅ **Glass effect** applied to cards. App refreshed!');
+    }
+    if (/\bshadow\b.*card|card.*\bshadow\b|\bdrop\s*shadow/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardEffect: 'shadow' as const }),
+        '✅ **Shadow** added to cards. App refreshed!');
+    }
+    if (/\bborder(ed)?\b.*card|card.*\bborder(ed)?\b/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardEffect: 'bordered' as const }),
+        '✅ **Bordered** style applied. App refreshed!');
+    }
+    if (/no\s*(card)?\s*(effect|glass|shadow|style)|plain\s*card|remove\s*(card)?\s*(effect|style)/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, cardEffect: 'none' as const }),
+        '✅ Card effects removed. App refreshed!');
+    }
+
+    // ── BORDER RADIUS ─────────────────────────────────────────────────────
+    if (/\bpill\b|\bfully\s*round/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, borderRadius: 'pill' as const }),
+        '✅ Cards now have **pill** corners. App refreshed!');
+    }
+    if (/\bvery\s*round|\blarge.*corner/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, borderRadius: 'large' as const }),
+        '✅ Cards now have **large** rounded corners. App refreshed!');
+    }
+    if (/\bround(ed)?\b.*corner|\bcorner.*\bround(ed)?\b|\bround\s*card/i.test(lower) && !/no\s*round|sharp/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, borderRadius: 'medium' as const }),
+        '✅ Cards now have **rounded** corners. App refreshed!');
+    }
+    if (/\bsharp\b|\bno\s*round|\bsquare\s*corner/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({ ...c, borderRadius: 'none' as const }),
+        '✅ Cards now have **sharp** corners. App refreshed!');
+    }
+
+    // ── COLORS: background ────────────────────────────────────────────────
+    {
+      const bgMatch = lower.match(/(?:background|bg)(?:\s+colou?r)?(?:\s+to)?\s+([a-z\s]+?)(?:\s*$|\.|,)/);
+      if (bgMatch) {
+        const colorName = bgMatch[1].trim();
+        const hex = COLOUR_MAP[colorName];
+        if (hex) {
+          return this.applyMutation('update_slot', c => ({
+            ...c, theme: { ...c.theme, colors: { ...c.theme.colors, background: hex } },
+          }), `✅ Background changed to **${colorName}**. App refreshed!`);
+        }
+      }
+    }
+    // ── COLORS: section header ────────────────────────────────────────────
+    {
+      const shMatch = lower.match(/section\s+(?:header\s+)?(?:colou?r|bg|background)(?:\s+to)?\s+([a-z\s]+?)(?:\s*$|\.|,)/);
+      if (shMatch) {
+        const colorName = shMatch[1].trim();
+        const hex = COLOUR_MAP[colorName];
+        if (hex) {
+          return this.applyMutation('update_slot', c => ({ ...c, sectionHeaderColor: hex }),
+            `✅ Section header colour changed to **${colorName}**. App refreshed!`);
+        }
+      }
+    }
+    // ── COLORS: card background ───────────────────────────────────────────
+    {
+      const cbMatch = lower.match(/card\s+(?:background|bg)(?:\s+to)?\s+([a-z\s]+?)(?:\s*$|\.|,)/);
+      if (cbMatch) {
+        const colorName = cbMatch[1].trim();
+        const hex = COLOUR_MAP[colorName];
+        if (hex) {
+          return this.applyMutation('update_slot', c => ({
+            ...c, theme: { ...c.theme, colors: { ...c.theme.colors, secondary: hex } },
+          }), `✅ Card background changed to **${colorName}**. App refreshed!`);
+        }
+      }
+    }
+
+    // ── DETAILS: article card fields ──────────────────────────────────────
+    if (/hide\s*(article|card)?\s*image|no\s*image\s*(in|on|for)?\s*(article|card)?|remove\s*image/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showImage: false } },
+      }), '✅ Images hidden from article cards. App refreshed!');
+    }
+    if (/show\s*(article|card)?\s*image|add\s*image\s*(back)?/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showImage: true } },
+      }), '✅ Images shown on article cards. App refreshed!');
+    }
+    if (/hide\s*(meta|date|category|timestamp)/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showMeta: false } },
+      }), '✅ Date/category hidden from cards. App refreshed!');
+    }
+    if (/show\s*(meta|date|category|timestamp)/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showMeta: true } },
+      }), '✅ Date/category shown on cards. App refreshed!');
+    }
+    if (/hide\s*summary|no\s*summary|title\s*only\s*(in|on|for)?\s*article/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showSummary: false, showReadMore: false } },
+      }), '✅ Summary hidden \u2014 titles only on article cards. App refreshed!');
+    }
+    if (/show\s*summary|add\s*summary\s*back/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showSummary: true, showReadMore: true } },
+      }), '✅ Summary shown on article cards. App refreshed!');
+    }
+    if (/hide\s*read\s*more|no\s*read\s*more/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, article: { ...c.cardDetails.article, showReadMore: false } },
+      }), '✅ "Read more" links hidden. App refreshed!');
+    }
+
+    // ── DETAILS: video card fields ────────────────────────────────────────
+    if (/title\s*only\s*(in|on|for)?\s*video|keep\s*only\s*title\s*(in|on|for)?\s*video/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, video: { showThumbnail: false, showMeta: false } },
+      }), '✅ Video cards show **title only**. App refreshed!');
+    }
+    if (/hide\s*(channel|video.?meta)|no\s*channel/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, video: { ...c.cardDetails.video, showMeta: false } },
+      }), '✅ Channel/date hidden from video cards. App refreshed!');
+    }
+    if (/show\s*(channel|video.?meta)/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, video: { ...c.cardDetails.video, showMeta: true } },
+      }), '✅ Channel/date shown on video cards. App refreshed!');
+    }
+    if (/hide\s*thumbnail|no\s*thumbnail/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, video: { ...c.cardDetails.video, showThumbnail: false } },
+      }), '✅ Thumbnails hidden from video cards. App refreshed!');
+    }
+    if (/show\s*thumbnail|add\s*thumbnail\s*(back)?/i.test(lower)) {
+      return this.applyMutation('update_slot', c => ({
+        ...c, cardDetails: { ...c.cardDetails, video: { ...c.cardDetails.video, showThumbnail: true } },
+      }), '✅ Thumbnails shown on video cards. App refreshed!');
+    }
+
     // TOPIC mutations
     const topics = this.extractTopics(lower);
     if (topics.length > 0) {
       if (/add|include|also|more|plus/i.test(lower)) {
-        return this.applyMutation('update_slot', c => ({
-          ...c, topics: [...new Set([...c.topics, ...topics])],
-        }), `✅ Added **${topics.join(', ')}** to your topics. App refreshed!`);
+        const existing = this.config().topics;
+        this.pendingTopicAdd.set(topics);
+        const numbered = existing.map((t, i) => `  ${i + 1}. ${t}`).join('\n');
+        const positions = [
+          `Your current topics:`,
+          numbered,
+          ``,
+          `Where would you like **${topics.join(', ')}** to appear?`,
+          `Reply with a number (e.g. **"2"**), a name (e.g. **"before Business"** / **"after Technology"**), or **"first"** / **"last"**.`,
+        ].join('\n');
+        return positions;
       }
       if (/remove|exclude|no\s+more|stop|drop/i.test(lower)) {
         return this.applyMutation('update_slot', c => ({
@@ -286,10 +521,14 @@ export class AppBuilderService {
 
     return (
       `I can modify your app! Try:\n` +
-      `- **"Switch to dark/light mode"**\n` +
-      `- **"Change accent to blue/green/red/..."**\n` +
-      `- **"Change layout to grid/magazine/list"**\n` +
-      `- **"Add Sports"** or **"Remove Markets"**`
+      `**Theme:** "dark mode" / "light mode" / "accent to blue"\n` +
+      `**Layout:** "grid" / "magazine" / "list" / "newspaper"\n` +
+      `**Order:** "move videos before articles" / "put markets last"\n` +
+      `**Sizing:** "compact cards" / "large cards" / "normal cards"\n` +
+      `**Style:** "glass effect" / "shadow" / "round corners" / "sharp corners"\n` +
+      `**Colors:** "background to black" / "section header to navy"\n` +
+      `**Details:** "hide image" / "title only in videos" / "hide channel" / "hide summary"\n` +
+      `**Topics:** "add Sports" / "remove Markets"`
     );
   }
 
@@ -332,9 +571,7 @@ export class AppBuilderService {
       `Now for **content types**. Your app can include:\n\n` +
       `- 📄 **Articles** — in-depth written coverage\n` +
       `- 🎥 **Videos** — news clips and reports\n` +
-      `- 🖼️ **Galleries** — photo stories\n` +
       `- 🎙️ **Podcasts** — audio journalism\n` +
-      `- 📊 **Markets data** — stocks, indices, currencies\n\n` +
       `All are enabled by default. Tell me if you'd like to exclude any, or just say **"all good"** to keep everything.`
     );
     this._stage.set('content_types');
@@ -622,6 +859,48 @@ export class AppBuilderService {
     }
 
     return successMsg;
+  }
+
+  /**
+   * Parse a user's position answer into a 0-based insert index.
+   * Returns -1 if unparseable (caller falls back to end).
+   * Examples: "1", "first", "2nd", "before Business", "after Technology", "last"
+   */
+  private parsePositionAnswer(answer: string, existing: string[]): number {
+    const lower = answer.trim().toLowerCase();
+    const len = existing.length;
+
+    if (/\blast\b/.test(lower))  return len;
+    if (/\bfirst\b/.test(lower)) return 0;
+    if (/\bsecond\b/.test(lower) || /\b2nd\b/.test(lower)) return Math.min(1, len);
+    if (/\bthird\b/.test(lower)  || /\b3rd\b/.test(lower)) return Math.min(2, len);
+    if (/\bfourth\b/.test(lower) || /\b4th\b/.test(lower)) return Math.min(3, len);
+    if (/\bfifth\b/.test(lower)  || /\b5th\b/.test(lower)) return Math.min(4, len);
+
+    // "before <topic>"
+    const beforeMatch = lower.match(/before\s+(.+)/);
+    if (beforeMatch) {
+      const target = beforeMatch[1].trim();
+      const idx = existing.findIndex(t => t.toLowerCase().includes(target));
+      if (idx !== -1) return idx;
+    }
+
+    // "after <topic>"
+    const afterMatch = lower.match(/after\s+(.+)/);
+    if (afterMatch) {
+      const target = afterMatch[1].trim();
+      const idx = existing.findIndex(t => t.toLowerCase().includes(target));
+      if (idx !== -1) return idx + 1;
+    }
+
+    // plain number "2" or "3"
+    const numMatch = lower.match(/\b(\d+)\b/);
+    if (numMatch) {
+      const n = parseInt(numMatch[1], 10);
+      if (n >= 1) return Math.min(n - 1, len);
+    }
+
+    return -1;
   }
 
   /** Stage 3 — extract Reuters topic names from free-form text. */

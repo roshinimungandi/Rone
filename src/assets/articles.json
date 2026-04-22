@@ -1,0 +1,434 @@
+﻿{
+  "science": [
+    {
+      "id": "SCI-001",
+      "category": "science",
+      "title": "Scientists identify new pathway in cancer treatment",
+      "shortDescription": "Discovery could lead to more targeted cancer therapies.",
+      "longDescription": "Researchers have identified a molecular pathway that allows cancer cells to evade immune response. The discovery opens new avenues for therapies designed to disrupt tumour growth with fewer side effects. Early-stage trials have shown promising results in reducing tumour size without damaging surrounding healthy tissue.",
+      "publishedTime": "2026-04-20T07:30:00Z",
+      "url": "/science/new-cancer-treatment-pathway-2026",
+      "thumbnailUrl": "https://news.ftcpublications.com/core/wp-content/uploads/vhEdqlbGa0WCsE_wHNw6T_fddf2435e8584e379343071b45d04b9f.jpg-scaled.jpg"
+    },
+    {
+      "id": "SCI-002",
+      "category": "science",
+      "title": "Climate models warn of accelerated ice melt",
+      "shortDescription": "New simulations point to faster polar ice loss.",
+      "longDescription": "Updated climate models suggest polar ice sheets could melt faster than previously anticipated, contributing to rising sea levels. Scientists warn that adaptation planning must accelerate accordingly. Coastal regions are advised to begin long-term flood mitigation strategies within the next decade.",
+      "publishedTime": "2026-04-19T10:00:00Z",
+      "url": "/science/accelerated-ice-melt-2026",
+      "thumbnailUrl": "https://tse4.mm.bing.net/th/id/OIP.wiFekz3OHa-EKoL8skP4CwAAAA?w=199&h=127&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "SCI-003",
+      "category": "science",
+      "title": "Gene editing advances show promise for rare diseases",
+      "shortDescription": "CRISPR-based therapies move closer to clinical use.",
+      "longDescription": "Advances in gene-editing technologies are enabling more precise treatments for rare genetic disorders. Early trials show improved accuracy and reduced off-target effects. Scientists believe next-generation CRISPR tools could be approved for therapeutic use within two to three years.",
+      "publishedTime": "2026-04-18T13:20:00Z",
+      "url": "/science/gene-editing-rare-diseases-2026",
+      "thumbnailUrl": "https://tse1.mm.bing.net/th/id/OIP.lZdZoecdUYrhiHyA40tTvwHaE7?w=258&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "SCI-004",
+      "category": "science",
+      "title": "Astronomers detect potential biomarkers on distant exoplanet",
+      "shortDescription": "Findings raise hopes for signs of life beyond Earth.",
+      "longDescription": "Astronomers using next-generation telescopes have detected atmospheric compounds on a distant exoplanet that could indicate biological activity, though further observation is required for confirmation. The exoplanet, located 120 light-years away, sits within its star's habitable zone.",
+      "publishedTime": "2026-04-17T06:50:00Z",
+      "url": "/science/exoplanet-biomarkers-2026",
+      "thumbnailUrl": "https://tse4.mm.bing.net/th/id/OIP.vGOUNxSYS18M1R_iF5ZXXAHaE8?w=239&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "SCI-005",
+      "category": "science",
+      "title": "Neuroscience research sheds light on memory formation",
+      "shortDescription": "New insights explain how memories are consolidated.",
+      "longDescription": "Scientists have uncovered mechanisms in the brain responsible for memory consolidation during sleep, a discovery that could help treat memory-related neurological conditions. The research identifies specific neural circuits activated during deep sleep that replay daily experiences.",
+      "publishedTime": "2026-04-16T15:40:00Z",
+      "url": "/science/memory-formation-research-2026",
+      "thumbnailUrl": "data:image/webp;base64,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"
+    },
+    {
+      "id": "SCI-006",
+      "category": "science",
+      "title": "Ocean warming reaches record levels",
+      "shortDescription": "Marine ecosystems face increasing stress.",
+      "longDescription": "Global ocean temperatures have reached record levels, threatening coral reefs and marine biodiversity. Scientists warn of long-term ecological consequences if warming continues unchecked. Mass coral bleaching events have been reported across the Pacific and Indian Oceans.",
+      "publishedTime": "2026-04-15T09:05:00Z",
+      "url": "/science/ocean-warming-record-2026",
+      "thumbnailUrl": "https://tse1.mm.bing.net/th/id/OIP.QyZYBDdF-7c1n-Vu70K5ZwHaE7?w=268&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "SCI-007",
+      "category": "science",
+      "title": "Breakthrough in fusion energy efficiency reported",
+      "shortDescription": "Fusion research moves closer to commercial viability.",
+      "longDescription": "Researchers announced a breakthrough in fusion reactor efficiency, achieving sustained energy output improvements. Though commercial fusion remains years away, experts say progress is accelerating significantly. The new plasma containment technique reduces energy loss by nearly 40 percent.",
+      "publishedTime": "2026-04-14T12:00:00Z",
+      "url": "/science/fusion-energy-breakthrough-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
+    }
+  ],
+  "markets": [
+    {
+      "id": "MKT-001",
+      "category": "markets",
+      "title": "S&P 500 hits new high amid strong earnings season",
+      "shortDescription": "Wall Street rallies as corporate profits beat forecasts.",
+      "longDescription": "The S&P 500 climbed to a record high as a strong earnings season bolstered investor confidence. Technology and financial stocks led the advance, with several major companies reporting profits well above analyst expectations. Trading volumes were elevated heading into the final days of the quarter.",
+      "publishedTime": "2026-04-21T14:00:00Z",
+      "url": "/markets/sp500-record-earnings-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80"
+    },
+    {
+      "id": "MKT-002",
+      "category": "markets",
+      "title": "Federal Reserve signals pause on interest rate hikes",
+      "shortDescription": "Policymakers hold rates steady as inflation cools.",
+      "longDescription": "Federal Reserve officials signalled a pause in interest rate increases following three consecutive months of declining inflation data. Markets responded positively, with bond yields falling and equities gaining ground. Analysts expect rates to remain stable through the second half of the year.",
+      "publishedTime": "2026-04-20T16:30:00Z",
+      "url": "/markets/fed-rate-pause-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1563986768494-4dee2763ff3f?w=800&q=80"
+    },
+    {
+      "id": "MKT-003",
+      "category": "markets",
+      "title": "Oil prices surge on supply disruption fears",
+      "shortDescription": "Crude oil breaks above $95 per barrel.",
+      "longDescription": "Crude oil prices surged past $95 per barrel following reports of potential supply disruptions in key producing regions. Energy stocks rose sharply, while analysts warned of inflationary pressure if elevated prices persist. OPEC+ is expected to hold an emergency meeting to discuss output levels.",
+      "publishedTime": "2026-04-19T08:45:00Z",
+      "url": "/markets/oil-prices-supply-disruption-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
+    },
+    {
+      "id": "MKT-004",
+      "category": "markets",
+      "title": "Gold hits multi-year high on safe-haven demand",
+      "shortDescription": "Investors flock to gold amid geopolitical uncertainty.",
+      "longDescription": "Gold prices reached their highest level in several years as investors sought safe-haven assets amid rising geopolitical tensions and currency volatility. Central bank purchases have also contributed to demand, with several emerging-market economies increasing their gold reserves.",
+      "publishedTime": "2026-04-18T11:00:00Z",
+      "url": "/markets/gold-multiyear-high-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1610375461246-83df859d849d?w=800&q=80"
+    },
+    {
+      "id": "MKT-005",
+      "category": "markets",
+      "title": "Asian markets mixed as yen weakens",
+      "shortDescription": "Currency volatility weighs on regional equities.",
+      "longDescription": "Asian equity markets showed mixed performance as the Japanese yen weakened to its lowest level in months, pressuring import-heavy sectors. Chinese shares gained on stimulus hopes, while South Korean and Taiwanese tech stocks slipped on global chip demand concerns.",
+      "publishedTime": "2026-04-17T04:30:00Z",
+      "url": "/markets/asian-markets-yen-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1537819191377-d3305ffddce4?w=800&q=80"
+    },
+    {
+      "id": "MKT-006",
+      "category": "markets",
+      "title": "Nasdaq falls as tech sell-off accelerates",
+      "shortDescription": "Growth stocks retreat on valuation concerns.",
+      "longDescription": "The Nasdaq Composite fell sharply as investors rotated out of high-valuation technology stocks amid concerns over stretched price-to-earnings multiples. Several large-cap AI-related names saw declines of five percent or more. Analysts suggest the pullback may be a healthy correction after a prolonged rally.",
+      "publishedTime": "2026-04-16T17:00:00Z",
+      "url": "/markets/nasdaq-selloff-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80"
+    },
+    {
+      "id": "MKT-007",
+      "category": "markets",
+      "title": "Bond market signals recession warning",
+      "shortDescription": "Yield curve inversion deepens concerns.",
+      "longDescription": "The US Treasury yield curve deepened its inversion, historically a reliable indicator of an approaching recession. Short-term yields remained elevated while long-term rates declined, reflecting investor uncertainty about the economic outlook. Strategists advised caution in cyclical sectors.",
+      "publishedTime": "2026-04-15T13:20:00Z",
+      "url": "/markets/bond-yield-curve-recession-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&q=80"
+    }
+  ],
+  "business": [
+    {
+      "id": "BIZ-001",
+      "category": "business",
+      "title": "Major merger reshapes global pharmaceuticals landscape",
+      "shortDescription": "Two pharma giants announce record-breaking deal.",
+      "longDescription": "Two of the world's largest pharmaceutical companies have agreed to a merger valued at over $120 billion, creating a new industry leader in oncology and rare disease treatments. Regulators in the US and EU are expected to scrutinise the deal over antitrust concerns, with a decision anticipated within 12 months.",
+      "publishedTime": "2026-04-21T09:00:00Z",
+      "url": "/business/pharma-merger-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=800&q=80"
+    },
+    {
+      "id": "BIZ-002",
+      "category": "business",
+      "title": "EV startup secures largest Series C funding in automotive history",
+      "shortDescription": "Electric vehicle firm raises $4 billion in fresh capital.",
+      "longDescription": "An electric vehicle startup has secured $4 billion in Series C funding, the largest round in automotive startup history. The investment will fund expansion of manufacturing capacity, charging infrastructure, and entry into three new markets by 2027. The company's valuation now exceeds $30 billion.",
+      "publishedTime": "2026-04-20T11:15:00Z",
+      "url": "/business/ev-startup-funding-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
+    },
+    {
+      "id": "BIZ-003",
+      "category": "business",
+      "title": "Retail chains accelerate store closures in digital shift",
+      "shortDescription": "Bricks-and-mortar retail continues to contract.",
+      "longDescription": "Several major retail chains announced accelerated store closure programmes as consumer spending shifts to digital channels. Companies are redirecting capital to enhance online shopping experiences and fulfilment infrastructure. Analysts expect the trend to continue through 2027.",
+      "publishedTime": "2026-04-19T14:00:00Z",
+      "url": "/business/retail-store-closures-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80"
+    },
+    {
+      "id": "BIZ-004",
+      "category": "business",
+      "title": "Global supply chain diversification gains pace",
+      "shortDescription": "Companies reduce dependence on single-country sourcing.",
+      "longDescription": "Multinational corporations are accelerating supply chain diversification strategies, reducing dependence on single-country manufacturing hubs. Countries including Vietnam, India, and Mexico are emerging as key beneficiaries of this restructuring trend driven by geopolitical risk and cost considerations.",
+      "publishedTime": "2026-04-18T08:30:00Z",
+      "url": "/business/supply-chain-diversification-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1566576721346-d4a3b4eaeb55?w=800&q=80"
+    },
+    {
+      "id": "BIZ-005",
+      "category": "business",
+      "title": "Remote work policies under review at major employers",
+      "shortDescription": "Firms reassess hybrid work arrangements post-pandemic.",
+      "longDescription": "Several large employers are revisiting remote and hybrid work policies, with a number mandating increased office attendance. Employee groups have pushed back, citing productivity data and work-life balance benefits of flexible arrangements. The debate is reshaping commercial real estate demand in major cities.",
+      "publishedTime": "2026-04-17T10:45:00Z",
+      "url": "/business/remote-work-review-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80"
+    },
+    {
+      "id": "BIZ-006",
+      "category": "business",
+      "title": "Airline industry reports strongest quarter since 2019",
+      "shortDescription": "Travel demand drives record revenues for carriers.",
+      "longDescription": "Major airlines reported their strongest quarterly revenues since before the pandemic, driven by robust leisure and corporate travel demand. Capacity constraints and high ticket prices contributed to healthy margins. Analysts expect the industry to fully recover pre-pandemic load factors by year end.",
+      "publishedTime": "2026-04-16T07:00:00Z",
+      "url": "/business/airline-industry-recovery-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80"
+    },
+    {
+      "id": "BIZ-007",
+      "category": "business",
+      "title": "ESG investing faces growing regulatory scrutiny",
+      "shortDescription": "Greenwashing concerns prompt tighter oversight.",
+      "longDescription": "Regulators in the US and Europe are intensifying scrutiny of environmental, social, and governance investment products amid concerns about greenwashing. New disclosure requirements take effect later this year, compelling fund managers to substantiate sustainability claims with auditable data.",
+      "publishedTime": "2026-04-15T15:30:00Z",
+      "url": "/business/esg-regulatory-scrutiny-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=800&q=80"
+    }
+  ],
+  "world": [
+    {
+      "id": "WLD-001",
+      "category": "world",
+      "title": "UN calls for immediate ceasefire in ongoing regional conflict",
+      "shortDescription": "Security Council urges all parties to halt fighting.",
+      "longDescription": "The United Nations Security Council passed a resolution calling for an immediate ceasefire in an ongoing regional conflict, with 13 of 15 members voting in favour. Humanitarian organisations warn of a worsening crisis with millions of civilians displaced. Diplomatic missions are being deployed to broker peace talks.",
+      "publishedTime": "2026-04-21T18:00:00Z",
+      "url": "/world/un-ceasefire-resolution-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80"
+    },
+    {
+      "id": "WLD-002",
+      "category": "world",
+      "title": "Germany forms coalition government after months of talks",
+      "shortDescription": "Three-party alliance agrees on policy programme.",
+      "longDescription": "Germany has formed a new coalition government after months of post-election negotiations between three parties. The coalition agreement covers fiscal consolidation, green energy transition, and defence spending increases. The new chancellor is expected to be sworn in within the week.",
+      "publishedTime": "2026-04-20T12:00:00Z",
+      "url": "/world/germany-coalition-government-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80"
+    },
+    {
+      "id": "WLD-003",
+      "category": "world",
+      "title": "China naval exercises raise tensions in Pacific",
+      "shortDescription": "Large-scale drills near disputed waters prompt regional concern.",
+      "longDescription": "China conducted large-scale naval exercises near disputed waters in the Pacific, prompting diplomatic protests from neighbouring countries and the United States. The exercises involved carrier battle groups and amphibious landing simulations. Regional defence ministries are monitoring the situation closely.",
+      "publishedTime": "2026-04-19T06:00:00Z",
+      "url": "/world/china-naval-exercises-pacific-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1537819191377-d3305ffddce4?w=800&q=80"
+    },
+    {
+      "id": "WLD-004",
+      "category": "world",
+      "title": "G7 agrees on new framework for AI governance",
+      "shortDescription": "Leaders endorse international AI safety standards.",
+      "longDescription": "G7 leaders endorsed a new international framework for artificial intelligence governance, focusing on safety, transparency, and accountability. The agreement establishes joint monitoring mechanisms and shared standards for high-risk AI applications. Implementation timelines vary by member state.",
+      "publishedTime": "2026-04-18T15:00:00Z",
+      "url": "/world/g7-ai-governance-2026",
+      "thumbnailUrl": "https://tse2.mm.bing.net/th/id/OIP.ID-QWWdXl48vE3GNEKn2TgHaEv?w=227&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "WLD-005",
+      "category": "world",
+      "title": "Pakistan faces political crisis as parliament dissolves",
+      "shortDescription": "Snap election announced amid governance deadlock.",
+      "longDescription": "Pakistan's parliament was dissolved following a no-confidence vote, triggering a snap general election. The political crisis has raised concerns among international investors and neighbouring countries about economic stability and regional security. Caretaker government officials have pledged continuity in key policy areas.",
+      "publishedTime": "2026-04-17T09:30:00Z",
+      "url": "/world/pakistan-political-crisis-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80"
+    },
+    {
+      "id": "WLD-006",
+      "category": "world",
+      "title": "EU expands sanctions in response to human rights violations",
+      "shortDescription": "Brussels targets officials and entities linked to abuses.",
+      "longDescription": "The European Union announced an expanded package of targeted sanctions against individuals and entities linked to documented human rights violations. The measures include asset freezes and travel bans. EU foreign ministers described the action as a firm signal that violations will not go unaddressed.",
+      "publishedTime": "2026-04-16T11:00:00Z",
+      "url": "/world/eu-sanctions-human-rights-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80"
+    },
+    {
+      "id": "WLD-007",
+      "category": "world",
+      "title": "Humanitarian aid blocked as crisis deepens in conflict zone",
+      "shortDescription": "Aid agencies warn of catastrophic shortage.",
+      "longDescription": "Humanitarian organisations report that aid convoys are being blocked from reaching populations affected by an ongoing conflict, creating critical shortages of food, medicine, and clean water. The UN estimates two million people are in urgent need of assistance. International pressure is mounting on parties to allow safe passage.",
+      "publishedTime": "2026-04-15T14:00:00Z",
+      "url": "/world/humanitarian-aid-blocked-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=800&q=80"
+    }
+  ],
+  "politics": [
+    {
+      "id": "POL-001",
+      "category": "politics",
+      "title": "Senate passes landmark infrastructure funding bill",
+      "shortDescription": "Bipartisan measure allocates $1.2 trillion over a decade.",
+      "longDescription": "The US Senate passed a landmark bipartisan infrastructure funding bill allocating $1.2 trillion over ten years for roads, bridges, broadband, and clean energy. The bill now heads to the House, where its passage is expected but not guaranteed. Supporters call it the most significant infrastructure investment in a generation.",
+      "publishedTime": "2026-04-21T20:00:00Z",
+      "url": "/politics/senate-infrastructure-bill-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1529107386315-e1a2ed48a620?w=800&q=80"
+    },
+    {
+      "id": "POL-002",
+      "category": "politics",
+      "title": "Supreme Court to weigh in on landmark voting rights case",
+      "shortDescription": "Justices agree to hear challenge to state election laws.",
+      "longDescription": "The Supreme Court agreed to hear a high-profile challenge to state-level voting laws that critics say disproportionately restrict access for minority communities. The ruling, expected within the year, could reshape election administration across the country. Both sides say the stakes could not be higher.",
+      "publishedTime": "2026-04-20T15:45:00Z",
+      "url": "/politics/supreme-court-voting-rights-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1589216532372-1c2a367900d9?w=800&q=80"
+    },
+    {
+      "id": "POL-003",
+      "category": "politics",
+      "title": "President signs executive order on AI in federal agencies",
+      "shortDescription": "Order mandates safety reviews before deployment.",
+      "longDescription": "The President signed an executive order requiring all federal agencies to conduct mandatory safety reviews before deploying artificial intelligence tools in public-facing services. The order also establishes an AI oversight board within the Office of Management and Budget to coordinate compliance efforts.",
+      "publishedTime": "2026-04-19T13:00:00Z",
+      "url": "/politics/executive-order-ai-agencies-2026",
+      "thumbnailUrl": "https://tse2.mm.bing.net/th/id/OIP.D3Og5Y8fNckBQcgIoGI3nAHaEo?w=296&h=185&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "POL-004",
+      "category": "politics",
+      "title": "Midterm election forecasts show tight congressional races",
+      "shortDescription": "Polling suggests neither party holds commanding lead.",
+      "longDescription": "Early midterm election polling indicates highly competitive races across several key congressional districts, with neither major party holding a commanding lead. Issues including cost of living, healthcare, and national security dominate voter priorities. Turnout modelling suggests record participation is possible.",
+      "publishedTime": "2026-04-18T09:00:00Z",
+      "url": "/politics/midterm-election-forecasts-2026",
+      "thumbnailUrl": "https://tse2.mm.bing.net/th/id/OIP.os6PZNTzn-DA5t3tVb3AigHaE3?w=288&h=189&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "POL-005",
+      "category": "politics",
+      "title": "Congress debates sweeping immigration reform package",
+      "shortDescription": "Bipartisan talks stall over key policy differences.",
+      "longDescription": "Bipartisan talks on comprehensive immigration reform have stalled over disagreements on border security measures and pathways to legal status. The debate reflects deep divisions within both parties on how to address record levels of migration at the southern border. A vote is unlikely before the summer recess.",
+      "publishedTime": "2026-04-17T16:00:00Z",
+      "url": "/politics/immigration-reform-debates-2026",
+      "thumbnailUrl": "https://tse3.mm.bing.net/th/id/OIP.IQLZepC4e-dmpXzb-90stAHaEU?w=252&h=180&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "POL-006",
+      "category": "politics",
+      "title": "Former official indicted on corruption charges",
+      "shortDescription": "Prosecutor alleges misuse of public funds and bribery.",
+      "longDescription": "A former senior government official has been indicted on multiple counts of corruption, including bribery and misuse of public funds. Prosecutors allege the official accepted payments in exchange for directing government contracts to specific companies. The official has denied all charges and vowed to fight the case in court.",
+      "publishedTime": "2026-04-16T10:30:00Z",
+      "url": "/politics/official-corruption-indictment-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1589216532372-1c2a367900d9?w=800&q=80"
+    },
+    {
+      "id": "POL-007",
+      "category": "politics",
+      "title": "State legislatures push new data privacy laws",
+      "shortDescription": "Momentum builds for comprehensive digital rights legislation.",
+      "longDescription": "Dozens of state legislatures are advancing new data privacy bills modelled on European frameworks, creating a patchwork of regulations ahead of potential federal action. Technology companies are lobbying for a unified national standard to reduce compliance complexity across state lines.",
+      "publishedTime": "2026-04-15T11:00:00Z",
+      "url": "/politics/state-data-privacy-laws-2026",
+      "thumbnailUrl": "data:image/webp;base64,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"
+    }
+  ],
+  "technology": [
+    {
+      "id": "TEC-001",
+      "category": "technology",
+      "title": "OpenAI unveils next-generation multimodal model",
+      "shortDescription": "New model handles text, image, audio, and video simultaneously.",
+      "longDescription": "OpenAI announced its next-generation multimodal AI model, capable of processing text, images, audio, and video in a unified architecture. The model demonstrates significant improvements in reasoning, contextual understanding, and real-time responsiveness. Enterprise partners are set to begin integration trials next month.",
+      "publishedTime": "2026-04-21T10:00:00Z",
+      "url": "/technology/openai-multimodal-model-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=800&q=80"
+    },
+    {
+      "id": "TEC-002",
+      "category": "technology",
+      "title": "Semiconductor shortage eases as new fabs come online",
+      "shortDescription": "Chip supply improves as production capacity expands.",
+      "longDescription": "The global semiconductor shortage is easing as multiple new fabrication plants in the US, South Korea, and Europe begin commercial production. Analysts expect chip prices to stabilise over the next two quarters, benefiting consumer electronics, automotive, and industrial sectors.",
+      "publishedTime": "2026-04-20T08:30:00Z",
+      "url": "/technology/semiconductor-shortage-easing-2026",
+      "thumbnailUrl": "https://media.istockphoto.com/id/1370663738/photo/shortage-of-chips-in-car-manufacturing-industrial-line-for-the-production-of-electronic.jpg?s=612x612&w=0&k=20&c=kzy34ztLDBhlZJPeqGVsavyENozOE8yMhdXeQuVyM9o="
+    },
+    {
+      "id": "TEC-003",
+      "category": "technology",
+      "title": "Quantum computing milestone: 1000-qubit processor demonstrated",
+      "shortDescription": "Researchers achieve record qubit stability.",
+      "longDescription": "Scientists have demonstrated a 1000-qubit quantum processor with record-breaking stability, a major step toward practical quantum computing. The achievement brings quantum advantage for complex optimisation and simulation problems closer to reality. Commercial applications are targeted for the early 2030s.",
+      "publishedTime": "2026-04-19T14:20:00Z",
+      "url": "/technology/quantum-computing-1000-qubits-2026",
+      "thumbnailUrl": "https://tse2.mm.bing.net/th/id/OIP.JnUTCCj8fWhZivBp7bAHRwHaEO?w=325&h=185&c=7&r=0&o=7&dpr=1.1&pid=1.7&rm=3"
+    },
+    {
+      "id": "TEC-004",
+      "category": "technology",
+      "title": "Cybersecurity incidents rise as AI-powered attacks increase",
+      "shortDescription": "Organisations warned to upgrade defences urgently.",
+      "longDescription": "Cybersecurity agencies have reported a significant increase in AI-powered cyberattacks targeting critical infrastructure and financial institutions. Threat actors are using generative AI to craft more convincing phishing campaigns and automate vulnerability exploitation. Agencies urge organisations to accelerate security posture assessments.",
+      "publishedTime": "2026-04-18T12:45:00Z",
+      "url": "/technology/ai-cyberattacks-rise-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?w=800&q=80"
+    },
+    {
+      "id": "TEC-005",
+      "category": "technology",
+      "title": "Apple announces next-generation spatial computing platform",
+      "shortDescription": "New hardware and software push AR boundaries.",
+      "longDescription": "Apple announced the second generation of its spatial computing platform, featuring lighter hardware, improved battery life, and a richer augmented reality developer ecosystem. The launch is expected to accelerate enterprise adoption for training, design, and remote collaboration use cases.",
+      "publishedTime": "2026-04-17T18:00:00Z",
+      "url": "/technology/apple-spatial-computing-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1697577418970-d196d70bcc48?w=800&q=80"
+    },
+    {
+      "id": "TEC-006",
+      "category": "technology",
+      "title": "5G expansion reaches rural areas in major economies",
+      "shortDescription": "Coverage gap narrows as operators extend networks.",
+      "longDescription": "Mobile operators in the US, UK, and Germany have significantly extended 5G coverage into rural areas, reducing the digital divide. The expansion is supported by government subsidies and spectrum reallocation. Experts say improved connectivity will boost agricultural technology and remote healthcare adoption.",
+      "publishedTime": "2026-04-16T09:00:00Z",
+      "url": "/technology/5g-rural-expansion-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=800&q=80"
+    },
+    {
+      "id": "TEC-007",
+      "category": "technology",
+      "title": "Electric vehicles now outsell combustion cars in Norway",
+      "shortDescription": "Nordic nation reaches full EV dominance milestone.",
+      "longDescription": "Norway has become the first country where electric vehicles outperform combustion-engine cars in total sales, a milestone driven by generous tax incentives and a mature charging infrastructure. Policymakers elsewhere are studying the Norwegian model as a template for accelerating EV adoption nationally.",
+      "publishedTime": "2026-04-15T07:30:00Z",
+      "url": "/technology/norway-ev-dominance-2026",
+      "thumbnailUrl": "https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
+    }
+  ]
+}

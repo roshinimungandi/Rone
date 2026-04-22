@@ -1,1374 +1,390 @@
-[
-  {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "XFKE92AZ7BNTTQR3HWYCLN8VDP",
-        "canonical_url": "/world/asia-pacific/us-will-indefinitely-extend-ceasefire-unclear-if-iran-agrees-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T01:29:26.167Z",
-        "language": "en",
-        "shared_url": "/world/asia-pacific/us-will-indefinitely-extend-ceasefire-unclear-if-iran-agrees-2026-04-22/",
-        "created_date": "2026-04-22T01:22:47.774Z",
-        "title": "Trump declares Iran ceasefire extension with peace talks in doubt",
-        "description": "U.S. President Donald Trump said he would indefinitely extend the ceasefire with Iran to allow for further peace talks, although it was not ​clear on Wednesday if Iran or Israel, the U.S. ally in the two-month war, would agree.",
-        "primary_tag": {
-          "description": "Pipelines & Transport"
-        },
-        "thumbnail": {
-          "caption": "People walk on a street in Tehran. Majid Asgaripour/WANA ",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/5KP4D7RQWNE9FAXGTJHOBYCMU2.jpg?auth=a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
-          "id": "5KP4D7RQWNE9FAXGTJHOBYCMU2",
-          "authors": "Majid Asgaripour",
-          "width": 6000,
-          "height": 4000,
-          "subtitle": "Daily life in Tehran amid a ceasefire between U.S. and Iran"
-        },
-        "authors": [
-          {
-            "id": "john.doe@example.com",
-            "name": "Steve Holland",
-            "first_name": "Steve",
-            "last_name": "Holland",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FQ83NR5XFWDMHPC912OG4KRZY8W.jpg?auth=b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3"
-            },
-            "byline": "Steve Holland"
-          },
-          {
-            "id": "jane.smith@example.com",
-            "name": "Parisa Hafezi",
-            "first_name": "Parisa",
-            "last_name": "Hafezi",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FQ83NR5XFWDMHPC912OG4KRZY8W.jpg?auth=b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2c3"
-            },
-            "byline": "Parisa Hafezi"
-          }
-        ],
-        "display_time": "2026-04-22T01:29:26.167Z",
-        "updated_time": "2026-04-22T06:49:00.176Z",
-        "content_elements": [
-          {
-            "content": "U.S. President <a href=\"https://www.reuters.com/world/us/donald-trump/\">Donald Trump</a> said he would indefinitely extend the ceasefire with Iran to allow for further peace talks, although it was not ​clear on Wednesday if Iran or Israel, the U.S. ally in the <a href=\"https://www.reuters.com/world/iran/\">two-month war</a>, would agree.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump said in a statement on social media the U.S. had agreed to a ‌request by Pakistani mediators \"to hold our Attack on the Country of Iran until such time as their leaders and representatives can come up with a unified proposal ... and discussions are concluded, one way or the other.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "Pakistan's leaders have hosted peace talks in Islamabad to end a war that has killed thousands of people and shaken the global economy.",
-            "type": "paragraph"
-          },
-          {
-            "content": "But even as he announced what appeared to be a unilateral ceasefire extension, Trump also said he would continue the U.S. Navy's blockade ​of Iran's trade by sea, considered an act of war by Iran.",
-            "type": "paragraph"
-          },
-          {
-            "content": "There was no response early on Wednesday to Trump's announcement from senior Iranian officials, although some initial reactions from ​Tehran suggested Trump's comments were being treated skeptically.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Tasnim News Agency, affiliated with the Islamic Revolutionary Guards Corps, said Iran had not asked for a ceasefire ⁠extension and repeated threats to break the U.S. blockade by force. An adviser to Iran's lead negotiator, the speaker of parliament Mohammad Baqer Qalibaf, said Trump's announcement may be a ploy.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump's wartime rhetoric has ​veered between extremes. In an expletive-filled threat against Iran only two weeks ago he promised that a \"whole civilization will die tonight\", while at other times he has appeared keen to end the violence and ​market uncertainty.",
-            "type": "paragraph"
-          },
-          {
-            "content": "With his announcement, Trump again pulled back at the last moment from his threats to bomb Iran's power plants and bridges. United Nations Secretary General António Guterres and others have condemned those threats, noting international humanitarian law forbids attacks targeting civilians and civilian infrastructure.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "NEXT PEACE TALKS UNCERTAIN",
-            "type": "header"
-          },
-          {
-            "content": "The U.S. and Israel began the war on February 28 with aerial bombardments of Iran. The conflict quickly spread to Gulf states that host U.S. military bases and to Lebanon once the ​Iran-allied militant group Hezbollah joined the fighting.",
-            "type": "paragraph"
-          },
-          {
-            "content": "More than 5,000 civilians <a href=\"https://www.reuters.com/world/middle-east/how-many-people-have-been-killed-us-israel-war-iran-2026-04-07/\">have been killed</a> across the region and hundreds of thousands displaced so far, mostly in Iran and Lebanon. Overnight, an Israeli drone strike killed one ​person and wounded two others in Lebanon's western Bekaa Valley, Lebanese state news agency said.",
-            "type": "paragraph"
-          },
-          {
-            "content": "In addition to the human toll, the war has led to the virtual closure of the Strait of Hormuz, a vital chokepoint in global ‌energy markets ⁠between Iran and Oman, sending oil prices soaring and fears that the global economy could enter a recession.",
-            "type": "paragraph"
-          },
-          {
-            "content": "U.S. stock futures rose, the dollar wavered and oil prices <a href=\"https://www.reuters.com/world/china/global-markets-global-markets-2026-04-22/\">turned lower</a>, though still near $100, after Trump's announcement.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Iran has repeatedly exploited its ability to control the passage of oil tankers and other ships in the strait in response to U.S. and Israeli attacks.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump's extension to the ceasefire came as tentatively scheduled peace talks in Islamabad seemed on the verge of falling apart.",
-            "type": "paragraph"
-          },
-          {
-            "content": "U.S. Vice President JD Vance, whose presence has been requested by the Iranians, had planned to return to Pakistan on Tuesday but a White House official said he ​had not yet departed Washington and was taking part ​in additional policy meetings.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Before Trump's latest announcement, ⁠a senior Iranian official told Reuters that Iran's negotiators had been willing to attend another round of talks if the U.S. abandoned a policy of pressure and threats, and rejected negotiations aimed at surrender.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Iran has condemned the U.S. Navy intercepting and seizing two commercial Iranian ships at sea as part of its ​blockade, the second earlier on Tuesday, with its foreign ministry accusing the U.S. of \"piracy at sea and state terrorism.\" The U.S., joined by multiple ​other countries, has condemned Iran ⁠for impeding freedom of navigation in the Strait of Hormuz.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Hours after extending the ceasefire, Trump doubled down on the U.S. blockade, saying in a social media post that lifting it would undermine any chance of a peace deal \"unless we blow up the rest of their Country, their leaders included.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "A first session of talks 11 days ago produced no agreement, with much of the focus on Iran's stockpiles of highly enriched uranium.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump wants ⁠to take the ​uranium out of Iran in order to prevent the country from enriching it further to the point where it could ​develop a nuclear weapon.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Iran says it has only a peaceful civilian nuclear program and a sovereign right to continue that as a signatory of the Nuclear Non-Proliferation Treaty.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "People walk on a street in Tehran. Majid Asgaripour/WANA ",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/5KP4D7RQWNE9FAXGTJHOBYCMU2.jpg?auth=a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2e3f4a5b6c7d8e9f0a1b2",
-              "id": "5KP4D7RQWNE9FAXGTJHOBYCMU2",
-              "authors": "Majid Asgaripour",
-              "alt_text": "Daily life in Tehran amid a ceasefire between U.S. and Iran",
-              "width": 6000,
-              "height": 4000,
-              "subtitle": "Daily life in Tehran amid a ceasefire between U.S. and Iran",
-              "updated_at": "2026-04-22T01:33:59Z"
-            }
-          ]
-        }
-      }
-    }
+{
+  "articles": [
+    {
+      "id": "LWHLE2AFRCF9VHAL7A4Q25F25XK",
+      "category": "world",
+      "title": "Trump declares Iran ceasefire extension with peace talks in doubt",
+      "shortDescription": "Trump announces an indefinite ceasefire extension with Iran amid uncertainty over peace talks.",
+      "longDescription": "U.S. President Donald Trump said the United States would indefinitely extend the ceasefire with Iran to allow further peace talks. Iranian officials reacted cautiously while the U.S. Navy blockade continued. The conflict has caused widespread civilian casualties and disrupted global energy markets.",
+      "publishedTime": "2026-04-22T01:29:26Z",
+      "url": "/world/asia-pacific/us-will-indefinitely-extend-ceasefire-unclear-if-iran-agrees-2026-04-22/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/5KP4D7RQWNE9FAXGTJHOBYCMU2.jpg"
+    },
+
+    {
+      "id": "LWHLE2FFRCF9VAAL7A4Q55F25XK",
+      "category": "world",
+      "title": "Germany's ruling coalition at odds over reform push",
+      "shortDescription": "Germany’s coalition government clashes over tax and pension reforms.",
+      "longDescription": "German Chancellor Friedrich Merz faces weakening support as coalition partners dispute reforms to pensions, healthcare and energy taxes amid economic slowdown and rising fuel prices.",
+      "publishedTime": "2026-04-21T16:47:11Z",
+      "url": "/world/germanys-ruling-coalition-odds-over-reform-push-2026-04-21/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLE28FRCF9V3AL7A4QW5F25XK.jpg"
+    },
+
+    {
+      "id": "LWHLE24FRCF9VXAL7A4QS5F25XK",
+      "category": "world",
+      "title": "Chinese navy brushes past Okinawa islands as tensions with Japan flare",
+      "shortDescription": "Chinese naval vessels transit waters near Japanese islands.",
+      "longDescription": "China said PLA naval vessels transited near Okinawa following Pacific exercises, highlighting intensifying China‑Japan tensions linked to Taiwan and maritime security.",
+      "publishedTime": "2026-04-22T05:37:51Z",
+      "url": "/world/china/chinese-navy-passes-by-japanese-islands-again-after-pacific-training-2026-04-22/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLE2VFRCF9VQAL7A4QK5F25XK.jpg"
+    },
+  
+
+    {
+      "id": "LWHLETNFRCF9NHAL7A4HC5F25XC",
+      "category": "politics",
+      "title": "Voting rights groups sue over US demand for state voter rolls",
+      "shortDescription": "Civil rights groups challenge DOJ voter data access ahead of elections.",
+      "longDescription": "Voting rights organizations sued the Trump administration, arguing DOJ voter roll demands could enable illegal purges before the midterm elections.",
+      "publishedTime": "2026-04-21T13:30:01Z",
+      "url": "/legal/government/voting-rights-groups-sue-over-us-demand-state-voter-rolls-2026-04-21/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLETFFRCF9NAAL7A4H55F25XC.jpg"
+    },
+
+    {
+      "id": "LWHLE9RFRCF94LAL7A4XF5F25XS",
+      "category": "politics",
+      "title": "US Supreme Court rebuffs challenge to class-action status of bank collusion suit",
+      "shortDescription": "Supreme Court allows cities’ $12B bank lawsuit to proceed.",
+      "longDescription": "The Supreme Court declined to block a nationwide class action accusing major banks of colluding to manipulate municipal bond interest rates.",
+      "publishedTime": "2026-04-20T13:44:33Z",
+      "url": "/legal/government/us-supreme-court-rebuffs-challenge-class-action-status-bank-collusion-suit-2026-04-20/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLE9JFRCF94DAL7A4X85F25XS.jpg"
+    },
+
+    {
+      "id": "LWHLETBFRCF9N6AL7A4HZ5F25XC",
+      "category": "market",
+      "title": "Warsh's impossible mission - Tame inflation and please Trump",
+      "shortDescription": "Fed chair nominee faces inflation battle under political pressure.",
+      "longDescription": "Kevin Warsh emphasized Federal Reserve independence while inflation remains elevated amid oil shocks and geopolitical tensions.",
+      "publishedTime": "2026-04-22T06:05:32Z",
+      "url": "/markets/us/warshs-impossible-mission-tame-inflation-please-trump-2026-04-22/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLET4FRCF9NXAL7A4HS5F25XC.jpg"
+    },
+
+    {
+      "id": "LWHLE2RFRCF9VLAL7A4QF5F25XK",
+      "category": "market",
+      "title": "US stock index futures climb after Trump extends Iran truce",
+      "shortDescription": "Wall Street futures rise after ceasefire announcement.",
+      "longDescription": "Markets reacted positively to the Iran ceasefire extension, though uncertainty around inflation and oil prices remains.",
+      "publishedTime": "2026-04-22T09:01:28Z",
+      "url": "/business/us-stock-index-futures-climb-after-trump-extends-iran-truce-2026-04-22/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLE2JFRCF9VDAL7A4Q85F25XK.jpg"
+    },
+
+    {
+      "id": "LWHLE94FRCF94XAL7A4XS5F25XS",
+      "category": "business",
+      "title": "Pfizer GLP-1 weight loss drug available for pre-order in China",
+      "shortDescription": "Pfizer expands presence in China’s weight‑loss drug market.",
+      "longDescription": "Pfizer’s GLP‑1 drug Xianweiying entered China via pre‑orders, escalating competition in the fast‑growing obesity treatment market.",
+      "publishedTime": "2026-04-22T09:18:04Z",
+      "url": "/legal/litigation/pfizer-glp-1-weight-loss-drug-available-pre-order-china-2026-04-22/",
+      "thumbnailUrl": "https://www.reuters.com/resizer/v2/LWHLE9VFRCF94QAL7A4XK5F25XS.jpg"
+    },
+
+    {
+      "id": "LWHLE98FRCF943AL7A4XW5F25XS",
+      "category": "science",
+      "title": "China, India place strategic bets on clean energy out of favour in the West",
+      "shortDescription": "Asia accelerates green hydrogen investment.",
+      "longDescription": "China and India are investing heavily in green hydrogen infrastructure while Western nations scale back due to cost pressures.",
+      "publishedTime": "2026-04-22T05:03:15Z",
+      "url": "/sustainability/boards-policy-regulation/china-india-place-strategic-bets-clean-energy-out-favour-west-2026-04-22/",
+      "thumbnailUrl": "/images/articles/science-asia-hydrogen.jpg"
+    },
+
+    {
+      "id": "TECH-001",
+      "category": "technology",
+      "title": "AI copilots reshape enterprise software workflows",
+      "shortDescription": "AI copilots boost productivity across enterprises.",
+      "longDescription": "Enterprises are embedding AI copilots into engineering, support and operations teams, boosting efficiency while raising governance challenges.",
+      "publishedTime": "2026-04-20T08:00:00Z",
+      "url": "/technology/ai-copilots-enterprise-software-2026",
+      "thumbnailUrl": "/images/articles/technology-1.jpg"
+    },
+
+    {
+      "id": "TECH-002",
+      "category": "technology",
+      "title": "Quantum computing investment accelerates worldwide",
+      "shortDescription": "Quantum research funding surges globally.",
+      "longDescription": "Governments and corporations are dramatically increasing investment in quantum computing amid expectations of future commercial breakthroughs.",
+      "publishedTime": "2026-04-18T11:15:00Z",
+      "url": "/technology/quantum-investment-growth-2026",
+      "thumbnailUrl": "/images/articles/technology-2.jpg"
+    },
+
+    {
+      "id": "SCI-007",
+      "category": "science",
+      "title": "Breakthrough in fusion energy efficiency reported",
+      "shortDescription": "Fusion energy research hits key milestone.",
+      "longDescription": "Scientists report improved sustained fusion energy output, fueling optimism for long‑term clean energy generation.",
+      "publishedTime": "2026-04-14T12:00:00Z",
+      "url": "/science/fusion-energy-breakthrough-2026",
+      "thumbnailUrl": "/images/articles/science-7.jpg"
+    },
+     {
+      "id": "SCI-001",
+      "category": "science",
+      "title": "Scientists identify new pathway in cancer treatment",
+      "shortDescription": "Discovery could lead to more targeted cancer therapies.",
+      "longDescription": "Researchers have identified a molecular pathway that allows cancer cells to evade immune response. The discovery opens new avenues for therapies designed to disrupt tumor growth with fewer side effects.",
+      "publishedTime": "2026-04-20T07:30:00Z",
+      "url": "/science/new-cancer-treatment-pathway-2026",
+      "thumbnailUrl": "/images/articles/science-1.jpg"
+    },
+    {
+      "id": "SCI-002",
+      "category": "science",
+      "title": "Climate models warn of accelerated ice melt",
+      "shortDescription": "New simulations point to faster polar ice loss.",
+      "longDescription": "Updated climate models suggest polar ice sheets could melt faster than previously anticipated, contributing to rising sea levels. Scientists warn that adaptation planning must accelerate accordingly.",
+      "publishedTime": "2026-04-19T10:00:00Z",
+      "url": "/science/accelerated-ice-melt-2026",
+      "thumbnailUrl": "/images/articles/science-2.jpg"
+    },
+    {
+      "id": "SCI-003",
+      "category": "science",
+      "title": "Gene editing advances show promise for rare diseases",
+      "shortDescription": "CRISPR‑based therapies move closer to clinical use.",
+      "longDescription": "Advances in gene‑editing technologies are enabling more precise treatments for rare genetic disorders. Early trials show improved accuracy and reduced off‑target effects.",
+      "publishedTime": "2026-04-18T13:20:00Z",
+      "url": "/science/gene-editing-rare-diseases-2026",
+      "thumbnailUrl": "/images/articles/science-3.jpg"
+    },
+    {
+      "id": "SCI-004",
+      "category": "science",
+      "title": "Astronomers detect potential biomarkers on distant exoplanet",
+      "shortDescription": "Findings raise hopes for signs of life beyond Earth.",
+      "longDescription": "Astronomers using next‑generation telescopes have detected atmospheric compounds on a distant exoplanet that could indicate biological activity, though further observation is required for confirmation.",
+      "publishedTime": "2026-04-17T06:50:00Z",
+      "url": "/science/exoplanet-biomarkers-2026",
+      "thumbnailUrl": "/images/articles/science-4.jpg"
+    },
+    {
+      "id": "SCI-005",
+      "category": "science",
+      "title": "Neuroscience research sheds light on memory formation",
+      "shortDescription": "New insights explain how memories are consolidated.",
+      "longDescription": "Scientists have uncovered mechanisms in the brain responsible for memory consolidation during sleep, a discovery that could help treat memory‑related neurological conditions.",
+      "publishedTime": "2026-04-16T15:40:00Z",
+      "url": "/science/memory-formation-research-2026",
+      "thumbnailUrl": "/images/articles/science-5.jpg"
+    },
+    {
+      "id": "SCI-006",
+      "category": "science",
+      "title": "Ocean warming reaches record levels",
+      "shortDescription": "Marine ecosystems face increasing stress.",
+      "longDescription": "Global ocean temperatures have reached record levels, threatening coral reefs and marine biodiversity. Scientists warn of long‑term ecological consequences if warming continues unchecked.",
+      "publishedTime": "2026-04-15T09:05:00Z",
+      "url": "/science/ocean-warming-record-2026",
+      "thumbnailUrl": "/images/articles/science-6.jpg"
+    },
+    {
+      "id": "SCI-007",
+      "category": "science",
+      "title": "Breakthrough in fusion energy efficiency reported",
+      "shortDescription": "Fusion research moves closer to commercial viability.",
+      "longDescription": "Researchers announced a breakthrough in fusion reactor efficiency, achieving sustained energy output improvements. Though commercial fusion remains years away, experts say progress is accelerating.",
+      "publishedTime": "2026-04-14T12:00:00Z",
+      "url": "/science/fusion-energy-breakthrough-2026",
+      "thumbnailUrl": "/images/articles/science-7.jpg"
+    },
+    {
+      "id": "TECH-001",
+      "category": "technology",
+      "title": "AI copilots reshape enterprise software workflows",
+      "shortDescription": "AI copilots are transforming how enterprises build and manage software.",
+      "longDescription": "Enterprises are rapidly adopting AI copilots to automate coding, testing, documentation and customer support. Major software vendors report productivity gains as companies integrate generative AI into daily workflows, raising both efficiency gains and governance concerns.",
+      "publishedTime": "2026-04-20T08:00:00Z",
+      "url": "/technology/ai-copilots-enterprise-software-2026",
+      "thumbnailUrl": "/images/articles/technology-1.jpg"
+    },
+    {
+      "id": "TECH-002",
+      "category": "technology",
+      "title": "Quantum computing investment accelerates worldwide",
+      "shortDescription": "Governments and companies increase funding for quantum research.",
+      "longDescription": "Global investment in quantum computing has surged as governments and private firms race to build practical quantum systems. Analysts say early commercial use cases could emerge within this decade in cryptography, materials science and drug discovery.",
+      "publishedTime": "2026-04-18T11:15:00Z",
+      "url": "/technology/quantum-investment-growth-2026",
+      "thumbnailUrl": "/images/articles/technology-2.jpg"
+    },
+    {
+      "id": "TECH-003",
+      "category": "technology",
+      "title": "New cybersecurity rules target critical infrastructure",
+      "shortDescription": "Stricter cybersecurity standards aim to protect energy and transport sectors.",
+      "longDescription": "Regulators worldwide are introducing new cybersecurity frameworks to reduce risks facing power grids, hospitals and transportation networks. Firms must now meet higher compliance standards amid rising state‑sponsored cyber threats.",
+      "publishedTime": "2026-04-17T09:40:00Z",
+      "url": "/technology/cybersecurity-critical-infrastructure-2026",
+      "thumbnailUrl": "/images/articles/technology-3.jpg"
+    },
+    {
+      "id": "TECH-004",
+      "category": "technology",
+      "title": "Semiconductor supply chains stabilize after years of disruption",
+      "shortDescription": "Chip supply pressures ease as global capacity expands.",
+      "longDescription": "After years of shortages, semiconductor supply chains are stabilizing due to new manufacturing plants and improved logistics. Industry leaders warn, however, that geopolitical risks could still disrupt future supply.",
+      "publishedTime": "2026-04-16T14:00:00Z",
+      "url": "/technology/semiconductor-supply-recovery-2026",
+      "thumbnailUrl": "/images/articles/technology-4.jpg"
+    },
+    {
+      "id": "TECH-005",
+      "category": "technology",
+      "title": "Cloud spending remains resilient despite economic uncertainty",
+      "shortDescription": "Businesses continue shifting workloads to the cloud.",
+      "longDescription": "Even amid economic uncertainty, companies are maintaining strong cloud spending as digital transformation remains a priority. Providers report high demand for AI‑ready cloud infrastructure and data services.",
+      "publishedTime": "2026-04-15T10:25:00Z",
+      "url": "/technology/cloud-spending-resilient-2026",
+      "thumbnailUrl": "/images/articles/technology-5.jpg"
+    },
+    {
+      "id": "TECH-006",
+      "category": "technology",
+      "title": "Big Tech faces renewed antitrust scrutiny",
+      "shortDescription": "Regulators intensify oversight of major technology firms.",
+      "longDescription": "Governments across the U.S., Europe and Asia are expanding antitrust investigations into major technology companies. Officials cite concerns over market dominance, data practices and competition in digital advertising and app ecosystems.",
+      "publishedTime": "2026-04-14T16:30:00Z",
+      "url": "/technology/big-tech-antitrust-2026",
+      "thumbnailUrl": "/images/articles/technology-6.jpg"
+    },
+    {
+      "id": "TECH-007",
+      "category": "technology",
+      "title": "Breakthrough battery tech promises longer EV range",
+      "shortDescription": "Next‑generation batteries could reshape the EV market.",
+      "longDescription": "Researchers unveiled advanced battery chemistries capable of significantly extending electric vehicle range while reducing charging times. Automakers are closely watching the development for commercialization potential.",
+      "publishedTime": "2026-04-13T09:10:00Z",
+      "url": "/technology/ev-battery-breakthrough-2026",
+      "thumbnailUrl": "/images/articles/technology-7.jpg"
+    },
+    {
+      "id": "TECH-008",
+      "category": "technology",
+      "title": "Metaverse ambitions cool as companies shift focus",
+      "shortDescription": "Firms refocus investment away from large‑scale virtual worlds.",
+      "longDescription": "After heavy investment over recent years, many companies have scaled back metaverse spending, opting instead for practical AI and mixed‑reality applications that deliver near‑term returns.",
+      "publishedTime": "2026-04-12T12:45:00Z",
+      "url": "/technology/metaverse-investment-cools-2026",
+      "thumbnailUrl": "/images/articles/technology-8.jpg"
+    },
+    {
+    "id": "BUS-002",
+    "category": "business",
+    "title": "Global shipping firms warn of rising freight costs amid Middle East tensions",
+    "shortDescription": "Shipping companies report renewed pressure on freight rates.",
+    "longDescription": "Major global shipping firms warned that freight costs are rising again as Middle East tensions disrupt key trade routes. Rerouting and higher insurance premiums are adding to costs for global manufacturers and retailers.",
+    "publishedTime": "2026-04-21T10:15:00Z",
+    "url": "/business/global-shipping-costs-middle-east-2026",
+    "thumbnailUrl": "/images/articles/business-shipping.jpg"
   },
   {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLETNFRCF9NHAL7A4HC5F25XC",
-        "canonical_url": "/legal/government/voting-rights-groups-sue-over-us-demand-state-voter-rolls-2026-04-21/",
-        "published": true,
-        "published_time": "2026-04-21T13:30:01.024Z",
-        "language": "en",
-        "shared_url": "/legal/government/voting-rights-groups-sue-over-us-demand-state-voter-rolls-2026-04-21/",
-        "created_date": "2026-04-21T13:25:59.294Z",
-        "title": "Voting rights groups sue over US demand for state voter rolls",
-        "description": "Voting rights activists accused ​the Trump administration in a lawsuit on Tuesday of laying the groundwork for voter purges that ‌could illegally remove eligible voters ahead of tightly contested U.S. midterm elections in November.",
-        "primary_tag": {
-          "description": "Constitutional Law"
-        },
-        "thumbnail": {
-          "caption": "A sign for the U.S. Department of Justice in Washington, D.C., April 6, 2026. REUTERS/Kevin Lamarque/File Photo",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLETFFRCF9NAAL7A4H55F25XC.jpg?auth=ff4277d04f68388e90a8bb18329dcbecc87ad48de5b3b3bf6093d95174509191",
-          "id": "LWHLETFFRCF9NAAL7A4H55F25XC",
-          "authors": "Kevin Lamarque",
-          "width": 7315,
-          "height": 4683,
-          "subtitle": "Sign for the Department of Justice in Washington"
-        },
-        "authors": [
-          {
-            "id": "kate.harris@example.com",
-            "name": "Luc Cohen",
-            "first_name": "Luc",
-            "last_name": "Cohen",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLETVFRCF9NQAL7A4HK5F25XC.jpg?auth=7af532d2ee58a6c9cb882904b20160f4a46abec697bccb9e171aa9e0107998da"
-            },
-            "byline": "Luc Cohen"
-          }
-        ],
-        "display_time": "2026-04-21T13:30:01.024Z",
-        "updated_time": "2026-04-21T19:53:19.155Z",
-        "content_elements": [
-          {
-            "content": "Voting rights activists accused ​the Trump administration in a lawsuit on Tuesday of laying the groundwork for voter purges that ‌could illegally remove eligible voters ahead of tightly contested U.S. midterm elections in November.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The lawsuit asks a Washington, D.C., federal judge to bar the Department of Justice from <a href=\"https://www.reuters.com/legal/government/judge-rejects-us-justice-department-effort-obtain-rhode-islands-voter-data-2026-04-17/\">accessing or using states' lists</a> of registered voters and to delete <a href=\"https://www.reuters.com/legal/government/us-justice-department-sues-five-more-states-over-voter-registration-lists-2026-02-26/\">data</a> it had already obtained.",
-            "type": "paragraph"
-          },
-          {
-            "content": "It was filed ​by lawyers with the American Civil Liberties Union, Citizens for Responsibility and Ethics in Washington and the ​Protect Democracy Project.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "REPUBLICANS IN BATTLE TO RETAIN CONTROL OF CONGRESS",
-            "type": "header"
-          },
-          {
-            "content": "The lawsuit challenges President <a href=\"https://www.reuters.com/world/us/donald-trump/\">Donald Trump</a>'s ⁠effort to expand the government’s role in elections ahead of <a href=\"https://www.reuters.com/world/us/elections/\">midterms</a> when his Republican Party is locked in a tight ​battle to maintain control of both houses of Congress.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The U.S. Constitution says elections must be administered by individual states, ​and 18 states have already agreed, or signaled plans, to share voter data with the department.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Critics say Republicans’ push to control voter rolls is driven less by election security than by false fraud claims and an effort to gain political advantage by narrowing the ​electorate, risking the disenfranchisement of eligible, often Democratic‑leaning, voters.",
-            "type": "paragraph"
-          },
-          {
-            "content": "“The U.S. Department of Justice has launched an illegal and ​unprecedented quest to stockpile millions of Americans’ confidential voter data,\" the complaint reads, alleging the agency was building \"a sprawling new voter surveillance ‌and ⁠purging apparatus\" without congressional authorization.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The Justice Department did not immediately respond to a request for comment. Its lawyers have said the agency has authority to ensure states are doing enough to keep ineligible people off the rolls.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "JUSTICE DEPARTMENT SUES DOZENS OF STATES",
-            "type": "header"
-          },
-          {
-            "content": "Beginning last year, the Justice Department asked states to provide unredacted copies of their voter rolls, ​including drivers’ license numbers ​and partial Social Security numbers.",
-            "type": "paragraph"
-          },
-          {
-            "content": "In ⁠an interview with Fox News' \"Sunday Morning Futures\" program, Assistant Attorney General Harmeet Dhillon <a href=\"https://www.reuters.com/legal/government/michigan-refuses-trump-administration-demand-2024-election-ballots-2026-04-19/\">said</a> that the department had reviewed 60 million voter records so far and found the names ​of 350,000 dead persons and 25,000 people who lacked proof of citizenship.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Dhillon, who leads ​the Justice Department's ⁠Civil Rights Division, did not provide any evidence that votes were cast for those names.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The Justice Department has sued 30 states which have resisted handing over their rolls, as well as Washington, D.C. Federal judges in five states have dismissed ⁠those ​lawsuits, finding the department failed to justify its demands.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Tuesday's lawsuit is separate ​from those cases.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The new lawsuit argues DOJ plans to use the data to direct states to remove voters based on flawed verification methods, risking “false ​positives” that would wrongly purge eligible citizens.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "A sign for the U.S. Department of Justice in Washington, D.C., April 6, 2026. REUTERS/Kevin Lamarque/File Photo",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLETFFRCF9NAAL7A4H55F25XC.jpg?auth=ccd2cf0779cdea9085bbf0ce64f9e736229d99b34372998054a9e6ad5f42ae02",
-              "id": "LWHLETFFRCF9NAAL7A4H55F25XC",
-              "authors": "Kevin Lamarque",
-              "alt_text": "Sign for the Department of Justice in Washington",
-              "width": 7315,
-              "height": 4683,
-              "subtitle": "Sign for the Department of Justice in Washington",
-              "updated_at": "2026-04-21T19:53:17Z"
-            }
-          ]
-        }
-      }
-    }
+    "id": "BUS-003",
+    "category": "business",
+    "title": "Retailers brace for cautious consumer spending this summer",
+    "shortDescription": "Inflation pressures reshape retail forecasts.",
+    "longDescription": "Major retailers said consumers are becoming more selective in spending as inflation and high interest rates weigh on household budgets. Analysts expect slower sales growth across discretionary categories.",
+    "publishedTime": "2026-04-20T09:40:00Z",
+    "url": "/business/retailers-consumer-spending-summer-2026",
+    "thumbnailUrl": "/images/articles/business-retail.jpg"
+  },
+
+  {
+    "id": "WORLD-004",
+    "category": "world",
+    "title": "UN urges restraint as Red Sea security risks grow",
+    "shortDescription": "United Nations calls for diplomatic solutions amid rising naval incidents.",
+    "longDescription": "The United Nations urged all parties to avoid escalation after a series of naval incidents heightened security concerns in the Red Sea, a vital corridor for global trade and energy shipments.",
+    "publishedTime": "2026-04-22T06:20:00Z",
+    "url": "/world/un-red-sea-security-2026",
+    "thumbnailUrl": "/images/articles/world-red-sea.jpg"
   },
   {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLETBFRCF9N6AL7A4HZ5F25XC",
-        "canonical_url": "/markets/us/warshs-impossible-mission-tame-inflation-please-trump-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T06:05:32.749Z",
-        "language": "en",
-        "shared_url": "/markets/us/warshs-impossible-mission-tame-inflation-please-trump-2026-04-22/",
-        "created_date": "2026-04-22T06:00:47.168Z",
-        "title": "Warsh's impossible mission - Tame inflation and please Trump",
-        "description": "Kevin Warsh sees Federal Reserve success as having no one talking about inflation. To achieve that, the Fed chair nominee will likely not get to please the president who appointed him any time soon.",
-        "primary_tag": {
-          "description": "TOPIC:MARKETS-COMMODITIES-ENERGY"
-        },
-        "thumbnail": {
-          "caption": "Kevin Warsh, U.S. President Donald Trump's nominee to be next chair of the Federal Reserve, testifies before a Senate Banking Committee confirmation hearing on Capitol Hill in Washington, D.C., U.S., April 21, 2026. REUTERS/Elizabeth Frantz",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLET4FRCF9NXAL7A4HS5F25XC.jpg?auth=03514874a15e13899b00aa3bb9f97563458155661a4f60e23eb9a6de2e789c33",
-          "id": "LWHLET4FRCF9NXAL7A4HS5F25XC",
-          "authors": "Elizabeth Frantz",
-          "width": 6000,
-          "height": 4000,
-          "subtitle": "Senate Banking Committee confirmation hearing on Capitol Hill in Washington"
-        },
-        "authors": [
-          {
-            "id": "leo.martin@example.com",
-            "name": "Mike Dolan",
-            "first_name": "Mike",
-            "last_name": "Dolan",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLETJFRCF9NDAL7A4H85F25XC.jpg?auth=a5b60cda5fcbf344a2556cd3ad76891b2e75a97d876f4023ae890dce48aa9f9c"
-            },
-            "byline": "Mike Dolan"
-          }
-        ],
-        "display_time": "2026-04-22T06:05:32.749Z",
-        "updated_time": "2026-04-22T06:05:32.99Z",
-        "content_elements": [
-          {
-            "content": "<a href=\"https://www.reuters.com/business/five-things-know-about-kevin-warsh-trumps-central-casting-fed-chair-pick-2026-01-30/\">Kevin Warsh</a> sees Federal Reserve success as having no one talking about inflation. To achieve that, the Fed chair nominee will likely not get to <a href=\"https://www.reuters.com/markets/us/how-soon-before-trump-dubs-kevin-warsh-clueless-2026-02-02/\">please the president</a> who appointed him any time soon.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Just over an hour before Warsh began his confirmation hearing in Congress on Tuesday, President <a href=\"https://www.reuters.com/world/us/trump-says-he-would-be-disappointed-if-warsh-didnt-cut-rates-quickly-2026-04-21/\">Donald Trump</a> made it clear once again where he ​stood on interest rates - telling CNBC he would be disappointed if the new Fed chair did not lower borrowing costs immediately on taking office.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Grilled by the <a href=\"https://www.reuters.com/business/warshs-path-top-fed-job-entangled-ahead-senate-confirmation-hearing-2026-04-21/\">Senate Banking Committee</a> for two hours afterward, ‌Warsh played it straight in defending Fed independence and insisted Trump had not asked him to commit to any rate decision - nor would he agree to it if he had.",
-            "type": "paragraph"
-          },
-          {
-            "content": "For all the \"regime change\" rhetoric, data investigations and balance sheet rethinks that Warsh laid out as his program for the central bank, he faces a fiendishly difficult task meeting his own definition of price stability before year's end.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Channeling former Fed boss Alan Greenspan's view of the inflation target, Warsh defined price stability — one of the central bank's two congressional mandates — ​as a rate of price change \"no one is talking about.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "In other words, it's the point at which price changes no longer affect the decisions of households or businesses - the level Greenspan had in mind ​when settling on 2% as a target.",
-            "type": "paragraph"
-          },
-          {
-            "content": "On the Fed's other mandate, Warsh said the economy was close to full employment.",
-            "type": "paragraph"
-          },
-          {
-            "content": "But quieting business and household concern about price ⁠rises may take many months at minimum, amid an oil shock that's already sent <a href=\"https://www.reuters.com/world/middle-east/us-consumer-prices-surge-expected-march-2026-04-10/\">headline inflation soaring</a> to near two-year highs and more than a full percentage point above the Fed's 2% target.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Core inflation gauges tracked by the ​Fed were already a point above target before the <a href=\"https://www.reuters.com/world/iran/\">Iran war</a> began. Few Americans are likely to stop talking about — or acting on — inflation for many months to come.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Consumer expectations for inflation over the next year surged a full point to 4.8% this ​month to their highest in seven months, according to the <a href=\"https://www.reuters.com/business/us-consumer-sentiment-dives-record-low-april-amid-iran-war-2026-04-10/\">University of Michigan's</a> latest poll. And <a href=\"https://www.reuters.com/business/us-service-sector-cools-march-price-paid-measure-highest-3-12-years-2026-04-06/\">ISM surveys</a> show businesses recording their highest input prices last month since the inflation surge of 2022.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump's <a href=\"https://www.reuters.com/world/us/many-americans-question-trumps-temperament-amid-iran-war-pope-spat-reutersipsos-2026-04-21/\">approval rating</a> on his handling of the cost of living was 26% this month - tied for his lowest reading - according to the rolling Reuters/Ipsos poll.",
-            "type": "paragraph"
-          },
-          {
-            "content": "By any measure, the U.S. is not experiencing price stability. And if \"no one talking about it\" is the goal, we are a long way from there.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "STOP THE TALKING",
-            "type": "header"
-          },
-          {
-            "content": "Warsh's line may have been a tad ​throwaway, of course, and his broader testimony offered a more forensic take on how he saw the economy and reform of the Fed - allowing perhaps more wiggle room than that blunt definition implied.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The prospective new chair, who takes the helm ​from Jerome Powell next month if confirmed, spoke of examining problems in inflation data collection, a potential artificial intelligence productivity wave, pre-emptive policymaking and a gradual reduction of the Fed's giant balance sheet that could allow more room for rate cuts.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Even ‌if all that ⁠eventually built a case for easing, the clamor about prices from workers and companies makes it almost perverse to open his tenure with rate cuts.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Markets understand that - at least since the recent oil shock. Futures pricing puts less than a 50% chance on any Fed cut this year, with a further reduction not fully priced in for at least 12 months.",
-            "type": "paragraph"
-          },
-          {
-            "content": "For investors who bet a Trump-appointed Fed chief would deliver what the White House wants, the clouds have darkened. And Warsh's extensive focus on reducing the balance sheet in his hearing just tightens the picture at the margins.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Based on all that, Trump is highly likely to be disappointed - not least in a midterm ​election year.",
-            "type": "paragraph"
-          },
-          {
-            "content": "On the question of direct political pressure, even ​if not explicit, Warsh's take was that \"inflation is ⁠a choice and the Fed must take responsibility for it.\" Government is entitled to its views, he added. \"Fed independence is largely up to the Fed.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "Not everyone agrees, not least given the <a href=\"https://www.reuters.com/world/us-judge-upholds-block-subpoenas-feds-powell-teeing-up-likely-appeal-2026-04-03/\">legal case against Powell</a>, which the current Fed chair himself says is simply a \"pretext\" to force him to cut rates further.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Former Fed economist Claudia Sahm was blunter still, writing ​on Tuesday that \"Warsh's platitudes ignore the current reality. Trump's pressure on the Fed is far beyond words.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"Central bankers who oppose Trump's views on interest rates ​do not need to be \"strong ⁠enough to listen\" - they need to be personally wealthy enough to cover the legal fees of cases brought against them in retaliation,\" she wrote.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Warsh's honeymoon may not last long if he can't convince Fed colleagues of his sweeping new vision for the central bank - or stop Americans talking about inflation.",
-            "type": "paragraph"
-          },
-          {
-            "content": "(The opinions expressed here are those of <a href=\"https://www.reuters.com/authors/mike-dolan/\">Mike Dolan</a>, a columnist for Reuters.)",
-            "type": "paragraph"
-          },
-          {
-            "content": "Save the date: On April 23 at 1300 GMT/9 a.m. EDT, ROI columnists Mike Dolan and Jamie McGeever will ⁠join LSEG for ​a webinar discussion, \"Markets Unpacked with Reuters Open Interest: Rethinking safe havens in uncertain times.\" <a href=\"https://www.lseg.com/en/training/learning-centre/learning-centre-catalogue/course-details?id=markets-unpacked-with-reuters-open-interest-rethinking-safe-havens-in-uncertain-times-en-webex\" target=\"_blank\">Click here to sign up.</a>",
-            "type": "paragraph"
-          },
-          {
-            "content": "Enjoying this column? Check ​out <a href=\"http://www.reuters.com/commentary/reuters-open-interest/\" target=\"_blank\">Reuters Open Interest (ROI),</a> your essential new source for global financial commentary. Follow ROI on <a href=\"https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Freuters-open-interest%2F&amp;data=05%7C02%7Ckaren.braun%40thomsonreuters.com%7C44b8da9570e443e72ff508dda4444695%7C62ccb8646a1a4b5d8e1c397dec1a8258%7C0%7C0%7C638847335412666893%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=cI8BB7dLy7qXtCB32Bhnqvq%2BRfFywLJK6lk2mqEQcb4%3D&amp;reserved=0\" target=\"_blank\">LinkedIn,</a> and <a href=\"https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fx.com%2FReutersOI&amp;data=05%7C02%7Ckaren.braun%40thomsonreuters.com%7C44b8da9570e443e72ff508dda4444695%7C62ccb8646a1a4b5d8e1c397dec1a8258%7C0%7C0%7C638847335412691841%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=6foBDpZWZrwBuMeXBTP9NLgXRHeo7aSsmqaX0l3yhIQ%3D&amp;reserved=0\" target=\"_blank\">X.</a>",
-            "type": "paragraph"
-          },
-          {
-            "content": "And listen to the <a href=\"https://www.reuters.com/podcasts/reuters-morning-bid/\">Morning Bid daily podcast</a> on <a href=\"https://podcasts.apple.com/us/podcast/reuters-morning-bid/id1854858291\" target=\"_blank\">Apple</a>, <a href=\"https://open.spotify.com/show/5fy9DJlwwnPhkQEHkOFF9S\" target=\"_blank\">Spotify</a>, or the <a href=\"https://reutersmobile.app.link/reuterscom\" target=\"_blank\">Reuters app</a>. Subscribe to hear Reuters journalists discuss the biggest news in markets and finance seven days a week.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "Kevin Warsh, U.S. President Donald Trump's nominee to be next chair of the Federal Reserve, testifies before a Senate Banking Committee confirmation hearing on Capitol Hill in Washington, D.C., U.S., April 21, 2026. REUTERS/Elizabeth Frantz",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLET4FRCF9NXAL7A4HS5F25XC.jpg?auth=bb21a87846ede5fca773db24ab680994ae95b55771901f73d960e7a15eb357ba",
-              "id": "LWHLET4FRCF9NXAL7A4HS5F25XC",
-              "authors": "Elizabeth Frantz",
-              "alt_text": "Senate Banking Committee confirmation hearing on Capitol Hill in Washington",
-              "width": 6000,
-              "height": 4000,
-              "subtitle": "Senate Banking Committee confirmation hearing on Capitol Hill in Washington",
-              "updated_at": "2026-04-21T20:52:17Z"
-            }
-          ]
-        }
-      }
-    }
+    "id": "WORLD-005",
+    "category": "world",
+    "title": "Latin American leaders push for coordinated debt relief talks",
+    "shortDescription": "Regional leaders seek multilateral debt restructuring.",
+    "longDescription": "Several Latin American governments called for coordinated debt relief discussions, citing rising borrowing costs and slowing growth that threaten fiscal stability across the region.",
+    "publishedTime": "2026-04-21T14:10:00Z",
+    "url": "/world/latin-america-debt-relief-2026",
+    "thumbnailUrl": "/images/articles/world-latam-debt.jpg"
+  },
+
+  {
+    "id": "MARKET-003",
+    "category": "market",
+    "title": "Oil prices ease but remain volatile as traders assess ceasefire durability",
+    "shortDescription": "Energy markets remain sensitive to geopolitical signals.",
+    "longDescription": "Oil prices dipped slightly following the Iran ceasefire extension, though analysts say volatility will persist as traders monitor compliance and regional supply risks.",
+    "publishedTime": "2026-04-22T08:45:00Z",
+    "url": "/markets/oil-prices-volatile-ceasefire-2026",
+    "thumbnailUrl": "/images/articles/market-oil.jpg"
   },
   {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLETYFRCF9NTAL7A4HN5F25XC",
-        "canonical_url": "/markets/us/warshs-impossible-mission-tame-inflation-please-trump-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T06:05:32.749Z",
-        "language": "en",
-        "shared_url": "/markets/us/warshs-impossible-mission-tame-inflation-please-trump-2026-04-22/",
-        "created_date": "2026-04-22T06:00:47.168Z",
-        "title": "Warsh's impossible mission - Tame inflation and please Trump",
-        "description": "Kevin Warsh sees Federal Reserve success as having no one talking about inflation. To achieve that, the Fed chair nominee will likely not get to please the president who appointed him any time soon.",
-        "primary_tag": {
-          "description": "TOPIC:MARKETS-COMMODITIES-ENERGY"
-        },
-        "thumbnail": {
-          "caption": "Kevin Warsh, U.S. President Donald Trump's nominee to be next chair of the Federal Reserve, testifies before a Senate Banking Committee confirmation hearing on Capitol Hill in Washington, D.C., U.S., April 21, 2026. REUTERS/Elizabeth Frantz",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLETRFRCF9NLAL7A4HF5F25XC.jpg?auth=1aedde58883bb2142fda5a10aee2d87c9d23ef523f3e3d78ed5a439c75111f7f",
-          "id": "LWHLETRFRCF9NLAL7A4HF5F25XC",
-          "authors": "Elizabeth Frantz",
-          "width": 6000,
-          "height": 4000,
-          "subtitle": "Senate Banking Committee confirmation hearing on Capitol Hill in Washington"
-        },
-        "authors": [
-          {
-            "id": "mia.garcia@example.com",
-            "name": "Mike Dolan",
-            "first_name": "Mike",
-            "last_name": "Dolan",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLET7FRCF9N2AL7A4HV5F25XC.jpg?auth=22caeeba7631678a03078b8fa955b1123f1219611c2698cefa4f7711d10a0f8d"
-            },
-            "byline": "Mike Dolan"
-          }
-        ],
-        "display_time": "2026-04-22T06:05:32.749Z",
-        "updated_time": "2026-04-22T06:05:32.99Z",
-        "content_elements": [
-          {
-            "content": "<a href=\"https://www.reuters.com/business/five-things-know-about-kevin-warsh-trumps-central-casting-fed-chair-pick-2026-01-30/\">Kevin Warsh</a> sees Federal Reserve success as having no one talking about inflation. To achieve that, the Fed chair nominee will likely not get to <a href=\"https://www.reuters.com/markets/us/how-soon-before-trump-dubs-kevin-warsh-clueless-2026-02-02/\">please the president</a> who appointed him any time soon.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Just over an hour before Warsh began his confirmation hearing in Congress on Tuesday, President <a href=\"https://www.reuters.com/world/us/trump-says-he-would-be-disappointed-if-warsh-didnt-cut-rates-quickly-2026-04-21/\">Donald Trump</a> made it clear once again where he ​stood on interest rates - telling CNBC he would be disappointed if the new Fed chair did not lower borrowing costs immediately on taking office.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Grilled by the <a href=\"https://www.reuters.com/business/warshs-path-top-fed-job-entangled-ahead-senate-confirmation-hearing-2026-04-21/\">Senate Banking Committee</a> for two hours afterward, ‌Warsh played it straight in defending Fed independence and insisted Trump had not asked him to commit to any rate decision - nor would he agree to it if he had.",
-            "type": "paragraph"
-          },
-          {
-            "content": "For all the \"regime change\" rhetoric, data investigations and balance sheet rethinks that Warsh laid out as his program for the central bank, he faces a fiendishly difficult task meeting his own definition of price stability before year's end.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Channeling former Fed boss Alan Greenspan's view of the inflation target, Warsh defined price stability — one of the central bank's two congressional mandates — ​as a rate of price change \"no one is talking about.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "In other words, it's the point at which price changes no longer affect the decisions of households or businesses - the level Greenspan had in mind ​when settling on 2% as a target.",
-            "type": "paragraph"
-          },
-          {
-            "content": "On the Fed's other mandate, Warsh said the economy was close to full employment.",
-            "type": "paragraph"
-          },
-          {
-            "content": "But quieting business and household concern about price ⁠rises may take many months at minimum, amid an oil shock that's already sent <a href=\"https://www.reuters.com/world/middle-east/us-consumer-prices-surge-expected-march-2026-04-10/\">headline inflation soaring</a> to near two-year highs and more than a full percentage point above the Fed's 2% target.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Core inflation gauges tracked by the ​Fed were already a point above target before the <a href=\"https://www.reuters.com/world/iran/\">Iran war</a> began. Few Americans are likely to stop talking about — or acting on — inflation for many months to come.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Consumer expectations for inflation over the next year surged a full point to 4.8% this ​month to their highest in seven months, according to the <a href=\"https://www.reuters.com/business/us-consumer-sentiment-dives-record-low-april-amid-iran-war-2026-04-10/\">University of Michigan's</a> latest poll. And <a href=\"https://www.reuters.com/business/us-service-sector-cools-march-price-paid-measure-highest-3-12-years-2026-04-06/\">ISM surveys</a> show businesses recording their highest input prices last month since the inflation surge of 2022.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump's <a href=\"https://www.reuters.com/world/us/many-americans-question-trumps-temperament-amid-iran-war-pope-spat-reutersipsos-2026-04-21/\">approval rating</a> on his handling of the cost of living was 26% this month - tied for his lowest reading - according to the rolling Reuters/Ipsos poll.",
-            "type": "paragraph"
-          },
-          {
-            "content": "By any measure, the U.S. is not experiencing price stability. And if \"no one talking about it\" is the goal, we are a long way from there.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "STOP THE TALKING",
-            "type": "header"
-          },
-          {
-            "content": "Warsh's line may have been a tad ​throwaway, of course, and his broader testimony offered a more forensic take on how he saw the economy and reform of the Fed - allowing perhaps more wiggle room than that blunt definition implied.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The prospective new chair, who takes the helm ​from Jerome Powell next month if confirmed, spoke of examining problems in inflation data collection, a potential artificial intelligence productivity wave, pre-emptive policymaking and a gradual reduction of the Fed's giant balance sheet that could allow more room for rate cuts.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Even ‌if all that ⁠eventually built a case for easing, the clamor about prices from workers and companies makes it almost perverse to open his tenure with rate cuts.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Markets understand that - at least since the recent oil shock. Futures pricing puts less than a 50% chance on any Fed cut this year, with a further reduction not fully priced in for at least 12 months.",
-            "type": "paragraph"
-          },
-          {
-            "content": "For investors who bet a Trump-appointed Fed chief would deliver what the White House wants, the clouds have darkened. And Warsh's extensive focus on reducing the balance sheet in his hearing just tightens the picture at the margins.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Based on all that, Trump is highly likely to be disappointed - not least in a midterm ​election year.",
-            "type": "paragraph"
-          },
-          {
-            "content": "On the question of direct political pressure, even ​if not explicit, Warsh's take was that \"inflation is ⁠a choice and the Fed must take responsibility for it.\" Government is entitled to its views, he added. \"Fed independence is largely up to the Fed.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "Not everyone agrees, not least given the <a href=\"https://www.reuters.com/world/us-judge-upholds-block-subpoenas-feds-powell-teeing-up-likely-appeal-2026-04-03/\">legal case against Powell</a>, which the current Fed chair himself says is simply a \"pretext\" to force him to cut rates further.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Former Fed economist Claudia Sahm was blunter still, writing ​on Tuesday that \"Warsh's platitudes ignore the current reality. Trump's pressure on the Fed is far beyond words.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"Central bankers who oppose Trump's views on interest rates ​do not need to be \"strong ⁠enough to listen\" - they need to be personally wealthy enough to cover the legal fees of cases brought against them in retaliation,\" she wrote.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Warsh's honeymoon may not last long if he can't convince Fed colleagues of his sweeping new vision for the central bank - or stop Americans talking about inflation.",
-            "type": "paragraph"
-          },
-          {
-            "content": "(The opinions expressed here are those of <a href=\"https://www.reuters.com/authors/mike-dolan/\">Mike Dolan</a>, a columnist for Reuters.)",
-            "type": "paragraph"
-          },
-          {
-            "content": "Save the date: On April 23 at 1300 GMT/9 a.m. EDT, ROI columnists Mike Dolan and Jamie McGeever will ⁠join LSEG for ​a webinar discussion, \"Markets Unpacked with Reuters Open Interest: Rethinking safe havens in uncertain times.\" <a href=\"https://www.lseg.com/en/training/learning-centre/learning-centre-catalogue/course-details?id=markets-unpacked-with-reuters-open-interest-rethinking-safe-havens-in-uncertain-times-en-webex\" target=\"_blank\">Click here to sign up.</a>",
-            "type": "paragraph"
-          },
-          {
-            "content": "Enjoying this column? Check ​out <a href=\"http://www.reuters.com/commentary/reuters-open-interest/\" target=\"_blank\">Reuters Open Interest (ROI),</a> your essential new source for global financial commentary. Follow ROI on <a href=\"https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fwww.linkedin.com%2Fcompany%2Freuters-open-interest%2F&amp;data=05%7C02%7Ckaren.braun%40thomsonreuters.com%7C44b8da9570e443e72ff508dda4444695%7C62ccb8646a1a4b5d8e1c397dec1a8258%7C0%7C0%7C638847335412666893%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=cI8BB7dLy7qXtCB32Bhnqvq%2BRfFywLJK6lk2mqEQcb4%3D&amp;reserved=0\" target=\"_blank\">LinkedIn,</a> and <a href=\"https://nam02.safelinks.protection.outlook.com/?url=https%3A%2F%2Fx.com%2FReutersOI&amp;data=05%7C02%7Ckaren.braun%40thomsonreuters.com%7C44b8da9570e443e72ff508dda4444695%7C62ccb8646a1a4b5d8e1c397dec1a8258%7C0%7C0%7C638847335412691841%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&amp;sdata=6foBDpZWZrwBuMeXBTP9NLgXRHeo7aSsmqaX0l3yhIQ%3D&amp;reserved=0\" target=\"_blank\">X.</a>",
-            "type": "paragraph"
-          },
-          {
-            "content": "And listen to the <a href=\"https://www.reuters.com/podcasts/reuters-morning-bid/\">Morning Bid daily podcast</a> on <a href=\"https://podcasts.apple.com/us/podcast/reuters-morning-bid/id1854858291\" target=\"_blank\">Apple</a>, <a href=\"https://open.spotify.com/show/5fy9DJlwwnPhkQEHkOFF9S\" target=\"_blank\">Spotify</a>, or the <a href=\"https://reutersmobile.app.link/reuterscom\" target=\"_blank\">Reuters app</a>. Subscribe to hear Reuters journalists discuss the biggest news in markets and finance seven days a week.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "Kevin Warsh, U.S. President Donald Trump's nominee to be next chair of the Federal Reserve, testifies before a Senate Banking Committee confirmation hearing on Capitol Hill in Washington, D.C., U.S., April 21, 2026. REUTERS/Elizabeth Frantz",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLETRFRCF9NLAL7A4HF5F25XC.jpg?auth=62e45399703177eab607e9735bafa66f463af17b93a4237eb544b6bf2da336a2",
-              "id": "LWHLETRFRCF9NLAL7A4HF5F25XC",
-              "authors": "Elizabeth Frantz",
-              "alt_text": "Senate Banking Committee confirmation hearing on Capitol Hill in Washington",
-              "width": 6000,
-              "height": 4000,
-              "subtitle": "Senate Banking Committee confirmation hearing on Capitol Hill in Washington",
-              "updated_at": "2026-04-21T20:52:17Z"
-            }
-          ]
-        }
-      }
-    }
+    "id": "MARKET-004",
+    "category": "market",
+    "title": "Bond markets signal caution despite rally in equities",
+    "shortDescription": "Fixed‑income investors remain defensive.",
+    "longDescription": "While equities have pushed to record highs, bond markets suggest lingering concerns over inflation and growth. Yield curves signal expectations of prolonged tight monetary conditions.",
+    "publishedTime": "2026-04-21T11:55:00Z",
+    "url": "/markets/bond-market-caution-2026",
+    "thumbnailUrl": "/images/articles/market-bonds.jpg"
   },
   {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLE2FFRCF9VAAL7A4Q55F25XK",
-        "canonical_url": "/world/germanys-ruling-coalition-odds-over-reform-push-2026-04-21/",
-        "published": true,
-        "published_time": "2026-04-21T16:47:11.846Z",
-        "language": "en",
-        "shared_url": "/world/germanys-ruling-coalition-odds-over-reform-push-2026-04-21/",
-        "created_date": "2026-04-21T16:42:36.985Z",
-        "title": "Germany's ruling coalition at odds over reform push",
-        "description": "German Chancellor Friedrich Merz's coalition has been shaken by internal squabbling as it grapples ​with a long-promised package of reforms to the tax, pensions and health systems and looks for ways ‌to dampen a surge in fuel prices caused by the Iran war.",
-        "primary_tag": {
-          "description": "Germany"
-        },
-        "thumbnail": {
-          "caption": "German Chancellor Friedrich Merz gives a statement at the end of an international summit to push forward efforts to reopen the Strait of Hormuz, at the Elysee Palace, in Paris, France, Friday, April 17, 2026.   Michel Euler/Pool via REUTERS/File Photo",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE28FRCF9V3AL7A4QW5F25XK.jpg?auth=a8f3666f9a65671e98ba8a909a28d733c1a9a59e0f6c41ddefc134085eb66327",
-          "id": "LWHLE28FRCF9V3AL7A4QW5F25XK",
-          "authors": "Michel Euler",
-          "width": 6455,
-          "height": 4303,
-          "subtitle": "French President Macron And British Prime Minister Starmer Co-Host Summit On Securing The Strait Of Hormuz"
-        },
-        "authors": [
-          {
-            "id": "nick.brown@example.com",
-            "name": "Andreas Rinke",
-            "first_name": "Andreas",
-            "last_name": "Rinke",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE2NFRCF9VHAL7A4QC5F25XK.jpg?auth=c055c70a672d2e026810372f55fd97c15ce4670e45d0ffd5528cd274038516bc"
-            },
-            "byline": "Andreas Rinke"
-          }
-        ],
-        "display_time": "2026-04-21T16:47:11.846Z",
-        "updated_time": "2026-04-21T16:47:43.464Z",
-        "content_elements": [
-          {
-            "content": "German Chancellor Friedrich Merz's coalition has been shaken by internal squabbling as it grapples ​with a long-promised package of reforms to the tax, pensions and health systems and looks for ways ‌to dampen a surge in fuel prices caused by the <a href=\"https://www.reuters.com/world/iran/\">Iran war</a>.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Merz, whose conservative Christian Democratic Union (CDU) has been overtaken by the far-right Alternative for Germany (AfD) party in opinion polls, expressed frustration with his centre-left Social Democrat (SPD) coalition partners on Monday.",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"What we have achieved so far is not enough for ​me,\" he said at an event hosted by Germany's main banking association, calling on the Social Democrats to \"help break ​down some of the deadlocks we have unfortunately faced time and again over the past few ⁠weeks and months\".",
-            "type": "paragraph"
-          },
-          {
-            "content": "On Tuesday, several senior Social Democrats responded angrily to the comments, which its general secretary Tim Kluessendorf said were \"unacceptable\".",
-            "type": "paragraph"
-          },
-          {
-            "content": "The ​spat comes as the weekly Politbarometer poll published by the ZDF public broadcaster on Sunday showed the AfD leading all the ​other parties with 26% support, ahead of the CDU and its CSU sister party on 25%, with the SPD trailing on 12% behind the opposition Greens.",
-            "type": "paragraph"
-          },
-          {
-            "content": "With Germany's economy weakened by two years of recession and its industry struggling to match stifling competition from rampant Chinese exporters, the coalition split ​threatens to derail Merz's plans to lay down a sweeping package of reforms before the end of the summer.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Discussion has begun ​on measures to stabilize funding for the public health system, which faces a deficit set to explode from some 15 billion euros ($17.6 billion) ‌next year ⁠to 42 billion euros by 2030. But it remains unclear how the changes will be financed from a government budget under heavy strain.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "PENSION POLEMICS",
-            "type": "header"
-          },
-          {
-            "content": "A push for a comprehensive reform of the creaking pensions system, under increasing strain as the population ages, was <a href=\"https://www.reuters.com/world/europe/german-parliament-vote-pensions-tests-merzs-authority-2025-12-05/\">put on ice</a> last year after a revolt from younger members of the CDU parliamentary party.",
-            "type": "paragraph"
-          },
-          {
-            "content": "A specially appointed commission is due to present ​proposals to stabilize the system but ​Merz roused hackles in ⁠the SPD by declaring on Monday that in years to come, the statutory pension would only be enough for a basic income and most people would need to supplement it with extra ​savings.",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"If the Chancellor intends to slash the state pension down to a basic pension, he will ​face fierce opposition ⁠from the Social Democrats,\" Kluessendorf said.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The pressure facing the coalition was underlined last month by elections in the two western states of Baden-Wuerttemberg and Rhineland-Palatinate, which both saw the AfD make strong gains and handed <a href=\"https://www.reuters.com/world/germanys-struggling-social-democrats-pin-hopes-new-policy-plans-2026-03-27/\">stinging defeats</a> to the SPD.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Adding to Merz's problems, the government ⁠has faced ​pressure to respond to the surge in fuel prices.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The government has moved to ​help motorists by limiting price rises at the petrol pump to once daily, but the coalition partners have disagreed over other measures including proposals for windfall ​taxes on oil companies or temporary cuts to energy taxes paid by consumers.",
-            "type": "paragraph"
-          },
-          {
-            "content": "($1 = 0.8508 euros)",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "German Chancellor Friedrich Merz gives a statement at the end of an international summit to push forward efforts to reopen the Strait of Hormuz, at the Elysee Palace, in Paris, France, Friday, April 17, 2026.   Michel Euler/Pool via REUTERS/File Photo",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE28FRCF9V3AL7A4QW5F25XK.jpg?auth=5c78034428a121064b7a14b231103daa34353cd3ed5bca7f36d62baf0f1b6dcb",
-              "id": "LWHLE28FRCF9V3AL7A4QW5F25XK",
-              "authors": "Michel Euler",
-              "alt_text": "French President Macron And British Prime Minister Starmer Co-Host Summit On Securing The Strait Of Hormuz",
-              "width": 6455,
-              "height": 4303,
-              "subtitle": "French President Macron And British Prime Minister Starmer Co-Host Summit On Securing The Strait Of Hormuz",
-              "updated_at": "2026-04-21T16:47:20Z"
-            }
-          ]
-        }
-      }
-    }
+    "id": "MARKET-005",
+    "category": "market",
+    "title": "Emerging market currencies strengthen as dollar softens",
+    "shortDescription": "Currency markets reflect shifting risk sentiment.",
+    "longDescription": "Emerging market currencies gained modestly as the U.S. dollar weakened, supported by improved risk appetite and expectations of steady global growth.",
+    "publishedTime": "2026-04-20T12:30:00Z",
+    "url": "/markets/emerging-market-currencies-2026",
+    "thumbnailUrl": "/images/articles/market-currencies.jpg"
+  },
+
+  {
+    "id": "POL-003",
+    "category": "politics",
+    "title": "US lawmakers clash over expanded executive emergency powers",
+    "shortDescription": "Congress debates limits on presidential authority.",
+    "longDescription": "Lawmakers from both major U.S. parties sparred over proposals to curb or expand executive emergency powers, reopening a debate over the balance between national security and congressional oversight.",
+    "publishedTime": "2026-04-21T16:45:00Z",
+    "url": "/politics/us-emergency-powers-debate-2026",
+    "thumbnailUrl": "/images/articles/politics-emergency-powers.jpg"
   },
   {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLE24FRCF9VXAL7A4QS5F25XK",
-        "canonical_url": "/world/china/chinese-navy-passes-by-japanese-islands-again-after-pacific-training-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T05:37:51.896Z",
-        "language": "en",
-        "shared_url": "/world/china/chinese-navy-passes-by-japanese-islands-again-after-pacific-training-2026-04-22/",
-        "created_date": "2026-04-22T05:32:36.972Z",
-        "title": "Chinese navy brushes past Okinawa islands as tensions with Japan flare",
-        "description": "China said a group of its naval vessels, including a destroyer, ​passed through a waterway between two islands administered by the Japanese prefecture of Okinawa on ‌Wednesday as it returned home after testing far-seas capabilities.",
-        "primary_tag": {
-          "description": "N2:CWP"
-        },
-        "thumbnail": {
-          "caption": "Printed Chinese and Japanese flags are seen in this illustration, July 21, 2022. REUTERS/Dado Ruvic/Illustration REFILE - CORRECTING YEAR",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE2VFRCF9VQAL7A4QK5F25XK.jpg?auth=183cf590b2a880def85286b5a5f5c3e3c1b28395f871c1f71c353cfb6fa4828a",
-          "id": "LWHLE2VFRCF9VQAL7A4QK5F25XK",
-          "authors": "DADO RUVIC",
-          "width": 4000,
-          "height": 2667,
-          "subtitle": "Illustration shows printed Chinese and Japanese flags"
-        },
-        "authors": [
-          {
-            "id": "olivia.lee@example.com",
-            "name": "Reuters",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE2BFRCF9V6AL7A4QZ5F25XK.jpg?auth=e5f7397bf728c5826906cf701a9e205aebe56652987520ca13409d136bb52c08"
-            },
-            "byline": "Reuters"
-          }
-        ],
-        "display_time": "2026-04-22T05:37:51.896Z",
-        "updated_time": "2026-04-22T08:27:44.073Z",
-        "content_elements": [
-          {
-            "content": "China said a group of its naval vessels, including a destroyer, ​passed through a waterway between two islands administered by the Japanese prefecture of Okinawa on ‌Wednesday as it returned home after testing far-seas capabilities.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Vessel formation 133 dispatched by the People's Liberation Army's Eastern Theater Command completed its training in the Western Pacific, and has returned through the Yonaguni-Iriomote Waterway, said the command, which is responsible for ​East China, the East China Sea and the Taiwan Strait.",
-            "type": "paragraph"
-          },
-          {
-            "content": "While non-Japanese vessels are allowed to pass ​through the narrow band of waters in the middle of the Yonaguni-Iriomote Waterway, Japan ⁠reserves the right to take action if vessels stray into the country's territorial sea, defined as seas ​12 nautical miles (22 km) from its shoreline.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The width of the waterway is about 65 km (35 nautical miles).",
-            "type": "paragraph"
-          },
-          {
-            "content": "On Sunday, ​to reach the Pacific Ocean, the PLA formation sailed through a waterway between the Japanese islands of Amami Oshima and Yokoate, a passage northeast of the Yonaguni-Iriomote Waterway and farther away from Taiwan. The transit followed the passage of a Japanese destroyer ​through the Taiwan Strait on Friday that Beijing said was a \"deliberate provocation\".",
-            "type": "paragraph"
-          },
-          {
-            "content": "China regards democratically governed Taiwan as ​part of its \"sacred\" territory despite Taipei's rejection of the claim. Beijing has responded aggressively on occasion to foreign navies sailing ‌through the ⁠Taiwan Strait, which Beijing says is not international waters.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The Japanese transit last week provoked an <a href=\"https://www.reuters.com/world/china/china-calls-passage-japanese-warship-through-taiwan-strait-provocation-2026-04-17/\">angry response</a> from the Chinese foreign ministry, which said Japan's deployment of a military vessel in the Taiwan Strait was \"a display of force\" and \"a deliberate provocation\" that threatens China's sovereignty and security.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The Chinese defence ministry said then that the passage ​of the Japanese destroyer ​had sent a \"wrong\" signal ⁠to pro-independence forces in Taiwan.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Sino-Japanese ties have significantly weakened since November last year when Japanese Prime Minister Sanae Takaichi said a hypothetical Chinese attack on Taiwan could ​spark a military response from Japan.",
-            "type": "paragraph"
-          },
-          {
-            "content": "<a href=\"https://www.reuters.com/world/china/china-criticises-japans-plan-deploy-missiles-island-near-taiwan-2025-11-24/\">Yonaguni</a>, just 110 km (68 miles) off Taiwan's eastern ​coast, is increasingly ⁠on the radar of both China and Japan.",
-            "type": "paragraph"
-          },
-          {
-            "content": "In September 2024, the Liaoning passed through the Yonaguni-Iriomote Waterway, marking the first transit of a <a href=\"https://www.reuters.com/world/asia-pacific/taiwan-spots-chinese-carrier-group-sailing-off-its-east-coast-2024-09-17/\">Chinese aircraft carrier</a> in Japan's contiguous waters, triggering loud protests from Tokyo.",
-            "type": "paragraph"
-          },
-          {
-            "content": "In November last year, ⁠the Japanese ​defence ministry said it had been advancing a plan to ​deploy a medium-range surface-to-air missile unit at a military base on the island.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The plan has since triggered even more hostility from China, which ​has said the move was \"extremely dangerous\".",
-            "type": "paragraph"
-          },
-          {
-            "content": "(This story has been corrected to say a group of Chinese naval vessels sailed through the Yokoate Waterway on Sunday, not the Yonaguni-Iriomote Waterway, in paragraph 5)",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "Printed Chinese and Japanese flags are seen in this illustration, July 21, 2022. REUTERS/Dado Ruvic/Illustration REFILE - CORRECTING YEAR",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE2VFRCF9VQAL7A4QK5F25XK.jpg?auth=9363ddaecfe1aaefc7acb8fc97d9c2c21f92499a2babc7d2a391df0f9154f0ec",
-              "id": "LWHLE2VFRCF9VQAL7A4QK5F25XK",
-              "authors": "DADO RUVIC",
-              "alt_text": "Illustration shows printed Chinese and Japanese flags",
-              "width": 4000,
-              "height": 2667,
-              "subtitle": "Illustration shows printed Chinese and Japanese flags",
-              "updated_at": "2026-04-22T08:05:51Z"
-            }
-          ]
-        }
-      }
-    }
+    "id": "POL-004",
+    "category": "politics",
+    "title": "European leaders face pressure ahead of upcoming elections",
+    "shortDescription": "Economic concerns dominate campaign debates.",
+    "longDescription": "European leaders heading into election season face mounting pressure over economic performance, migration policy and rising energy costs that are fueling voter dissatisfaction.",
+    "publishedTime": "2026-04-20T15:20:00Z",
+    "url": "/politics/europe-elections-pressure-2026",
+    "thumbnailUrl": "/images/articles/politics-europe-elections.jpg"
   },
   {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLE2RFRCF9VLAL7A4QF5F25XK",
-        "canonical_url": "/business/us-stock-index-futures-climb-after-trump-extends-iran-truce-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T09:01:28.579Z",
-        "language": "en",
-        "shared_url": "/business/us-stock-index-futures-climb-after-trump-extends-iran-truce-2026-04-22/",
-        "created_date": "2026-04-22T08:59:27.928Z",
-        "title": "US stock index futures climb after Trump extends Iran truce",
-        "description": "Wall Street futures rose on Wednesday after U.S. President Donald Trump extended the ceasefire ‌with Iran indefinitely, even as uncertainty remained over whether Tehran and U.S. ally Israel would honor the truce.",
-        "primary_tag": {
-          "description": "TOPIC:MARKETS-OVERVIEW"
-        },
-        "thumbnail": {
-          "caption": "Traders work on the floor at the New York Stock Exchange (NYSE) in New York City, U.S., April 20, 2026.  REUTERS/Brendan McDermid",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE2JFRCF9VDAL7A4Q85F25XK.jpg?auth=d2d49f71cf14e4fe08066666d031d11e4348da08ae44d2c08f2af5cb13e53af7",
-          "id": "LWHLE2JFRCF9VDAL7A4Q85F25XK",
-          "authors": "Brendan McDermid",
-          "width": 5579,
-          "height": 3719,
-          "subtitle": "Traders work on the floor of the NYSE in New York"
-        },
-        "authors": [
-          {
-            "id": "peter.clark@example.com",
-            "name": "Reuters",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE2YFRCF9VTAL7A4QN5F25XK.jpg?auth=feee7868e57838130819f8d0d5a151b5668dd3231d98a2557779a83c0cf17374"
-            },
-            "byline": "Reuters"
-          }
-        ],
-        "display_time": "2026-04-22T09:01:28.579Z",
-        "updated_time": "2026-04-22T09:01:43.661Z",
-        "content_elements": [
-          {
-            "content": "Wall Street futures rose on Wednesday after U.S. President Donald Trump <a href=\"https://www.reuters.com/world/asia-pacific/us-will-indefinitely-extend-ceasefire-unclear-if-iran-agrees-2026-04-22/\">extended the ceasefire</a> ‌with Iran indefinitely, even as uncertainty remained over whether Tehran and U.S. ally Israel would honor the truce.",
-            "type": "paragraph"
-          },
-          {
-            "content": "At 4:37 a.m. ET, Dow e-minis rose 171 points, or 0.35%, S&P 500 E-minis gained 31 ​points, or 0.44%, and Nasdaq 100 E-minis added 155.5 points, or 0.58%.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The bullish ​sentiment points to a market desperate for good news, with investors clinging ⁠to the view that peak uncertainty has passed, despite risks that inflation could flare ​up.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The S&P 500 <a href=\"https://www.reuters.com/markets/quote/.SPX\" target=\"_blank\">(.SPX)</a> and the Nasdaq Composite <a href=\"https://www.reuters.com/markets/quote/.IXIC\" target=\"_blank\">(.IXIC)</a> hit record highs in recent days even though <a href=\"https://www.reuters.com/business/energy/us-oil-prices-rise-us-iran-peace-talks-remain-uncertain-2026-04-21/\">oil prices remain</a> ​near the $100-a-barrel mark.",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"The peace process is looking wobbly again as some of the difficult realities of the war come to the fore,\" said Kyle Rodda, senior financial market analyst at Capital.com.",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"The risk is (that) Iran's ​domestic political dynamics and strategic tensions between the U.S. and Iran -- not to mention Israel -- ​maintain an inertia towards escalation.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "Trump said in a statement on social media the U.S. had agreed to ‌a ⁠request by Pakistani mediators \"to hold our Attack on the Country of Iran until such time as their leaders and representatives can come up with a unified proposal ... and discussions are concluded, one way or the other.\"",
-            "type": "paragraph"
-          },
-          {
-            "content": "Investors were also set to scrutinize a fresh batch ​of earnings reports, with ​planemaker Boeing <a href=\"https://www.reuters.com/markets/companies/BA.N\" target=\"_blank\">(BA.N)</a> and medical ⁠device maker Boston Scientific <a href=\"https://www.reuters.com/markets/companies/BSX.N\" target=\"_blank\">(BSX.N)</a> among the companies reporting results before market open.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Boeing shares rose 2.6% in premarket trading, while Boston Scientific was ​up 1.2%.",
-            "type": "paragraph"
-          },
-          {
-            "content": "EV giant Tesla <a href=\"https://www.reuters.com/markets/companies/TSLA.O\" target=\"_blank\">(TSLA.O)</a>, chipmaker Texas Instruments <a href=\"https://www.reuters.com/markets/companies/TXN.O\" target=\"_blank\">(TXN.O)</a> and Southwest Airlines <a href=\"https://www.reuters.com/markets/companies/LUV.N\" target=\"_blank\">(LUV.N)</a> will ​report after ⁠market close.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Earnings so far have reassured investors about the health of the U.S. consumer, the growth engine of the economy. S&P 500 EPS estimates for 2026 and 2027 have risen by ⁠4% ​since late January, according to data from Goldman Sachs.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Adobe <a href=\"https://www.reuters.com/markets/companies/ADBE.O\" target=\"_blank\">(ADBE.O)</a> ​was 2.8% higher after it unveiled a <a href=\"https://www.reuters.com/technology/adobe-announces-25-billion-stock-buyback-2026-04-21/\">share repurchase program</a> worth up to $25 billion.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Crypto-related stocks gained, with Coinbase Global <a href=\"https://www.reuters.com/markets/companies/COIN.O\" target=\"_blank\">(COIN.O)</a> and ​Strategy <a href=\"https://www.reuters.com/markets/companies/MSTR.O\" target=\"_blank\">(MSTR.O)</a> up 4% and 5.6%, respectively.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "Traders work on the floor at the New York Stock Exchange (NYSE) in New York City, U.S., April 20, 2026.  REUTERS/Brendan McDermid",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE2JFRCF9VDAL7A4Q85F25XK.jpg?auth=22defb27f333a9965a8e1302b6889121c34895b1d68371b1500116bf4870c654",
-              "id": "LWHLE2JFRCF9VDAL7A4Q85F25XK",
-              "authors": "Brendan McDermid",
-              "alt_text": "Traders work on the floor of the NYSE in New York",
-              "width": 5579,
-              "height": 3719,
-              "subtitle": "Traders work on the floor of the NYSE in New York",
-              "updated_at": "2026-04-22T09:01:32Z"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLE98FRCF943AL7A4XW5F25XS",
-        "canonical_url": "/sustainability/boards-policy-regulation/china-india-place-strategic-bets-clean-energy-out-favour-west-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T05:03:15.658Z",
-        "language": "en",
-        "shared_url": "/sustainability/boards-policy-regulation/china-india-place-strategic-bets-clean-energy-out-favour-west-2026-04-22/",
-        "created_date": "2026-04-22T05:00:52.736Z",
-        "title": "China, India place strategic bets on clean energy out of favour in the West",
-        "description": "In the rolling, wind-swept grasslands of Chifeng in northern China's Inner Mongolia, towering white wind turbines line hilltops like sentinels over a hydrogen industry Beijing is trying to prise away ​from coal.",
-        "primary_tag": {
-          "description": "Sustainable Markets"
-        },
-        "thumbnail": {
-          "caption": "Hydrogen trailers are seen at a hydrogen refuelling station during an organised media tour to a hydrogen energy demonstration zone in Daxing district of Beijing, China May 31, 2023. REUTERS/Florence Lo",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE27FRCF9V2AL7A4QV5F25XK.jpg?auth=6966a6ae251c2736564b34dc724505ce93f933665266eaf9cf28a431399c5de6",
-          "id": "LWHLE27FRCF9V2AL7A4QV5F25XK",
-          "authors": "FLORENCE LO",
-          "width": 4786,
-          "height": 3191,
-          "subtitle": "Media tour to a hydrogen energy demonstration zone in Beijing"
-        },
-        "authors": [
-          {
-            "id": "alice.johnson@example.com",
-            "name": "Colleen Howe",
-            "first_name": "Colleen",
-            "last_name": "Howe",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE9FFRCF94AAL7A4X55F25XS.jpg?auth=8d56894247134f6f70fe86dbe99cfbacc90c1fe9ceb6c035b0d8a61038a99198"
-            },
-            "byline": "Colleen Howe"
-          },
-          {
-            "id": "bob.williams@example.com",
-            "name": "Sethuraman R",
-            "first_name": "Sethuraman",
-            "last_name": "R",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE9NFRCF94HAL7A4XC5F25XS.jpg?auth=b6cb2b9c311ff4fb9eec8458af10351546fe31d0a63560a46e38979be4ef53ad"
-            },
-            "byline": "Sethuraman N R"
-          }
-        ],
-        "display_time": "2026-04-22T05:03:15.658Z",
-        "updated_time": "2026-04-22T05:15:43.477Z",
-        "content_elements": [
-          {
-            "content": "In the rolling, wind-swept grasslands of Chifeng in northern China's Inner Mongolia, towering white wind turbines line hilltops like sentinels over a hydrogen industry Beijing is trying to prise away ​from coal.",
-            "type": "paragraph"
-          },
-          {
-            "content": "They are part of a $2 billion project - the biggest of its kind - that harnesses renewable energy to run banks of electrolysers that produce the molecules needed ‌for fertilizer, marine fuel and low-emission steelmaking.",
-            "type": "paragraph"
-          },
-          {
-            "content": "India shares China's \"green hydrogen\" ambitions, but its commitments are even more concrete and aggressive. Backed by subsidies worth some $2.1 billion, New Delhi is targeting 5 million metric tons of green hydrogen annually by 2030 - five times the current size of the global market and about double what analysts estimate Chinese output will be by then.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The massive bets by the world's two most populous nations come at the same time that the West ​has quietly backed away from its ambitious green hydrogen goals from the start of this decade after <a href=\"https://www.reuters.com/sustainability/climate-energy/eu-pushes-barely-available-green-steel-auto-emissions-fix-2026-03-04/\">cost constraints</a> proved stickier than anticipated.",
-            "type": "paragraph"
-          },
-          {
-            "content": "What China and India have in common - despite ​very different motives - is the power and political will to force a market into existence, by underwriting projects, steering demand and pushing costs down through ⁠scale.",
-            "type": "paragraph"
-          },
-          {
-            "content": "India has drawn private capital by pairing subsidies with offtake guarantees from refineries, fertiliser plants and steelmakers, making projects bankable from the outset.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The motivation is energy security. Hydrogen in India is overwhelmingly derived ​from imported natural gas, whose supply has suffered a sequence of shocks from the Middle East, Ukraine and the pandemic.",
-            "type": "paragraph"
-          },
-          {
-            "content": "For China - able to deploy state-owned giants or attract private firms with large-scale, planning-led industrial ​projects - the aim is to preserve its dominance in hydrogen as the industry shifts towards cleaner energy.",
-            "type": "paragraph"
-          },
-          {
-            "content": "In its five-year plan announced in March, Beijing listed green hydrogen alongside quantum computing, brain-computer interfaces and AI-enabled robotics as a frontier industry - an elevation in status that signals more capital will flow its way.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "CHINA: SPEED AND SCALE",
-            "type": "header"
-          },
-          {
-            "content": "China invested $3.7 billion in green hydrogen production last year, more than double U.S. levels, said Rystad Energy's head of hydrogen, Minh Khoi Le.",
-            "type": "paragraph"
-          },
-          {
-            "content": "By ​2031, China will have some 2.6 million tons per year online, representing $26 billion in investment, according to Rystad projections.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Much of 2025's outlay went into the Chifeng project, operated by Chinese wind turbine maker ​Envision Energy. It aims to sell green hydrogen and ammonia to markets in Asia, Europe, Latin America and the Middle East, and delivered its first green ammonia cargoes to South Korea's Lotte Fine Chemical in February.",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"If ‌we go back ⁠a year or two ago, China was not very visible on this situation of green hydrogen, and then two years later they have almost all the biggest projects in the world,\" said the International Energy Agency's hydrogen lead, Jose Bermudez.",
-            "type": "paragraph"
-          },
-          {
-            "content": "China last year likely doubled its renewables-based hydrogen production capacity to 250,000 tons - more than half of the global total, and surpassing a 2022 <a href=\"https://www.reuters.com/world/china/china-produce-100000-200000-t-green-hydrogen-annually-by-2025-2022-03-23/\">target</a> to produce 100,000 to 200,000 tons annually by 2025 - said Agora Energy China managing director Kevin Tu.",
-            "type": "paragraph"
-          },
-          {
-            "content": "In Inner Mongolia and other places with high winds and strong sunlight, costs can fall to around $2 per kilogram for green hydrogen, close ​to parity with coal-based hydrogen, Tu said. On ​average, producing green hydrogen in China costs ⁠around $4 per kilogram, he said.",
-            "type": "paragraph"
-          },
-          {
-            "level": 1,
-            "content": "INDIA: AGGREGATING DOMESTIC DEMAND",
-            "type": "header"
-          },
-          {
-            "content": "India has brought the price of producing green hydrogen <a href=\"https://www.reuters.com/sustainability/bpclsembcorp-jv-wins-indias-lowest-green-hydrogen-supply-contract-2026-03-24/\">as low as</a> 279 rupees (around $3) per kilogram, from around $5 in 2023, when the government launched the National Green Hydrogen Mission under the clean energy ministry.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Abhay Bakre, who heads the mission, told Reuters that the cost ​should drop to near $2 by 2032 as technology improves, processes become more efficient and more components are made domestically.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Projects will begin delivering \"large quantities\" of ​green hydrogen as soon as ⁠next year, he said, and \"scale up very fast\" to hit the target of 5 million tons by 2030.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Under the initiative, industrial heavyweights including Larsen & Toubro <a href=\"https://www.reuters.com/markets/companies/LART.NS\" target=\"_blank\">(LART.NS)</a>, Bharat Petroleum Corp <a href=\"https://www.reuters.com/markets/companies/BPCL.NS\" target=\"_blank\">(BPCL.NS)</a>, GAIL <a href=\"https://www.reuters.com/markets/companies/GAIL.NS\" target=\"_blank\">(GAIL.NS)</a> and JSW Steel <a href=\"https://www.reuters.com/markets/companies/JSTL.NS\" target=\"_blank\">(JSTL.NS)</a> produce about 8,000 tons of green hydrogen and its derivatives annually.",
-            "type": "paragraph"
-          },
-          {
-            "content": "New Delhi is kick-starting demand through state-run reverse auctions, where sellers try to undercut each other to win long-term contracts, effectively revealing the lowest price producers can bear.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The government ⁠said last ​month that suppliers and fertiliser companies had signed offtake agreements for 724,000 tons of green ammonia, which could cover one ​third of the country's hydrogen requirements.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Maintaining momentum will require \"bold, sector-specific domestic initiatives, coupled with strategic international partnerships to unlock export potential\", analysts at the Institute of Energy Economics and Financial Analysis wrote in a report.",
-            "type": "paragraph"
-          },
-          {
-            "content": "\"With one of the lowest costs of ​renewable power generation in the world, India is well placed to capture a significant portion of the export market.\"",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "Hydrogen trailers are seen at a hydrogen refuelling station during an organised media tour to a hydrogen energy demonstration zone in Daxing district of Beijing, China May 31, 2023. REUTERS/Florence Lo",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE27FRCF9V2AL7A4QV5F25XK.jpg?auth=46558742222689952eeaa81c5c3666380ed988dfbc33e1a7c82080f2f38ed46d",
-              "id": "LWHLE27FRCF9V2AL7A4QV5F25XK",
-              "authors": "FLORENCE LO",
-              "alt_text": "Media tour to a hydrogen energy demonstration zone in Beijing",
-              "width": 4786,
-              "height": 3191,
-              "subtitle": "Media tour to a hydrogen energy demonstration zone in Beijing",
-              "updated_at": "2026-04-22T05:10:57Z"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLE94FRCF94XAL7A4XS5F25XS",
-        "canonical_url": "/legal/litigation/pfizer-glp-1-weight-loss-drug-available-pre-order-china-2026-04-22/",
-        "published": true,
-        "published_time": "2026-04-22T09:18:04.753Z",
-        "language": "en",
-        "shared_url": "/legal/litigation/pfizer-glp-1-weight-loss-drug-available-pre-order-china-2026-04-22/",
-        "created_date": "2026-04-22T09:14:52.047Z",
-        "title": "Pfizer GLP-1 weight loss drug available for pre-order in China",
-        "description": "Pfizer’s GLP-1 weight management treatment Xianweiying is available for pre-order in China, ​a Reuters check on a local e-commerce ‌platform showed, ramping up competition with rivals in a market analysts expect to be worth billions of dollars.",
-        "primary_tag": {
-          "description": "Health"
-        },
-        "thumbnail": {
-          "caption": "A logo of Pfizer at the company’s booth at the 8th China International Import Expo (CIIE) in Shanghai, China, November 6, 2025.REUTERS/Maxim Shemetov//File Photo",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE9VFRCF94QAL7A4XK5F25XS.jpg?auth=0eed0e9e77eeaae5bac27329e967013f6e7eb4ea0f1afc0e7c36d4b1f1d6a3b5",
-          "id": "LWHLE9VFRCF94QAL7A4XK5F25XS",
-          "authors": "Maxim Shemetov",
-          "width": 5908,
-          "height": 4271,
-          "subtitle": "China International Import Expo in Shanghai"
-        },
-        "authors": [
-          {
-            "id": "carol.davis@example.com",
-            "name": "Andrew Silver",
-            "first_name": "Andrew",
-            "last_name": "Silver",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE9BFRCF946AL7A4XZ5F25XS.jpg?auth=93cfe5de5f035375c5b1a507064ca8dc77af9533cf3acdc57ae087d3cb5a04c4"
-            },
-            "byline": "Andrew Silver"
-          }
-        ],
-        "display_time": "2026-04-22T09:18:04.753Z",
-        "updated_time": "2026-04-22T09:19:43.778Z",
-        "content_elements": [
-          {
-            "content": "Pfizer’s GLP-1 weight management treatment Xianweiying is available for pre-order in China, ​a Reuters check on a local e-commerce ‌platform showed, ramping up competition with rivals in a market analysts expect to be worth billions of dollars.",
-            "type": "paragraph"
-          },
-          {
-            "content": "A spokesperson ​for Pfizer did not immediately respond to ​a request for comment.",
-            "type": "paragraph"
-          },
-          {
-            "content": "A 1.2 ml Xianweiying injector ⁠pen with shipping beginning on April 27 costs ​489 yuan ($72), according to one listing on a platform ​from JD.com reviewed by Reuters.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The treatment, belonging to the class of GLP-1 receptor agonist drugs sold locally by drugmakers such ​as Novo Nordisk <a href=\"https://www.reuters.com/markets/companies/NOVOb.CO\" target=\"_blank\">(NOVOb.CO)</a>, Eli Lilly <a href=\"https://www.reuters.com/markets/companies/LLY.N\" target=\"_blank\">(LLY.N)</a>, and Innovent ​Biologics <a href=\"https://www.reuters.com/markets/companies/1801.HK\" target=\"_blank\">(1801.HK)</a>, props up Pfizer's footing in the booming weight-loss drug market.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Sales ‌of ⁠Novo's Wegovy on Alibaba’s <a href=\"https://www.reuters.com/markets/companies/9988.HK\" target=\"_blank\">(9988.HK)</a> Tmall e-commerce platform and JD.com <a href=\"https://www.reuters.com/markets/companies/9618.HK\" target=\"_blank\">(9618.HK)</a> were 260 million yuan ($38 million) in 2025, against 416 million yuan ($61 million) for Innovent's Xinermei, ​investment bank Jefferies ​said in ⁠a note.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Pfizer <a href=\"https://www.reuters.com/markets/companies/PFE.N\" target=\"_blank\">(PFE.N)</a> <a href=\"https://www.reuters.com/business/healthcare-pharmaceuticals/pfizer-diabetes-drug-deal-with-sciwind-biosciences-2026-02-24/\">licensed</a> the mainland China commercialisation rights for Xianweiying, also known as ​ecnoglutide, from Sciwind, based in the eastern ​city ⁠of Hangzhou, in February. It has also recently acquired the obesity drug developer Metsera, as well as ⁠another ​experimental GLP-1 drug from another ​developer.",
-            "type": "paragraph"
-          },
-          {
-            "content": "Ecnoglutide is also approved in China as a treatment for Type ​2 diabetes.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "A logo of Pfizer at the company’s booth at the 8th China International Import Expo (CIIE) in Shanghai, China, November 6, 2025.REUTERS/Maxim Shemetov//File Photo",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE9VFRCF94QAL7A4XK5F25XS.jpg?auth=cdfd48952eae11824ea9533253eed5efe84e1560b075b562d717f827b0e17b21",
-              "id": "LWHLE9VFRCF94QAL7A4XK5F25XS",
-              "authors": "Maxim Shemetov",
-              "alt_text": "China International Import Expo in Shanghai",
-              "width": 5908,
-              "height": 4271,
-              "subtitle": "China International Import Expo in Shanghai",
-              "updated_at": "2026-04-22T09:18:11Z"
-            }
-          ]
-        }
-      }
-    }
-  },
-  {
-    "type": "article_detail",
-    "version": "2.0.0",
-    "data": {
-      "article": {
-        "id": "LWHLE9RFRCF94LAL7A4XF5F25XS",
-        "canonical_url": "/legal/government/us-supreme-court-rebuffs-challenge-class-action-status-bank-collusion-suit-2026-04-20/",
-        "published": true,
-        "published_time": "2026-04-20T13:44:33.253Z",
-        "language": "en",
-        "shared_url": "/legal/government/us-supreme-court-rebuffs-challenge-class-action-status-bank-collusion-suit-2026-04-20/",
-        "created_date": "2026-04-20T13:40:18.295Z",
-        "title": "US Supreme Court rebuffs challenge to class-action status of bank collusion suit",
-        "description": "The U.S. Supreme Court declined on Monday to hear a bid by Bank ‌of America and seven other major financial institutions to prevent American cities from banding together in a $12 billion class action accusing them of artificially inflating interest rates on a popular municipal bond.",
-        "primary_tag": {
-          "description": "Consumer Protection"
-        },
-        "thumbnail": {
-          "caption": "A Bank of America logo is seen on the entrance to a Bank of America financial center in New York City, U.S., July 11, 2023.  REUTERS/Brendan McDermid/ File Photo",
-          "type": "image",
-          "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE9JFRCF94DAL7A4X85F25XS.jpg?auth=a1022357b11bff348b615fb80d3dc1694a8617b375b1f2a64d24abcc1a6a5d13",
-          "id": "LWHLE9JFRCF94DAL7A4X85F25XS",
-          "authors": "BRENDAN MCDERMID",
-          "width": 5490,
-          "height": 3660,
-          "subtitle": "Bank of America logo is seen on the entrance to a Bank of America financial center in New York"
-        },
-        "authors": [
-          {
-            "id": "dave.martinez@example.com",
-            "name": "Mike Scarcella",
-            "first_name": "Mike",
-            "last_name": "Scarcella",
-            "thumbnail": {
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/https%3A%2F%2Fcloudfront-us-east-2.images.arcpublishing.com%2Freuters%2FLWHLE9YFRCF94TAL7A4XN5F25XS.jpg?auth=eae08241bc82d9e33a31679fecf83e1dcfe866370a27458a28e0ba23a141f393"
-            },
-            "byline": "Mike Scarcella"
-          }
-        ],
-        "display_time": "2026-04-20T13:44:33.253Z",
-        "updated_time": "2026-04-20T16:23:13.843Z",
-        "content_elements": [
-          {
-            "content": "The <a href=\"https://www.reuters.com/legal/us-supreme-court/\">U.S. Supreme Court</a> declined on Monday to hear a bid by Bank ‌of America <a href=\"https://www.reuters.com/markets/companies/BAC.N\" target=\"_blank\">(BAC.N)</a> and seven other major financial institutions to prevent American cities from banding together in a $12 billion class action accusing them of artificially inflating interest rates on a popular municipal bond.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The justices turned away an appeal by the ​banks brought after a lower court upheld a judge's decision to certify the lawsuit brought by ​Baltimore, Philadelphia, San Diego and other cities as a class action. The Supreme ⁠Court's action paves the way for the suit to proceed as a class action.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The other banks are ​Barclays <a href=\"https://www.reuters.com/markets/companies/BARC.L\" target=\"_blank\">(BARC.L)</a>, Citigroup <a href=\"https://www.reuters.com/markets/companies/C.N\" target=\"_blank\">(C.N)</a>, Goldman Sachs <a href=\"https://www.reuters.com/markets/companies/GS.N\" target=\"_blank\">(GS.N)</a>, JPMorgan Chase <a href=\"https://www.reuters.com/markets/companies/JPM.N\" target=\"_blank\">(JPM.N)</a>, Royal Bank of Canada <a href=\"https://www.reuters.com/markets/companies/RY.TO\" target=\"_blank\">(RY.TO)</a>, Wells Fargo <a href=\"https://www.reuters.com/markets/companies/WFC.N\" target=\"_blank\">(WFC.N)</a> and Morgan Stanley <a href=\"https://www.reuters.com/markets/companies/MS.N\" target=\"_blank\">(MS.N)</a>.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The cities have ​accused the banks of colluding from 2008 to 2016 to raise rates on thousands of long-term bonds called variable-rate demand obligations.",
-            "type": "paragraph"
-          },
-          {
-            "content": "An attorney for the city plaintiffs declined to comment. The plaintiffs previously said there are thousands of jurisdictions that are ​class members in the lawsuit.",
-            "type": "paragraph"
-          },
-          {
-            "content": "A lead attorney for the banks in the Supreme Court appeal did ​not immediately respond to a request for comment.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The bonds have short-term rates that typically reset weekly. The cities contend banks ‌drove ⁠up interest rates, reducing available municipal funding for hospitals, schools and other outlets.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The banks <a href=\"https://www.reuters.com/legal/eight-big-banks-must-face-us-cities-bond-collusion-claims-2023-09-21/\">argued</a> in Manhattan federal court that the cities should be required to sue for damages individually, not as a group. They also have denied any wrongdoing.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The banks in their appeal contend that U.S. district judges must first resolve disputes ​among third-party experts that ​address whether common issues ⁠predominate before allowing cases to move forward as class actions. They said the New York-based 2nd U.S. Circuit Court of Appeals was wrong last year to ​uphold certification of a nationwide class of municipal bond issuers.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The banks had told ​the Supreme ⁠Court that the 2nd Circuit's ruling, if left in place, would encourage overly broad class actions, dramatically raising potential liability and coercing settlements. The cities and other municipal issuers countered that the banks were seeking to ⁠transform class ​certification into a mini-trial on the merits of a lawsuit.",
-            "type": "paragraph"
-          },
-          {
-            "content": "The ​plaintiffs also asserted there was no conflict among appellate courts and that class certification decisions should focus first on whether common ​questions can be resolved on a class-wide basis, not on whether plaintiffs will ultimately prevail.",
-            "type": "paragraph"
-          }
-        ],
-        "promo_items": {
-          "images": [
-            {
-              "caption": "A Bank of America logo is seen on the entrance to a Bank of America financial center in New York City, U.S., July 11, 2023.  REUTERS/Brendan McDermid/ File Photo",
-              "type": "image",
-              "resizer_url": "https://www.reuters.com/resizer/v2/LWHLE9JFRCF94DAL7A4X85F25XS.jpg?auth=79fa36ed70d90a56b2ef3ea7258c61dc54e12942ba41d56edd76e111d54157d3",
-              "id": "LWHLE9JFRCF94DAL7A4X85F25XS",
-              "authors": "BRENDAN MCDERMID",
-              "alt_text": "Bank of America logo is seen on the entrance to a Bank of America financial center in New York",
-              "width": 5490,
-              "height": 3660,
-              "subtitle": "Bank of America logo is seen on the entrance to a Bank of America financial center in New York",
-              "updated_at": "2026-04-20T13:51:12Z"
-            }
-          ]
-        }
-      }
-    }
+    "id": "POL-005",
+    "category": "politics",
+    "title": "Coalition talks begin after tightly contested national vote",
+    "shortDescription": "No clear majority forces political negotiations.",
+    "longDescription": "Following a closely contested national election, party leaders entered coalition negotiations as no single bloc secured a clear governing majority.",
+    "publishedTime": "2026-04-19T18:00:00Z",
+    "url": "/politics/coalition-talks-national-vote-2026",
+    "thumbnailUrl": "/images/articles/politics-coalition.jpg"
   }
-]
+
+  ]
+}

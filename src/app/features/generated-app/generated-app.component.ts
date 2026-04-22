@@ -1,20 +1,26 @@
 import {
   Component,
   HostBinding,
+  HostListener,
   Inject,
   OnInit,
   PLATFORM_ID,
   signal,
   computed,
+  afterNextRender,
 } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { isPlatformBrowser, TitleCasePipe } from '@angular/common';
+import { isPlatformBrowser, TitleCasePipe, Location } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { AppBuilderService } from '../../services/app-builder.service';
 import { AuthService } from '../../services/auth.service';
+import { CollectionsService, SavedItem } from '../../services/collections.service';
 import { NewsContentService } from '../../services/news-content.service';
+import { PodcastService } from '../../services/podcast.service';
+import { VideoService } from '../../services/video.service';
 import { AppConfig, GeneratedApp } from '../../models/rone.model';
-import { MarketTicker, NewsSection } from '../../models/news.model';
+import { MarketTicker, NewsSection, VideoItem, PodcastItem } from '../../models/news.model';
 
 interface FloatingMessage {
   id: string;
@@ -34,8 +40,11 @@ export class GeneratedAppComponent implements OnInit {
   protected notFound = false;
 
   // Floating assistant state (GEN-008)
-  protected readonly assistantOpen = signal(false);
-  protected readonly showAccountMenu = signal(false);
+  protected readonly assistantOpen        = signal(false);
+  protected readonly showAccountMenu       = signal(false);
+  protected readonly showSubscriptionModal = signal(false);
+  protected readonly savedToast            = signal<{title: string; removing: boolean} | null>(null);
+  private toastTimer: ReturnType<typeof setTimeout> | null = null;
   protected assistantInput = '';
   protected readonly floatMessages = signal<FloatingMessage[]>([]);
   protected assistantTyping = false;
@@ -43,9 +52,54 @@ export class GeneratedAppComponent implements OnInit {
   // Section data
   protected filteredSections: NewsSection[] = [];
   protected marketData: MarketTicker[] = [];
+  protected readonly videoItems      = signal<VideoItem[]>([]);
+  protected readonly podcastItems    = signal<PodcastItem[]>([]);
+  protected readonly loadingArticles = signal(true);
+  protected readonly loadingVideos   = signal(true);
+  protected readonly loadingPodcasts = signal(true);
+
+  // Inline video player modal
+  protected readonly activeVideo    = signal<VideoItem | null>(null);
+  protected readonly videoEmbedError = signal(false);
+  protected readonly activeVideoId  = computed(() => {
+    const v = this.activeVideo();
+    if (!v) return null;
+    const match = v.videoUrl.match(/[?&]v=([^&]+)/);
+    return match?.[1] ?? v.id.replace(/^yt-/, '');
+  });
+  /** True when the active video is a direct file URL (MP4 etc.) rather than YouTube. */
+  protected readonly isDirectVideo = computed(() => {
+    const v = this.activeVideo();
+    if (!v) return false;
+    return !v.videoUrl.includes('youtube.com') && !v.videoUrl.includes('youtu.be');
+  });
+
+  protected readonly safeVideoUrl = computed<SafeResourceUrl | null>(() => {
+    const v = this.activeVideo();
+    if (!v || !this.isDirectVideo()) return null;
+    return this.sanitizer.bypassSecurityTrustResourceUrl(v.videoUrl);
+  });
+
+  protected readonly safeEmbedUrl = computed<SafeResourceUrl | null>(() => {
+    if (this.isDirectVideo()) return null;
+    const id = this.activeVideoId();
+    if (!id) return null;
+    // enablejsapi=1 makes YouTube send postMessage events so we can detect errors
+    return this.sanitizer.bypassSecurityTrustResourceUrl(
+      `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`
+    );
+  });
 
   // ── Computed theming ──────────────────────────────────────────────────────
-  readonly config = computed(() => this.builder.config());
+  readonly config    = computed(() => this.builder.config());
+  readonly isLive    = computed(() => this.contentService.isLive());
+  readonly loadState = computed(() => this.contentService.loadingState());
+
+  @HostListener('document:keydown.escape')
+  onEscapeKey(): void {
+    if (this.activeVideo()) this.closeVideo();
+    if (this.showSubscriptionModal()) this.closeSubscriptionModal();
+  }
 
   @HostBinding('style')
   get themeVars(): string {
@@ -66,9 +120,32 @@ export class GeneratedAppComponent implements OnInit {
     private readonly router: Router,
     private readonly builder: AppBuilderService,
     private readonly auth: AuthService,
+    private readonly collectionsService: CollectionsService,
     private readonly contentService: NewsContentService,
+    private readonly podcastService: PodcastService,
+    private readonly videoService: VideoService,
+    private readonly sanitizer: DomSanitizer,
+    private readonly location: Location,
     @Inject(PLATFORM_ID) private platformId: object,
-  ) {}
+  ) {
+    // afterNextRender must be called in an injection context (constructor).
+    // It fires once in the browser after the first render cycle completes.
+    afterNextRender(() => {
+      this.loadVideos();
+      this.loadPodcasts();
+      // YouTube IFrame API sends postMessage events when a video errors.
+      // Error codes 101 & 150 = owner blocked embedding; 100 = video not found.
+      window.addEventListener('message', (evt: MessageEvent) => {
+        if (evt.origin !== 'https://www.youtube.com') return;
+        try {
+          const data = JSON.parse(evt.data as string);
+          if (data.event === 'onError' && [2, 100, 101, 150].includes(data.info as number)) {
+            this.videoEmbedError.set(true);
+          }
+        } catch { /* non-JSON postMessage — ignore */ }
+      });
+    });
+  }
 
   ngOnInit(): void {
     const appId = this.route.snapshot.paramMap.get('appId') ?? '';
@@ -87,7 +164,8 @@ export class GeneratedAppComponent implements OnInit {
       `- Switch to **dark/light mode**\n` +
       `- Change the **accent colour** (e.g., "make it blue")\n` +
       `- Change the **layout** (grid, magazine, list)\n` +
-      `- **Add or remove topics**`
+      `- **Add a topic** — I'll ask where you want it placed\n` +
+      `- **Remove a topic** (e.g., "remove Markets")`
     );
   }
 
@@ -110,6 +188,16 @@ export class GeneratedAppComponent implements OnInit {
 
   get layoutClass(): string {
     return `layout-${this.app?.config.layout.style ?? 'magazine'}`;
+  }
+
+  get cardClasses(): string {
+    if (!this.app) return '';
+    const c = this.app.config;
+    return [
+      `card-size-${c.cardSize ?? 'normal'}`,
+      `card-effect-${c.cardEffect ?? 'none'}`,
+      `card-radius-${c.borderRadius ?? 'small'}`,
+    ].join(' ');
   }
 
   /** Ordered, enabled sections (GEN-005 / PRS Section 9.8). */
@@ -146,6 +234,7 @@ export class GeneratedAppComponent implements OnInit {
       if (this.app) {
         this.app = this.builder.loadApp(this.app.id);
         this.loadContent();
+        this.loadVideos();
       }
     }, 800);
   }
@@ -164,6 +253,43 @@ export class GeneratedAppComponent implements OnInit {
     this.router.navigate(['/builder']);
   }
 
+  protected openSubscriptionStatus(): void {
+    this.showAccountMenu.set(false);
+    this.showSubscriptionModal.set(true);
+  }
+
+  protected closeSubscriptionModal(): void {
+    this.showSubscriptionModal.set(false);
+  }
+
+  /** Computed subscription details for the modal. */
+  get subscriptionDetails() {
+    const user = this.currentUser;
+    if (!user) return null;
+    const isPro = user.subscription === 'professional';
+    // POC: simulate a fixed expiry 18 days from now for professional, 45 days for basic
+    const daysLeft  = isPro ? 18 : 45;
+    const renewDate = new Date();
+    renewDate.setDate(renewDate.getDate() + daysLeft);
+    const renewStr  = renewDate.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    return {
+      plan:      isPro ? 'Professional' : 'Basic',
+      price:     isPro ? '$9.99 / month' : 'Free',
+      status:    daysLeft <= 7 ? 'expiring-soon' : 'active',
+      statusLabel: daysLeft <= 7 ? 'Expiring Soon' : 'Active',
+      daysLeft,
+      renewDate: renewStr,
+      features: isPro
+        ? ['Unlimited topics', 'Real-time content refresh', 'Full theme customisation', 'Video & markets data', 'Custom layouts & card styles', 'Priority support']
+        : ['Up to 3 topics', 'Standard content refresh', 'Light & dark themes'],
+      upgrade: isPro ? null : {
+        plan:  'Professional',
+        price: '$9.99 / month',
+        perks: ['Everything in Basic', 'Unlimited topics', 'Real-time refresh', 'Video & markets data', 'Custom layouts'],
+      },
+    };
+  }
+
   protected signOut(): void {
     this.auth.logout();
     this.showAccountMenu.set(false);
@@ -179,44 +305,65 @@ export class GeneratedAppComponent implements OnInit {
       .replace(/\n/g, '<br>');
   }
 
-  protected goToBuilder(): void { this.router.navigate(['/builder']); }
+  protected goToBuilder(): void {
+    this.router.navigate(['/builder']);
+  }
 
   // ── Helpers ───────────────────────────────────────────────────────────────
 
   private loadContent(): void {
     if (!this.app) return;
-    const cfg         = this.app.config;
-    const allContent  = this.contentService.getHomeContent();
-    const topicLower  = cfg.topics.map(t => t.toLowerCase());
+    const cfg = this.app.config;
+    this.loadingArticles.set(true);
 
-    // Filter sections by user's topics
-    this.filteredSections = allContent.sections.filter(s =>
-      // Section ID or title loosely matches any selected topic
-      topicLower.some(t =>
-        s.id.toLowerCase().includes(t) ||
-        s.title.toLowerCase().includes(t) ||
-        this.topicMatchesSection(t, s.id),
-      ),
-    );
+    this.contentService.fetchByTopics(cfg.topics, 20).subscribe({
+      next: (sections) => {
+        this.filteredSections = sections;
+        this.loadingArticles.set(false);
+      },
+      error: () => {
+        this.filteredSections = [];
+        this.loadingArticles.set(false);
+      },
+    });
 
-    // If no sections match, fall back to all sections (avoid empty app)
-    if (this.filteredSections.length === 0) {
-      this.filteredSections = allContent.sections;
-    }
-
-    this.marketData = allContent.marketTicker;
+    this.marketData = this.contentService.getHomeContent().marketTicker;
   }
 
-  private topicMatchesSection(topicLower: string, sectionId: string): boolean {
-    const map: Record<string, string[]> = {
-      technology: ['technology', 'tech'],
-      markets:    ['markets', 'business', 'finance'],
-      business:   ['markets', 'business'],
-      world:      ['world'],
-      politics:   ['world', 'politics'],
-      energy:     ['world', 'markets'],
-    };
-    return (map[topicLower] ?? []).includes(sectionId);
+  private loadPodcasts(): void {
+    if (!this.app) return;
+    const topics = this.app.config.topics?.length ? this.app.config.topics : ['world'];
+    this.loadingPodcasts.set(true);
+    this.podcastService.getByTopics(topics, 6).subscribe({
+      next:  (pods) => { this.podcastItems.set(pods);  this.loadingPodcasts.set(false); },
+      error: ()     => { this.podcastItems.set([]);    this.loadingPodcasts.set(false); },
+    });
+  }
+
+  /** Runs browser-side only (safe from SSR hydration). */
+  protected playVideo(item: VideoItem): void {
+    // embeddable: false means the owner blocked iframe embedding — open on YouTube
+    if (item.embeddable === false) {
+      window.open(item.videoUrl, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    this.videoEmbedError.set(false);
+    this.activeVideo.set(item);
+  }
+
+  protected closeVideo(): void {
+    this.videoEmbedError.set(false);
+    this.activeVideo.set(null);
+  }
+
+  private loadVideos(): void {
+    if (!this.app) return;
+    const topics = this.app.config.topics?.length ? this.app.config.topics : ['world'];
+    this.loadingVideos.set(true);
+    this.videoService.getByTopics(topics, 6).subscribe({
+      next:  (vids) => { this.videoItems.set(vids); this.loadingVideos.set(false); },
+      error: ()     => { this.videoItems.set([]);   this.loadingVideos.set(false); },
+    });
   }
 
   private pushFloatUser(content: string): void {
@@ -228,4 +375,122 @@ export class GeneratedAppComponent implements OnInit {
   }
 
   get currentUser() { return this.auth.currentUser(); }
+
+  get canSaveShare(): boolean {
+    return this.currentUser?.subscription === 'professional';
+  }
+
+  isSaved(id: string): boolean {
+    return this.collectionsService.isSaved(id);
+  }
+
+  // ── Unified save helper ──────────────────────────────────────────────────
+
+  toggleSave(item: SavedItem, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!this.canSaveShare) {
+      alert('Upgrade your subscription to save and share news content.');
+      return;
+    }
+    this.collectionsService.toggleSave(item);
+    // Show toast only when saving (not when removing)
+    if (this.collectionsService.isSaved(item.id)) {
+      this.showSavedToast(item.title);
+    } else {
+      this.savedToast.set(null);
+    }
+  }
+
+  private showSavedToast(title: string): void {
+    if (this.toastTimer) clearTimeout(this.toastTimer);
+    this.savedToast.set({ title, removing: false });
+    this.toastTimer = setTimeout(() => {
+      this.savedToast.update(t => t ? { ...t, removing: true } : null);
+      setTimeout(() => this.savedToast.set(null), 350);
+    }, 4000);
+  }
+
+  shareItem(item: SavedItem, event: Event): void {
+    event.preventDefault();
+    event.stopPropagation();
+    if (!this.canSaveShare) {
+      alert('Upgrade your subscription to save and share news content.');
+      return;
+    }
+    const url = item.url ?? window.location.origin;
+    if (navigator.share) {
+      navigator.share({ title: item.title, text: item.summary ?? '', url }).catch(() => {});
+    } else {
+      navigator.clipboard?.writeText(url)
+        .then(() => alert('Link copied to clipboard!'))
+        .catch(() => {});
+    }
+  }
+
+  // ── SavedItem factory helpers ──────────────────────────────────────────────
+
+  storyToSavedItem(story: import('../../models/news.model').NewsStory): SavedItem {
+    return {
+      id: story.id,
+      type: 'article',
+      title: story.title,
+      summary: story.summary,
+      imageUrl: story.imageUrl,
+      category: story.category,
+      timestamp: story.timestamp,
+      url: (story as any)['url'] ?? (window?.location?.origin + '/article/' + story.id),
+    };
+  }
+
+  videoToSavedItem(item: VideoItem): SavedItem {
+    return {
+      id: item.id,
+      type: 'video',
+      title: item.title,
+      summary: item.description,
+      imageUrl: item.thumbnail,
+      category: 'Video',
+      timestamp: item.publishedAt,
+      url: item.videoUrl,
+      meta: item.channelTitle + (item.duration ? ' · ' + item.duration : ''),
+    };
+  }
+
+  galleryToSavedItem(item: {title: string; cat: string; imgs: number}): SavedItem {
+    return {
+      id: 'gallery-' + item.title.replace(/\s+/g, '-').toLowerCase(),
+      type: 'gallery',
+      title: item.title,
+      category: item.cat,
+      meta: item.imgs + ' photos',
+    };
+  }
+
+  podcastToSavedItem(item: PodcastItem): SavedItem {
+    return {
+      id: item.id,
+      type: 'podcast',
+      title: item.title,
+      summary: item.description,
+      imageUrl: item.imageUrl,
+      category: item.category,
+      meta: item.host + ' · ' + item.duration,
+      url: item.audioUrl,
+    };
+  }
+
+  // Keep legacy wrappers so existing article HTML still compiles
+  toggleSave_legacy(story: import('../../models/news.model').NewsStory, event: Event): void {
+    this.toggleSave(this.storyToSavedItem(story), event);
+  }
+
+  shareArticle(story: import('../../models/news.model').NewsStory, event: Event): void {
+    this.shareItem(this.storyToSavedItem(story), event);
+  }
+
+  goToCollections(): void {
+    this.showAccountMenu.set(false);
+    this.router.navigate(['/collections']);
+  }
 }

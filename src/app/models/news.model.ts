@@ -36,10 +36,35 @@ export interface HomeContent {
   marketTicker: MarketTicker[];
 }
 
+export interface VideoItem {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  channelTitle: string;
+  publishedAt: string;
+  duration: string;
+  videoUrl: string;
+  /** false = owner disabled embedding; open in new tab instead of inline modal */
+  embeddable?: boolean;
+}
+
 export interface ChatMessage {
   id: string;
   role: 'user' | 'bot';
   content: string;
   stories?: NewsStory[];
   timestamp: Date;
+}
+
+export interface PodcastItem {
+  id: string;
+  /** Lowercase category key matching app topic slug, e.g. 'market', 'technology' */
+  category: string;
+  title: string;
+  description: string;
+  host: string;
+  duration: string;
+  audioUrl: string;
+  imageUrl: string;
 }
