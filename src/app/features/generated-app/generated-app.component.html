@@ -419,6 +419,7 @@
                           @if (item.videoUrl) {
                             <video
                               [src]="item.videoUrl"
+                              [poster]="item.thumbnail"
                               preload="metadata"
                               muted
                               playsinline
@@ -445,6 +446,9 @@
                           <p class="card-meta">{{ item.channelTitle }} · {{ item.publishedAt }}@if (item.embeddable === false) {&nbsp;·&nbsp;<span class="ext-badge">YouTube ↗</span>}</p>
                         }
                         <h3>{{ item.title }}</h3>
+                        @if (item.description) {
+                          <p class="card-desc">{{ item.description }}</p>
+                        }
                       </div>
                     </div>
                     <!-- Save / Share bar -->

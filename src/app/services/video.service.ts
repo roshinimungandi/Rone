@@ -53,15 +53,30 @@ export class VideoService {
    * Falls back to all videos when no topics match.
    */
   getByTopics(topics: string[], limit = 6): Observable<VideoItem[]> {
-    const cats = new Set(
-      topics.map(t => TOPIC_TO_CATEGORY[t.toLowerCase()] ?? t.toLowerCase())
-    );
+    const catList = topics.map(t => TOPIC_TO_CATEGORY[t.toLowerCase()] ?? t.toLowerCase());
+    const cats = new Set(catList);
+    const perCat = Math.max(1, Math.ceil(limit / cats.size));
 
     return this.all$.pipe(
       map(all => {
         const matched = all.filter(v => cats.has(v.category.toLowerCase()));
-        const result  = matched.length > 0 ? matched : all;
-        return result.slice(0, limit).map(v => this.mapToVideoItem(v));
+        if (matched.length === 0) {
+          // No match at all — show up to limit from everything
+          return all.slice(0, limit).map(v => this.mapToVideoItem(v));
+        }
+        // Take up to perCat items per category, preserving topic order
+        const seen = new Map<string, number>();
+        const result: VideoItem[] = [];
+        for (const v of matched) {
+          const cat = v.category.toLowerCase();
+          const count = seen.get(cat) ?? 0;
+          if (count < perCat) {
+            seen.set(cat, count + 1);
+            result.push(this.mapToVideoItem(v));
+          }
+          if (result.length >= limit) break;
+        }
+        return result;
       }),
     );
   }
@@ -69,7 +84,7 @@ export class VideoService {
   private mapToVideoItem(v: VideoJsonItem): VideoItem {
     const thumb = v.thumbnailUrl?.startsWith('http')
       ? v.thumbnailUrl
-      : (CATEGORY_THUMBNAILS[v.category.toLowerCase()] ?? 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=600&q=80');
+      : `https://picsum.photos/seed/${encodeURIComponent(v.id)}/600/338`;
     return {
       id:           v.id,
       title:        v.title,

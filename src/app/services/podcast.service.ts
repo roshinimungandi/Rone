@@ -36,15 +36,29 @@ export class PodcastService {
    * Falls back to all podcasts when no topics match.
    */
   getByTopics(topics: string[], limit = 6): Observable<PodcastItem[]> {
-    const cats = new Set(
-      topics.map(t => TOPIC_TO_CATEGORY[t.toLowerCase()] ?? t.toLowerCase())
-    );
+    const catList = topics.map(t => TOPIC_TO_CATEGORY[t.toLowerCase()] ?? t.toLowerCase());
+    const cats = new Set(catList);
+    const perCat = Math.max(1, Math.ceil(limit / cats.size));
 
     return this.all$.pipe(
       map(all => {
         const matched = all.filter(p => cats.has(p.category.toLowerCase()));
-        const result  = matched.length > 0 ? matched : all;
-        return result.slice(0, limit);
+        if (matched.length === 0) {
+          return all.slice(0, limit);
+        }
+        // Take up to perCat items per category, preserving topic order
+        const seen = new Map<string, number>();
+        const result: PodcastItem[] = [];
+        for (const p of matched) {
+          const cat = p.category.toLowerCase();
+          const count = seen.get(cat) ?? 0;
+          if (count < perCat) {
+            seen.set(cat, count + 1);
+            result.push(p);
+          }
+          if (result.length >= limit) break;
+        }
+        return result;
       }),
     );
   }

@@ -337,7 +337,7 @@ export class GeneratedAppComponent implements OnInit {
     if (!this.app) return;
     const topics = this.app.config.topics?.length ? this.app.config.topics : ['world'];
     this.loadingPodcasts.set(true);
-    this.podcastService.getByTopics(topics, 6).subscribe({
+    this.podcastService.getByTopics(topics, topics.length * 3).subscribe({
       next:  (pods) => { this.podcastItems.set(pods);  this.loadingPodcasts.set(false); },
       error: ()     => { this.podcastItems.set([]);    this.loadingPodcasts.set(false); },
     });
@@ -363,7 +363,7 @@ export class GeneratedAppComponent implements OnInit {
     if (!this.app) return;
     const topics = this.app.config.topics?.length ? this.app.config.topics : ['world'];
     this.loadingVideos.set(true);
-    this.videoService.getByTopics(topics, 6).subscribe({
+    this.videoService.getByTopics(topics, topics.length * 3).subscribe({
       next:  (vids) => { this.videoItems.set(vids); this.loadingVideos.set(false); },
       error: ()     => { this.videoItems.set([]);   this.loadingVideos.set(false); },
     });
