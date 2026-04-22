@@ -43,6 +43,7 @@ export class GeneratedAppComponent implements OnInit {
   protected readonly assistantOpen        = signal(false);
   protected readonly showAccountMenu       = signal(false);
   protected readonly showSubscriptionModal = signal(false);
+  protected readonly showUpgradePrompt     = signal(false);
   protected readonly savedToast            = signal<{title: string; removing: boolean} | null>(null);
   private toastTimer: ReturnType<typeof setTimeout> | null = null;
   protected assistantInput = '';
@@ -99,6 +100,7 @@ export class GeneratedAppComponent implements OnInit {
   onEscapeKey(): void {
     if (this.activeVideo()) this.closeVideo();
     if (this.showSubscriptionModal()) this.closeSubscriptionModal();
+    if (this.showUpgradePrompt()) this.showUpgradePrompt.set(false);
   }
 
   @HostBinding('style')
@@ -235,6 +237,7 @@ export class GeneratedAppComponent implements OnInit {
         this.app = this.builder.loadApp(this.app.id);
         this.loadContent();
         this.loadVideos();
+        this.loadPodcasts();
       }
     }, 800);
   }
@@ -390,7 +393,7 @@ export class GeneratedAppComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     if (!this.canSaveShare) {
-      alert('Upgrade your subscription to save and share news content.');
+      this.showUpgradePrompt.set(true);
       return;
     }
     this.collectionsService.toggleSave(item);
@@ -415,7 +418,7 @@ export class GeneratedAppComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
     if (!this.canSaveShare) {
-      alert('Upgrade your subscription to save and share news content.');
+      this.showUpgradePrompt.set(true);
       return;
     }
     const url = item.url ?? window.location.origin;
