@@ -239,7 +239,24 @@ export class GeneratedAppComponent implements OnInit {
     }
     this.assistantOpen.update(v => !v);
   }
-  protected closeAssistant(): void  { this.assistantOpen.set(false); }
+  protected closeAssistant(): void {
+    this.assistantOpen.set(false);
+    // Reset chat back to the welcome message
+    this.floatMessages.set([]);
+    if (this.app) {
+      this.pushFloatAssistant(
+        `Hi! I'm the Rone assistant for your **${this.appTitle}** app.\n\n` +
+        `You can ask me to:\n` +
+        `- Switch to **dark/light mode**\n` +
+        `- Change the **accent colour** (e.g., "make it blue")\n` +
+        `- Change the **layout** (grid, magazine, list)\n` +
+        `- **Add a topic** — I'll ask where you want it placed\n` +
+        `- **Remove a topic** (e.g., "remove Markets")\n` +
+        `- **Add content** (e.g., "add videos" / "show podcasts")\n` +
+        `- **Remove content** (e.g., "remove articles" / "hide podcasts")`
+      );
+    }
+  }
 
   protected sendAssistantMessage(): void {
     const text = this.assistantInput.trim();

@@ -1284,7 +1284,7 @@ a.story-card:hover, a.card-link:hover {
   font-size: 0.82rem;
   font-family: inherit;
   background: #f8fafc;
-  color: var(--g-text);
+  color: black;
 }
 
 .float-input-bar input:focus { outline: none; border-color: var(--g-primary); }

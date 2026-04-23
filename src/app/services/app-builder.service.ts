@@ -219,24 +219,31 @@ export class AppBuilderService {
     // ── PENDING: user is answering the "where?" question ─────────────────────
     const pending = this.pendingTopicAdd();
     if (pending) {
-      const cfg = this.config();
-      const existing = cfg.topics;
-      const insertIndex = this.parsePositionAnswer(lower, existing);
-      this.pendingTopicAdd.set(null);
+      // If the user is starting a brand-new "add <topic>" command instead of
+      // answering the position question, cancel the stale pending and fall through.
+      const freshTopics = this.extractTopics(lower);
+      const isFreshAdd  = freshTopics.length > 0 && /\badd\b|\binclude\b/i.test(lower);
+      if (!isFreshAdd) {
+        const cfg = this.config();
+        const existing = cfg.topics;
+        const insertIndex = this.parsePositionAnswer(lower, existing);
+        this.pendingTopicAdd.set(null);
 
-      if (insertIndex === -1) {
-        // Could not parse — append at end
-        return this.applyMutation('update_slot', c => ({
-          ...c, topics: [...new Set([...c.topics, ...pending])],
-        }), `✅ Added **${pending.join(', ')}** at the end. App refreshed!`);
+        if (insertIndex === -1) {
+          return this.applyMutation('update_slot', c => ({
+            ...c, topics: [...new Set([...c.topics, ...pending])],
+          }), `✅ Added **${pending.join(', ')}** at the end. App refreshed!`);
+        }
+
+        return this.applyMutation('update_slot', c => {
+          const fresh = pending.filter(t => !c.topics.includes(t));
+          const next = [...c.topics];
+          next.splice(insertIndex, 0, ...fresh);
+          return { ...c, topics: next };
+        }, `✅ Added **${pending.join(', ')}** at position **${insertIndex + 1}**. App refreshed!`);
       }
-
-      return this.applyMutation('update_slot', c => {
-        const fresh = pending.filter(t => !c.topics.includes(t));
-        const next = [...c.topics];
-        next.splice(insertIndex, 0, ...fresh);
-        return { ...c, topics: next };
-      }, `✅ Added **${pending.join(', ')}** at position **${insertIndex + 1}**. App refreshed!`);
+      // Fresh add-topic intent — clear pending and fall through
+      this.pendingTopicAdd.set(null);
     }
 
     // THEME mutations
@@ -494,25 +501,31 @@ export class AppBuilderService {
     }
 
     // ── CONTENT SECTION mutations — add/remove articles, videos, podcasts ───
-    const SECTION_MAP: Record<string, string> = {
-      article: 'articles', articles: 'articles',
-      video: 'videos', videos: 'videos',
-      podcast: 'podcasts', podcasts: 'podcasts',
-      market: 'markets', markets: 'markets',
-    };
-    const detectedSection = Object.keys(SECTION_MAP).find(k => lower.includes(k));
-    if (detectedSection) {
-      const sec = SECTION_MAP[detectedSection] as keyof AppConfig['contentTypes'];
-      const isEnable  = /add|show|enable|include|turn\s*on/i.test(lower);
-      const isDisable = /remove|hide|disable|exclude|turn\s*off/i.test(lower);
-      if (isEnable || isDisable) {
-        return this.applyMutation('update_slot', c => {
-          const ct = structuredClone(c.contentTypes);
-          ct[sec].enabled = isEnable;
-          const order = c.sectionOrder.filter(s => s !== sec);
-          if (isEnable) order.push(sec);
-          return { ...c, contentTypes: ct, sectionOrder: order };
-        }, `✅ **${detectedSection}** ${isEnable ? 'added to' : 'removed from'} your page. App refreshed!`);
+    // Skip this block if the user is referring to a valid topic (e.g. "add markets"
+    // means add the Markets topic, not toggle the markets data widget).
+    const topicIntentCheck = this.extractTopics(lower);
+    const isTopicIntent = topicIntentCheck.length > 0 && /\badd\b|\bremove\b|\binclude\b|\bexclude\b/i.test(lower);
+    if (!isTopicIntent) {
+      const SECTION_MAP: Record<string, string> = {
+        article: 'articles', articles: 'articles',
+        video: 'videos', videos: 'videos',
+        podcast: 'podcasts', podcasts: 'podcasts',
+        market: 'markets', markets: 'markets',
+      };
+      const detectedSection = Object.keys(SECTION_MAP).find(k => lower.includes(k));
+      if (detectedSection) {
+        const sec = SECTION_MAP[detectedSection] as keyof AppConfig['contentTypes'];
+        const isEnable  = /add|show|enable|include|turn\s*on/i.test(lower);
+        const isDisable = /remove|hide|disable|exclude|turn\s*off/i.test(lower);
+        if (isEnable || isDisable) {
+          return this.applyMutation('update_slot', c => {
+            const ct = structuredClone(c.contentTypes);
+            ct[sec].enabled = isEnable;
+            const order = c.sectionOrder.filter(s => s !== sec);
+            if (isEnable) order.push(sec);
+            return { ...c, contentTypes: ct, sectionOrder: order };
+          }, `✅ **${detectedSection}** ${isEnable ? 'added to' : 'removed from'} your page. App refreshed!`);
+        }
       }
     }
 
