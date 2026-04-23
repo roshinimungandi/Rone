@@ -38,6 +38,8 @@ export interface HomeContent {
 
 export interface VideoItem {
   id: string;
+  /** Lowercase category key matching app topic slug, e.g. 'market', 'technology' */
+  category: string;
   title: string;
   description: string;
   thumbnail: string;

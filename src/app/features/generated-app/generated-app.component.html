@@ -379,14 +379,9 @@
 
         <!-- ───────── VIDEOS ───────── -->
         @if (section === 'videos') {
-          <section
-            id="section-videos"
-            class="gen-section"
-            aria-labelledby="sec-videos-title"
-          >
-            <h2 id="sec-videos-title" class="section-title">Videos</h2>
 
-            @if (loadingVideos()) {
+          @if (loadingVideos()) {
+            <section id="section-videos" class="gen-section" aria-label="Loading videos">
               <div class="video-grid">
                 @for (n of [1,2,3,4,5,6]; track n) {
                   <div class="video-card skeleton-card">
@@ -398,98 +393,109 @@
                   </div>
                 }
               </div>
-            } @else if (videoItems().length === 0) {
+            </section>
+          } @else if (videoItems().length === 0) {
+            <section id="section-videos" class="gen-section" aria-label="No videos">
               <p class="no-content">No videos found for your selected topics.</p>
-            } @else {
-              <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
-                @for (item of videoItems(); track item.id) {
-                  <div [class]="'video-card ' + cardClasses">
-                    <!-- Clickable play area -->
-                    <div
-                      class="video-play-area"
-                      (click)="playVideo(item)"
-                      (keydown.enter)="playVideo(item)"
-                      (keydown.space)="$event.preventDefault(); playVideo(item)"
-                      role="button"
-                      tabindex="0"
-                      [attr.aria-label]="(item.embeddable === false ? 'Open on YouTube: ' : 'Play: ') + item.title"
-                    >
-                      @if (app.config.cardDetails.video.showThumbnail) {
-                        <div class="video-thumb" aria-hidden="true">
-                          @if (item.videoUrl) {
-                            <video
-                              [src]="item.videoUrl"
-                              [poster]="item.thumbnail"
-                              preload="metadata"
-                              muted
-                              playsinline
-                              class="video-thumb-preview"
-                            ></video>
-                          } @else if (item.thumbnail) {
-                            <img [src]="item.thumbnail" [alt]="" loading="lazy" />
-                          }
-                          <div class="play-btn">
-                            @if (item.embeddable === false) {
-                              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                                <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                              </svg>
-                            } @else {
-                              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                                <path d="M8 5v14l11-7L8 5z"/>
-                              </svg>
+            </section>
+          } @else {
+            @for (group of groupedVideos; track group.topic; let first = $first) {
+              <section
+                [id]="first ? 'section-videos' : 'section-videos-' + group.topic.toLowerCase()"
+                class="gen-section"
+                [attr.aria-labelledby]="'sec-vid-' + group.topic.toLowerCase() + '-title'"
+              >
+                <h2
+                  [id]="'sec-vid-' + group.topic.toLowerCase() + '-title'"
+                  class="section-title"
+                  [style.background-color]="app.config.sectionHeaderColor || null"
+                >{{ group.topic }}</h2>
+                <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
+                  @for (item of group.items; track item.id) {
+                    <div [class]="'video-card ' + cardClasses">
+                      <!-- Clickable play area -->
+                      <div
+                        class="video-play-area"
+                        (click)="playVideo(item)"
+                        (keydown.enter)="playVideo(item)"
+                        (keydown.space)="$event.preventDefault(); playVideo(item)"
+                        role="button"
+                        tabindex="0"
+                        [attr.aria-label]="(item.embeddable === false ? 'Open on YouTube: ' : 'Play: ') + item.title"
+                      >
+                        @if (app.config.cardDetails.video.showThumbnail) {
+                          <div class="video-thumb" aria-hidden="true">
+                            @if (item.videoUrl) {
+                              <video
+                                [src]="item.videoUrl"
+                                [poster]="item.thumbnail"
+                                preload="metadata"
+                                muted
+                                playsinline
+                                class="video-thumb-preview"
+                              ></video>
+                            } @else if (item.thumbnail) {
+                              <img [src]="item.thumbnail" [alt]="" loading="lazy" />
                             }
+                            <div class="play-btn">
+                              @if (item.embeddable === false) {
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                                  <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                                </svg>
+                              } @else {
+                                <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                                  <path d="M8 5v14l11-7L8 5z"/>
+                                </svg>
+                              }
+                            </div>
                           </div>
+                        }
+                        <div class="video-meta">
+                          @if (app.config.cardDetails.video.showMeta) {
+                            <p class="card-meta">{{ item.channelTitle }} · {{ item.publishedAt }}@if (item.embeddable === false) {&nbsp;·&nbsp;<span class="ext-badge">YouTube ↗</span>}</p>
+                          }
+                          <h3>{{ item.title }}</h3>
+                          @if (item.description) {
+                            <p class="card-desc">{{ item.description }}</p>
+                          }
                         </div>
-                      }
-                      <div class="video-meta">
-                        @if (app.config.cardDetails.video.showMeta) {
-                          <p class="card-meta">{{ item.channelTitle }} · {{ item.publishedAt }}@if (item.embeddable === false) {&nbsp;·&nbsp;<span class="ext-badge">YouTube ↗</span>}</p>
-                        }
-                        <h3>{{ item.title }}</h3>
-                        @if (item.description) {
-                          <p class="card-desc">{{ item.description }}</p>
-                        }
+                      </div>
+                      <!-- Save / Share bar -->
+                      <div class="card-action-bar">
+                        <button type="button"
+                          [class]="'card-action-btn save-btn' + (isSaved(item.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                          (click)="toggleSave(videoToSavedItem(item), $event)"
+                          [attr.aria-label]="isSaved(item.id) ? 'Remove from collections' : 'Save video'"
+                          [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(item.id) ? 'Remove from collections' : 'Save video')">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                            <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                          </svg>
+                        </button>
+                        <button type="button"
+                          [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                          (click)="shareItem(videoToSavedItem(item), $event)"
+                          aria-label="Share video"
+                          [title]="!canSaveShare ? 'Upgrade to share content' : 'Share video'">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                          </svg>
+                        </button>
                       </div>
                     </div>
-                    <!-- Save / Share bar -->
-                    <div class="card-action-bar">
-                      <button type="button"
-                        [class]="'card-action-btn save-btn' + (isSaved(item.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
-                        (click)="toggleSave(videoToSavedItem(item), $event)"
-                        [attr.aria-label]="isSaved(item.id) ? 'Remove from collections' : 'Save video'"
-                        [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(item.id) ? 'Remove from collections' : 'Save video')">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
-                        </svg>
-                      </button>
-                      <button type="button"
-                        [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
-                        (click)="shareItem(videoToSavedItem(item), $event)"
-                        aria-label="Share video"
-                        [title]="!canSaveShare ? 'Upgrade to share content' : 'Share video'">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-                }
-              </div>
+                  }
+                </div>
+              </section>
             }
-          </section>
+          }
         }
 
 
         <!-- ───────── PODCASTS ───────── -->
         @if (section === 'podcasts') {
-          <section
-            id="section-podcasts"
-            class="gen-section"
-            aria-labelledby="sec-podcasts-title"
-          >
-            <h2 id="sec-podcasts-title" class="section-title">Podcasts</h2>
-            <div class="podcast-list">
-              @if (loadingPodcasts()) {
+
+          @if (loadingPodcasts()) {
+            <section id="section-podcasts" class="gen-section" aria-label="Loading podcasts">
+              <div class="podcast-list">
                 @for (sk of [1,2,3]; track sk) {
                   <article class="podcast-card podcast-skeleton">
                     <div class="pod-row">
@@ -502,54 +508,70 @@
                     </div>
                   </article>
                 }
-              } @else if (podcastItems().length === 0) {
-                <p class="no-content-msg">No podcasts found for your selected topics.</p>
-              } @else {
-                @for (item of podcastItems(); track item.id) {
-                  <article class="podcast-card">
-                    <!-- row: thumbnail + episode info -->
-                    <div class="pod-row">
-                      <div class="pod-thumb" aria-hidden="true">
-                        @if (item.imageUrl) {
-                          <img [src]="item.imageUrl" [alt]="item.title" style="width:56px;height:56px;object-fit:cover;border-radius:8px" loading="lazy" />
-                        } @else {
-                          🎙️
-                        }
+              </div>
+            </section>
+          } @else if (podcastItems().length === 0) {
+            <section id="section-podcasts" class="gen-section" aria-label="No podcasts">
+              <p class="no-content-msg">No podcasts found for your selected topics.</p>
+            </section>
+          } @else {
+            @for (group of groupedPodcasts; track group.topic; let first = $first) {
+              <section
+                [id]="first ? 'section-podcasts' : 'section-podcasts-' + group.topic.toLowerCase()"
+                class="gen-section"
+                [attr.aria-labelledby]="'sec-pod-' + group.topic.toLowerCase() + '-title'"
+              >
+                <h2
+                  [id]="'sec-pod-' + group.topic.toLowerCase() + '-title'"
+                  class="section-title"
+                  [style.background-color]="app.config.sectionHeaderColor || null"
+                >{{ group.topic }}</h2>
+                <div class="podcast-list">
+                  @for (item of group.items; track item.id) {
+                    <article class="podcast-card">
+                      <!-- row: thumbnail + episode info -->
+                      <div class="pod-row">
+                        <div class="pod-thumb" aria-hidden="true">
+                          @if (item.imageUrl) {
+                            <img [src]="item.imageUrl" [alt]="item.title" style="width:56px;height:56px;object-fit:cover;border-radius:8px" loading="lazy" />
+                          } @else {
+                            🎙️
+                          }
+                        </div>
+                        <div class="pod-meta" style="flex:1">
+                          <span class="card-meta">{{ item.host }} · {{ item.duration }}</span>
+                          <h3>{{ item.title }}</h3>
+                          <p class="pod-desc">{{ item.description }}</p>
+                          <audio controls [src]="item.audioUrl" preload="none" class="pod-audio" [attr.aria-label]="'Listen to ' + item.title"></audio>
+                        </div>
                       </div>
-                      <div class="pod-meta" style="flex:1">
-                        <span class="card-meta">{{ item.host }} · {{ item.duration }}</span>
-                        <h3>{{ item.title }}</h3>
-                        <p class="pod-desc">{{ item.description }}</p>
-                        <audio controls [src]="item.audioUrl" preload="none" class="pod-audio" [attr.aria-label]="'Listen to ' + item.title"></audio>
-                        <p class="card-attr" style="text-transform:capitalize">{{ item.category }}</p>
+                      <!-- Save / Share bar -->
+                      <div class="card-action-bar">
+                        <button type="button"
+                          [class]="'card-action-btn save-btn' + (isSaved(podcastToSavedItem(item).id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                          (click)="toggleSave(podcastToSavedItem(item), $event)"
+                          [attr.aria-label]="isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast'"
+                          [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast')">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                            <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                          </svg>
+                        </button>
+                        <button type="button"
+                          [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                          (click)="shareItem(podcastToSavedItem(item), $event)"
+                          aria-label="Share podcast"
+                          [title]="!canSaveShare ? 'Upgrade to share content' : 'Share podcast'">
+                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                          </svg>
+                        </button>
                       </div>
-                    </div>
-                    <!-- Save / Share bar -->
-                    <div class="card-action-bar">
-                      <button type="button"
-                        [class]="'card-action-btn save-btn' + (isSaved(podcastToSavedItem(item).id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
-                        (click)="toggleSave(podcastToSavedItem(item), $event)"
-                        [attr.aria-label]="isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast'"
-                        [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast')">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
-                        </svg>
-                      </button>
-                      <button type="button"
-                        [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
-                        (click)="shareItem(podcastToSavedItem(item), $event)"
-                        aria-label="Share podcast"
-                        [title]="!canSaveShare ? 'Upgrade to share content' : 'Share podcast'">
-                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
-                        </svg>
-                      </button>
-                    </div>
-                  </article>
-                }
-              }
-            </div>
-          </section>
+                    </article>
+                  }
+                </div>
+              </section>
+            }
+          }
         }
 
       }<!-- /for orderedSections -->

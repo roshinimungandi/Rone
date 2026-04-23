@@ -571,8 +571,12 @@ export class AppBuilderService {
       `Now for **content types**. Your app can include:\n\n` +
       `- 📄 **Articles** — in-depth written coverage\n` +
       `- 🎥 **Videos** — news clips and reports\n` +
-      `- 🎙️ **Podcasts** — audio journalism\n` +
-      `All are enabled by default. Tell me if you'd like to exclude any, or just say **"all good"** to keep everything.`
+      `- 🎙️ **Podcasts** — audio journalism\n\n` +
+      `All are enabled by default. You can:\n` +
+      `- Say **"all"** to keep everything\n` +
+      `- Say **"only articles"**, **"only videos"**, or **"only podcasts"** for a single type\n` +
+      `- Say **"no videos"**, **"no podcasts"** etc. to exclude specific types\n` +
+      `What would you like?`
     );
     this._stage.set('content_types');
   }
@@ -584,14 +588,32 @@ export class AppBuilderService {
     if (!/all|everything|yes|fine|good|ok|keep|include all|no change/i.test(lower)) {
       this._config.update(c => {
         const ct = structuredClone(c.contentTypes);
-        if (/no.*video|without.*video|exclude.*video/i.test(lower))     ct.videos.enabled    = false;
-        if (/no.*galleri|without.*galleri|exclude.*galleri/i.test(lower)) ct.galleries.enabled = false;
-        if (/no.*podcast|without.*podcast|exclude.*podcast/i.test(lower)) ct.podcasts.enabled  = false;
-        if (/no.*market|without.*market|exclude.*market/i.test(lower))   ct.markets.enabled   = false;
-        if (/no.*article|without.*article|exclude.*article/i.test(lower)) ct.articles.enabled  = false;
-        if (/only\s+articles?/i.test(lower)) {
-          ct.videos.enabled = ct.galleries.enabled = ct.podcasts.enabled = ct.markets.enabled = false;
+
+        // "only X" / "just X" / "X only" — enable exactly what is mentioned
+        const hasOnly = /\bonly\b|\bjust\b/i.test(lower) ||
+          /\barticles?\s+only\b|\bvideos?\s+only\b|\bpodcasts?\s+only\b|\bmarkets?\s+only\b/i.test(lower);
+        if (hasOnly) {
+          const wantsArticles = /\barticles?\b/i.test(lower);
+          const wantsVideos   = /\bvideos?\b/i.test(lower);
+          const wantsPodcasts = /\bpodcasts?\b/i.test(lower);
+          const wantsMarkets  = /\bmarkets?\b/i.test(lower);
+          // At least one type must be mentioned for "only" logic to apply
+          if (wantsArticles || wantsVideos || wantsPodcasts || wantsMarkets) {
+            ct.articles.enabled  = wantsArticles;
+            ct.videos.enabled    = wantsVideos;
+            ct.podcasts.enabled  = wantsPodcasts;
+            ct.markets.enabled   = wantsMarkets;
+            ct.galleries.enabled = false;
+          }
+        } else {
+          // Selective exclusion patterns
+          if (/no.*video|without.*video|exclude.*video/i.test(lower))      ct.videos.enabled    = false;
+          if (/no.*galleri|without.*galleri|exclude.*galleri/i.test(lower)) ct.galleries.enabled = false;
+          if (/no.*podcast|without.*podcast|exclude.*podcast/i.test(lower)) ct.podcasts.enabled  = false;
+          if (/no.*market|without.*market|exclude.*market/i.test(lower))   ct.markets.enabled   = false;
+          if (/no.*article|without.*article|exclude.*article/i.test(lower)) ct.articles.enabled  = false;
         }
+
         // Redistribute weights
         const enabled = Object.values(ct).filter(v => v.enabled);
         if (enabled.length > 0) {

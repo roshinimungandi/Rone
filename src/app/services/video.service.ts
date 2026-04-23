@@ -87,6 +87,7 @@ export class VideoService {
       : `https://picsum.photos/seed/${encodeURIComponent(v.id)}/600/338`;
     return {
       id:           v.id,
+      category:     v.category,
       title:        v.title,
       description:  v.description,
       thumbnail:    thumb,

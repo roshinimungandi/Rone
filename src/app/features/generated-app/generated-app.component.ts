@@ -383,6 +383,53 @@ export class GeneratedAppComponent implements OnInit {
     return this.currentUser?.subscription === 'professional';
   }
 
+  private categoryToTopicLabel(category: string): string {
+    const map: Record<string, string> = {
+      market: 'Markets', markets: 'Markets',
+      business: 'Business', world: 'World',
+      technology: 'Technology', tech: 'Technology',
+      politics: 'Politics', science: 'Science',
+      health: 'Health', sports: 'Sports',
+      energy: 'Energy', entertainment: 'Entertainment',
+    };
+    const key = (category ?? '').toLowerCase();
+    return map[key] ?? (key ? key.charAt(0).toUpperCase() + key.slice(1) : 'General');
+  }
+
+  get groupedVideos(): { topic: string; items: import('../../models/news.model').VideoItem[] }[] {
+    const groups = new Map<string, import('../../models/news.model').VideoItem[]>();
+    for (const item of this.videoItems()) {
+      const label = this.categoryToTopicLabel(item.category);
+      if (!groups.has(label)) groups.set(label, []);
+      groups.get(label)!.push(item);
+    }
+    const topicOrder = (this.app?.config.topics ?? []).map(t => this.categoryToTopicLabel(t));
+    return Array.from(groups.entries())
+      .map(([topic, items]) => ({ topic, items }))
+      .sort((a, b) => {
+        const ai = topicOrder.indexOf(a.topic);
+        const bi = topicOrder.indexOf(b.topic);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
+  }
+
+  get groupedPodcasts(): { topic: string; items: import('../../models/news.model').PodcastItem[] }[] {
+    const groups = new Map<string, import('../../models/news.model').PodcastItem[]>();
+    for (const item of this.podcastItems()) {
+      const label = this.categoryToTopicLabel(item.category);
+      if (!groups.has(label)) groups.set(label, []);
+      groups.get(label)!.push(item);
+    }
+    const topicOrder = (this.app?.config.topics ?? []).map(t => this.categoryToTopicLabel(t));
+    return Array.from(groups.entries())
+      .map(([topic, items]) => ({ topic, items }))
+      .sort((a, b) => {
+        const ai = topicOrder.indexOf(a.topic);
+        const bi = topicOrder.indexOf(b.topic);
+        return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+      });
+  }
+
   isSaved(id: string): boolean {
     return this.collectionsService.isSaved(id);
   }
@@ -494,6 +541,10 @@ export class GeneratedAppComponent implements OnInit {
 
   goToCollections(): void {
     this.showAccountMenu.set(false);
+    if (!this.canSaveShare) {
+      this.showUpgradePrompt.set(true);
+      return;
+    }
     this.router.navigate(['/collections']);
   }
 }

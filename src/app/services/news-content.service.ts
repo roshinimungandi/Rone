@@ -533,23 +533,24 @@ export class NewsContentService {
       vulnerable:  { id: 'iCvmsMzlF7o', ch: 'TED',                   title: 'The Power of Vulnerability',                     desc: 'Brene Brown on courage, connection, and why vulnerability is the birthplace of innovation and change.' },
     };
 
-    const mk = (slot: string, v: typeof V[keyof typeof V]): VideoItem => ({
+    const mk = (slot: string, v: typeof V[keyof typeof V], category = 'world'): VideoItem => ({
       id: `yt-${slot}`, embeddable: true, channelTitle: v.ch, publishedAt: 'Featured', duration: '',
+      category,
       title: v.title, description: v.desc,
       thumbnail: `https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`,
       videoUrl:  `https://www.youtube.com/watch?v=${v.id}`,
     });
 
     const TOPIC_MAP: Record<string, VideoItem[]> = {
-      technology: [ mk('t1', V.neuralNet),   mk('t2', V.startups),    mk('t3', V.creativity)  ],
-      markets:    [ mk('m1', V.economic),    mk('m2', V.startups),    mk('m3', V.grit)        ],
-      world:      [ mk('w1', V.outbreak),    mk('w2', V.singleStory), mk('w3', V.grit)        ],
-      business:   [ mk('b1', V.startups),    mk('b2', V.economic)                             ],
-      politics:   [ mk('p1', V.singleStory), mk('p2', V.outbreak)                             ],
-      science:    [ mk('sc1', V.neuralNet),  mk('sc2', V.creativity)                          ],
-      health:     [ mk('h1', V.outbreak),    mk('h2', V.vulnerable)                           ],
-      energy:     [ mk('e1', V.economic),    mk('e2', V.outbreak)                             ],
-      sports:     [ mk('sp1', V.grit),       mk('sp2', V.vulnerable)                          ],
+      technology: [ mk('t1', V.neuralNet, 'technology'),   mk('t2', V.startups, 'technology'),    mk('t3', V.creativity, 'technology')  ],
+      markets:    [ mk('m1', V.economic, 'market'),    mk('m2', V.startups, 'market'),    mk('m3', V.grit, 'market')        ],
+      world:      [ mk('w1', V.outbreak, 'world'),    mk('w2', V.singleStory, 'world'), mk('w3', V.grit, 'world')        ],
+      business:   [ mk('b1', V.startups, 'business'),    mk('b2', V.economic, 'business')                             ],
+      politics:   [ mk('p1', V.singleStory, 'politics'), mk('p2', V.outbreak, 'politics')                             ],
+      science:    [ mk('sc1', V.neuralNet, 'science'),  mk('sc2', V.creativity, 'science')                          ],
+      health:     [ mk('h1', V.outbreak, 'health'),    mk('h2', V.vulnerable, 'health')                           ],
+      energy:     [ mk('e1', V.economic, 'energy'),    mk('e2', V.outbreak, 'energy')                             ],
+      sports:     [ mk('sp1', V.grit, 'sports'),       mk('sp2', V.vulnerable, 'sports')                          ],
     };
 
     // Aliases so common variations map to a bucket
@@ -564,8 +565,8 @@ export class NewsContentService {
     };
 
     const generalFallback: VideoItem[] = [
-      mk('gen1', V.outbreak),
-      mk('gen2', V.economic),
+      mk('gen1', V.outbreak, 'world'),
+      mk('gen2', V.economic, 'business'),
     ];
 
     // Collect videos from matching topic buckets
