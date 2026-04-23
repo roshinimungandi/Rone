@@ -148,6 +148,24 @@ export class AuthService {
     } catch { return []; }
   }
 
+  /** Update name/email for the currently signed-in user. */
+  updateProfile(name: string, email: string): void {
+    const user = this._currentUser();
+    if (!user) return;
+    const initials = name
+      .split(' ')
+      .filter(Boolean)
+      .map(w => w[0].toUpperCase())
+      .slice(0, 2)
+      .join('');
+    const updated: RoneUser = { ...user, name: name.trim(), email: email.trim().toLowerCase(), avatarInitials: initials || user.avatarInitials };
+    const idx = this._users.findIndex(u => u.id === user.id);
+    if (idx !== -1) this._users[idx] = updated;
+    this._currentUser.set(updated);
+    this.saveSession(updated);
+    this.saveRegisteredUsers();
+  }
+
   private saveRegisteredUsers(): void {
     if (!this.isBrowser) return;
     const seedIds = new Set(SEED_USERS.map(u => u.id));

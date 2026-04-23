@@ -11,6 +11,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AppBuilderService } from '../../services/app-builder.service';
 import { AuthService } from '../../services/auth.service';
+import { ThemeService } from '../../services/theme.service';
 import { BuilderStage } from '../../models/rone.model';
 
 @Component({
@@ -52,6 +53,7 @@ export class BuilderComponent implements OnInit, AfterViewChecked {
     private readonly builder: AppBuilderService,
     private readonly auth: AuthService,
     private readonly router: Router,
+    private readonly themeService: ThemeService,
   ) {}
 
   ngOnInit(): void {
@@ -77,9 +79,13 @@ export class BuilderComponent implements OnInit, AfterViewChecked {
     this.inputText = '';
     this.shouldScroll = true;
     this.builder.sendMessage(text);
+    // Sync global theme immediately whenever theme stage resolves
+    this.themeService.set(this.config().theme.mode === 'dark');
 
     // Watch for completion so we can redirect (GEN step 5)
     const check = setInterval(() => {
+      // Keep updating theme as stage progresses (theme stage resolves asynchronously)
+      this.themeService.set(this.config().theme.mode === 'dark');
       if (this.builder.stage() === 'complete') {
         clearInterval(check);
         const app = this.builder.generatedApp();
@@ -98,6 +104,7 @@ export class BuilderComponent implements OnInit, AfterViewChecked {
   }
 
   protected logout(): void {
+    this.themeService.reset();
     this.auth.logout();
     this.router.navigate(['/']);
   }
