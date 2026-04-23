@@ -26,7 +26,7 @@ export class WelcomeComponent {
   protected suEmail    = '';
   protected suPassword = '';
   protected suConfirm  = '';
-  protected suPlan: 'basic' | 'professional' = 'professional';
+  protected suPlan: 'free' | 'professional' = 'professional';
 
   constructor(
     private readonly auth: AuthService,

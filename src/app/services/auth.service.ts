@@ -26,7 +26,7 @@ const SEED_USERS: RoneUser[] = [
     id: 'usr-003',
     name: 'James Okonkwo',
     email: 'james.okonkwo@reuters.com',
-    subscription: 'basic',
+    subscription: 'free',
     avatarInitials: 'JO',
   },
   {
@@ -89,7 +89,7 @@ export class AuthService {
   }
 
   /** Register a new user and sign them in immediately. */
-  register(name: string, email: string, subscription: 'basic' | 'professional'): void {
+  register(name: string, email: string, subscription: 'free' | 'professional'): void {
     const initials = name
       .split(' ')
       .filter(Boolean)
@@ -153,5 +153,30 @@ export class AuthService {
     const seedIds = new Set(SEED_USERS.map(u => u.id));
     const registered = this._users.filter(u => !seedIds.has(u.id));
     localStorage.setItem(LS_USERS, JSON.stringify(registered));
+  }
+
+  /** Update the current user's display name and email. */
+  updateProfile(name: string, email: string): void {
+    const user = this._currentUser();
+    if (!user) return;
+    const trimmedEmail = email.trim().toLowerCase();
+    // Ensure email isn't already taken by a different account
+    const duplicate = this._users.find(
+      u => u.id !== user.id && u.email.trim().toLowerCase() === trimmedEmail
+    );
+    if (duplicate) return; // silently skip if duplicate — caller should validate
+    const initials = name.trim().split(' ').filter(Boolean).map(w => w[0].toUpperCase()).slice(0, 2).join('');
+    const updated: RoneUser = { ...user, name: name.trim(), email: trimmedEmail, avatarInitials: initials || user.avatarInitials };
+    const idx = this._users.findIndex(u => u.id === user.id);
+    if (idx !== -1) this._users[idx] = updated;
+    this._currentUser.set(updated);
+    this.saveSession(updated);
+  }
+
+  /** Returns true if the email belongs to a different account. */
+  isEmailTakenByOther(email: string, currentUserId: string): boolean {
+    return this._users.some(
+      u => u.id !== currentUserId && u.email.trim().toLowerCase() === email.trim().toLowerCase()
+    );
   }
 }

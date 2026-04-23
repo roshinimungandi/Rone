@@ -1692,6 +1692,213 @@ a.story-card:hover, a.card-link:hover {
 }
 .upgrade-dialog-btn-secondary:hover { color: #333; }
 
+/* ── Profile Dialog ──────────────────────────────────────────────────────── */
+.profile-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.60);
+  backdrop-filter: blur(6px);
+  z-index: 11000;
+  display: grid;
+  place-items: center;
+  padding: 1rem;
+}
+
+.profile-dialog-card {
+  position: relative;
+  background: #fff;
+  border-radius: 20px;
+  padding: 2rem 2rem 1.75rem;
+  width: min(460px, 100%);
+  box-shadow: 0 24px 64px rgba(0,0,0,0.28);
+  animation: upgrade-dialog-in 220ms ease;
+  text-align: center;
+}
+
+.profile-avatar-wrap {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0.75rem;
+}
+
+.profile-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--g-accent, #e94560), var(--g-primary, #ff8000));
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.02em;
+}
+
+.profile-dialog-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0 0 0.3rem;
+}
+
+.profile-dialog-email {
+  font-size: 0.88rem;
+  color: #888;
+  margin: 0 0 1rem;
+}
+
+.profile-plan-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
+}
+
+.profile-plan-badge {
+  display: inline-block;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.plan-badge-pro {
+  background: linear-gradient(135deg, #ff8000, #e94560);
+  color: #fff;
+}
+
+.plan-badge-basic {
+  background: #f0f0f0;
+  color: #555;
+}
+
+.profile-upgrade-link {
+  background: none;
+  border: none;
+  color: var(--g-accent, #e94560);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  transition: opacity 0.15s;
+}
+.profile-upgrade-link:hover { opacity: 0.75; }
+
+.profile-plan-features {
+  background: #f7f7f9;
+  border-radius: 10px;
+  padding: 0.85rem 1.1rem;
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+.profile-plan-desc {
+  font-size: 0.84rem;
+  color: #555;
+  margin: 0 0 0.5rem;
+}
+
+.profile-plan-features ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.profile-plan-features li {
+  font-size: 0.84rem;
+  color: #333;
+}
+
+.profile-plan-features .feature-locked {
+  color: #bbb;
+}
+
+.profile-divider {
+  border: none;
+  border-top: 1px solid #ebebeb;
+  margin: 0.75rem 0 1rem;
+}
+
+.profile-edit-section {
+  text-align: left;
+}
+
+.profile-edit-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 0.45rem;
+}
+
+.profile-edit-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.profile-name-input {
+  flex: 1;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.profile-name-input:focus { border-color: var(--g-accent, #e94560); }
+
+.profile-save-btn {
+  background: var(--g-accent, #e94560);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.55rem 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.profile-save-btn:disabled { opacity: 0.55; cursor: default; }
+.profile-save-btn:not(:disabled):hover { opacity: 0.85; }
+
+.profile-saved-msg {
+  font-size: 0.8rem;
+  color: #22a060;
+  margin: 0.4rem 0 0;
+}
+
+.profile-email-error {
+  font-size: 0.8rem;
+  color: #d32f2f;
+  margin: 0.35rem 0 0;
+}
+
+.profile-save-row {
+  margin-top: 1rem;
+  display: flex;
+}
+
+/* dark mode overrides for profile dialog */
+.dark-mode .profile-dialog-card { background: #1e1e2e; }
+.dark-mode .profile-dialog-title { color: #e0e0e0; }
+.dark-mode .profile-dialog-email { color: #888; }
+.dark-mode .profile-plan-features { background: #252535; }
+.dark-mode .profile-plan-features li { color: #ccc; }
+.dark-mode .profile-plan-desc { color: #aaa; }
+.dark-mode .profile-divider { border-color: #333; }
+.dark-mode .profile-name-input { background: #252535; border-color: #444; color: #e0e0e0; }
+.dark-mode .plan-badge-basic { background: #333; color: #aaa; }
+
 /* ── Subscription Status Modal ───────────────────────────────────────────── */
 .sub-modal-backdrop {
   position: fixed;

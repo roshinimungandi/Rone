@@ -44,11 +44,20 @@ export class GeneratedAppComponent implements OnInit {
   protected readonly showAccountMenu       = signal(false);
   protected readonly showSubscriptionModal = signal(false);
   protected readonly showUpgradePrompt     = signal(false);
+  protected readonly showProfileDialog     = signal(false);
+  protected readonly showAssistantUpgrade  = signal(false);
   protected readonly savedToast            = signal<{title: string; removing: boolean} | null>(null);
   private toastTimer: ReturnType<typeof setTimeout> | null = null;
   protected assistantInput = '';
   protected readonly floatMessages = signal<FloatingMessage[]>([]);
   protected assistantTyping = false;
+
+  // Profile edit state
+  protected profileEditName  = '';
+  protected profileEditEmail = '';
+  protected profileEmailError = '';
+  protected profileSaving   = false;
+  protected profileSaved    = false;
 
   // Section data
   protected filteredSections: NewsSection[] = [];
@@ -101,6 +110,8 @@ export class GeneratedAppComponent implements OnInit {
     if (this.activeVideo()) this.closeVideo();
     if (this.showSubscriptionModal()) this.closeSubscriptionModal();
     if (this.showUpgradePrompt()) this.showUpgradePrompt.set(false);
+    if (this.showProfileDialog()) this.showProfileDialog.set(false);
+    if (this.showAssistantUpgrade()) this.showAssistantUpgrade.set(false);
   }
 
   @HostBinding('style')
@@ -220,7 +231,14 @@ export class GeneratedAppComponent implements OnInit {
 
   // ── Floating assistant ────────────────────────────────────────────────────
 
-  protected toggleAssistant(): void { this.assistantOpen.update(v => !v); }
+  protected toggleAssistant(): void {
+    if (!this.canSaveShare) {
+      // Basic plan users cannot use the AI assistant
+      this.showAssistantUpgrade.set(true);
+      return;
+    }
+    this.assistantOpen.update(v => !v);
+  }
   protected closeAssistant(): void  { this.assistantOpen.set(false); }
 
   protected sendAssistantMessage(): void {
@@ -546,5 +564,45 @@ export class GeneratedAppComponent implements OnInit {
       return;
     }
     this.router.navigate(['/collections']);
+  }
+
+  // ── Profile dialog ───────────────────────────────────────────────────────
+
+  openProfileDialog(): void {
+    this.showAccountMenu.set(false);
+    const user = this.currentUser;
+    this.profileEditName   = user?.name  ?? '';
+    this.profileEditEmail  = user?.email ?? '';
+    this.profileEmailError = '';
+    this.profileSaved      = false;
+    this.showProfileDialog.set(true);
+  }
+
+  saveProfile(): void {
+    const name  = this.profileEditName.trim();
+    const email = this.profileEditEmail.trim().toLowerCase();
+    if (!name || !email) return;
+    // Basic email format check
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.profileEmailError = 'Please enter a valid email address.';
+      return;
+    }
+    // Duplicate check
+    if (this.auth.isEmailTakenByOther(email, this.currentUser?.id ?? '')) {
+      this.profileEmailError = 'This email is already in use by another account.';
+      return;
+    }
+    this.profileEmailError = '';
+    this.profileSaving = true;
+    setTimeout(() => {
+      this.auth.updateProfile(name, email);
+      this.profileSaving = false;
+      this.profileSaved  = true;
+      setTimeout(() => this.profileSaved = false, 2500);
+    }, 400);
+  }
+
+  get planBadgeClass(): string {
+    return this.currentUser?.subscription === 'professional' ? 'plan-badge-pro' : 'plan-badge-basic';
   }
 }

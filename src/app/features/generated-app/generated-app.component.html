@@ -84,10 +84,9 @@
                     <span>{{ currentUser.subscription | titlecase }} subscriber</span>
                   </div>
                   <hr>
-                  <button role="menuitem" (click)="closeAccountMenu()">View Profile</button>
+                  <button role="menuitem" (click)="openProfileDialog()">View Profile</button>
                   <button role="menuitem" (click)="openSubscriptionStatus()">Subscription Status</button>
-                  <button role="menuitem" (click)="goToCollections()">My Collections</button>
-                  <button role="menuitem" (click)="manageApp()">Manage App</button>
+                  <button role="menuitem" (click)="goToCollections()">My Library</button>
                   <button role="menuitem" (click)="signOut()">Sign Out</button>
                 } @else {
                   <div class="acct-info">
@@ -802,8 +801,161 @@
       </svg>
     </span>
     <span class="save-toast-text">Saved to collections</span>
-    <button type="button" class="save-toast-cta" (click)="goToCollections()">View Collections →</button>
+    <button type="button" class="save-toast-cta" (click)="goToCollections()">View Library →</button>
     <button type="button" class="save-toast-close" (click)="savedToast.set(null)" aria-label="Dismiss">✕</button>
+  </div>
+}
+
+<!-- ── Profile Dialog ──────────────────────────────────────────────────────── -->
+@if (showProfileDialog()) {
+  <div class="profile-dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="profile-dialog-title"
+       (click)="showProfileDialog.set(false)" (keydown.escape)="showProfileDialog.set(false)">
+    <div class="profile-dialog-card" (click)="$event.stopPropagation()">
+
+      <button type="button" class="upgrade-dialog-close" (click)="showProfileDialog.set(false)" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+
+      <!-- Avatar + name -->
+      @if (currentUser) {
+        <div class="profile-avatar-wrap">
+          <span class="profile-avatar">{{ currentUser.avatarInitials }}</span>
+        </div>
+        <h2 id="profile-dialog-title" class="profile-dialog-title">{{ currentUser.name }}</h2>
+        <p class="profile-dialog-email">{{ currentUser.email }}</p>
+
+        <!-- Plan badge -->
+        <div class="profile-plan-row">
+          <span [class]="'profile-plan-badge ' + planBadgeClass">
+            @if (currentUser.subscription === 'professional') {
+              ⭐ Professional Plan
+            } @else {
+              Basic Plan
+            }
+          </span>
+          @if (currentUser.subscription !== 'professional') {
+            <button type="button" class="profile-upgrade-link" (click)="openSubscriptionStatus(); showProfileDialog.set(false)">
+              Upgrade →
+            </button>
+          }
+        </div>
+
+        <!-- Plan features summary -->
+        <div class="profile-plan-features">
+          @if (currentUser.subscription === 'professional') {
+            <p class="profile-plan-desc">You have access to all Professional features:</p>
+            <ul>
+              <li>✓ Unlimited topics</li>
+              <li>✓ Save &amp; share content</li>
+              <li>✓ AI assistant customisation</li>
+              <li>✓ Real-time content refresh</li>
+              <li>✓ Full theme &amp; layout control</li>
+            </ul>
+          } @else {
+            <p class="profile-plan-desc">You are on the <strong>Basic (Free)</strong> plan:</p>
+            <ul>
+              <li>✓ Up to 3 topics</li>
+              <li>✓ Standard content</li>
+              <li class="feature-locked">✗ Save &amp; share (Professional only)</li>
+              <li class="feature-locked">✗ AI assistant (Professional only)</li>
+            </ul>
+          }
+        </div>
+
+        <hr class="profile-divider">
+
+        <!-- Edit name & email -->
+        <div class="profile-edit-section">
+          <label class="profile-edit-label" for="profile-name-input">Display name</label>
+          <div class="profile-edit-row">
+            <input
+              id="profile-name-input"
+              type="text"
+              class="profile-name-input"
+              [(ngModel)]="profileEditName"
+              placeholder="Your name"
+              maxlength="60"
+            />
+          </div>
+
+          <label class="profile-edit-label" style="margin-top:0.85rem" for="profile-email-input">Email address</label>
+          <div class="profile-edit-row">
+            <input
+              id="profile-email-input"
+              type="email"
+              class="profile-name-input"
+              [(ngModel)]="profileEditEmail"
+              placeholder="you@example.com"
+              maxlength="120"
+            />
+          </div>
+          @if (profileEmailError) {
+            <p class="profile-email-error">{{ profileEmailError }}</p>
+          }
+
+          <div class="profile-save-row">
+            <button
+              type="button"
+              class="profile-save-btn"
+              (click)="saveProfile()"
+              [disabled]="profileSaving || !profileEditName.trim() || !profileEditEmail.trim()"
+            >
+              @if (profileSaving) { Saving… }
+              @else if (profileSaved) { ✓ Saved }
+              @else { Save changes }
+            </button>
+          </div>
+          @if (profileSaved) {
+            <p class="profile-saved-msg">Profile updated successfully!</p>
+          }
+        </div>
+
+      } @else {
+        <h2 id="profile-dialog-title" class="profile-dialog-title">Guest</h2>
+        <p class="profile-dialog-email">Not signed in</p>
+      }
+
+    </div>
+  </div>
+}
+
+<!-- ── AI Assistant Upgrade Dialog ────────────────────────────────────────── -->
+@if (showAssistantUpgrade()) {
+  <div class="upgrade-dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="ai-upgrade-title"
+       (click)="showAssistantUpgrade.set(false)" (keydown.escape)="showAssistantUpgrade.set(false)">
+    <div class="upgrade-dialog-card" (click)="$event.stopPropagation()">
+
+      <button type="button" class="upgrade-dialog-close" (click)="showAssistantUpgrade.set(false)" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true">
+          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </svg>
+      </button>
+
+      <div class="upgrade-dialog-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+          <path d="M20 2H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h3l3 3 3-3h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2Zm-2 12H6v-2h12v2Zm0-3H6V9h12v2Zm0-3H6V6h12v2Z"/>
+        </svg>
+      </div>
+
+      <h2 id="ai-upgrade-title" class="upgrade-dialog-title">AI Assistant — Professional Only</h2>
+      <p class="upgrade-dialog-body">
+        The Rone AI assistant lets you customise your app using natural language.
+        It's available on the <strong>Professional</strong> plan.
+      </p>
+
+
+      <div class="upgrade-dialog-actions">
+        <button type="button" class="upgrade-dialog-btn-primary" (click)="openSubscriptionStatus(); showAssistantUpgrade.set(false)">
+          View Plans &amp; Upgrade
+        </button>
+        <button type="button" class="upgrade-dialog-btn-secondary" (click)="showAssistantUpgrade.set(false)">
+          Maybe Later
+        </button>
+      </div>
+
+    </div>
   </div>
 }
 

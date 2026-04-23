@@ -9,7 +9,7 @@ export interface RoneUser {
   id: string;
   name: string;
   email: string;
-  subscription: 'professional' | 'basic';
+  subscription: 'professional' | 'free';
   avatarInitials: string;
 }
 
