@@ -809,6 +809,7 @@
 <!-- ── Profile Dialog ──────────────────────────────────────────────────────── -->
 @if (showProfileDialog()) {
   <div class="profile-dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="profile-dialog-title"
+       [class.dark-mode]="isDark"
        (click)="showProfileDialog.set(false)" (keydown.escape)="showProfileDialog.set(false)">
     <div class="profile-dialog-card" (click)="$event.stopPropagation()">
 
@@ -924,6 +925,7 @@
 <!-- ── AI Assistant Upgrade Dialog ────────────────────────────────────────── -->
 @if (showAssistantUpgrade()) {
   <div class="upgrade-dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="ai-upgrade-title"
+       [class.dark-mode]="isDark"
        (click)="showAssistantUpgrade.set(false)" (keydown.escape)="showAssistantUpgrade.set(false)">
     <div class="upgrade-dialog-card" (click)="$event.stopPropagation()">
 
@@ -962,6 +964,7 @@
 <!-- ── Upgrade Required Dialog ─────────────────────────────────────────────── -->
 @if (showUpgradePrompt()) {
   <div class="upgrade-dialog-backdrop" role="dialog" aria-modal="true" aria-labelledby="upgrade-dialog-title"
+       [class.dark-mode]="isDark"
        (click)="showUpgradePrompt.set(false)" (keydown.escape)="showUpgradePrompt.set(false)">
     <div class="upgrade-dialog-card" (click)="$event.stopPropagation()">
 
@@ -1006,6 +1009,7 @@
 <!-- ── Subscription Status Modal ──────────────────────────────────────────── -->
 @if (showSubscriptionModal() && subscriptionDetails) {
   <div class="sub-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="sub-modal-title"
+       [class.dark-mode]="isDark"
        (click)="closeSubscriptionModal()" (keydown.escape)="closeSubscriptionModal()">
     <div class="sub-modal-card" (click)="$event.stopPropagation()">
 

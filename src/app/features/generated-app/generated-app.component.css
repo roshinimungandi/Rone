@@ -548,7 +548,7 @@ a.story-card:hover, a.card-link:hover {
   gap: 6px;
   padding: 7px 10px 8px;
   border-top: 1px solid rgba(0,0,0,0.07);
-  background: rgba(255,255,255,0.96);
+  background: #fff;
 }
 
 .card-action-bar-hero {
@@ -573,7 +573,7 @@ a.story-card:hover, a.card-link:hover {
   background: transparent;
   cursor: pointer;
   transition: background 0.15s, color 0.15s, opacity 0.15s;
-  color: #555;
+  color:#111 ;
   padding: 0;
   flex-shrink: 0;
 }
@@ -2295,4 +2295,37 @@ a.story-card:hover, a.card-link:hover {
 .dark-mode .sub-renew-btn:hover { background: #4b5563; }
 .dark-mode .sub-cancel-btn { background: #27272a; color: #9ca3af; }
 .dark-mode .sub-cancel-btn:hover { background: #3f3f46; }
+
+/* ── Dark mode: subscription modal full overrides ────────────────────────── */
+.dark-mode .sub-modal-title    { color: #f9fafb; }
+.dark-mode .sub-modal-sub      { color: #9ca3af; }
+.dark-mode .sub-modal-header   { background: #111827; }
+.dark-mode .sub-section        { background: #1f1f2e; border-radius: 10px; padding: 1rem; }
+.dark-mode .sub-feature-list   { background: transparent; }
+.dark-mode .sub-modal-footer   { border-top-color: #27272a; }
+.dark-mode .sub-label          { color: #9ca3af; }
+
+/* ── Dark mode: upgrade dialog (save/share & AI assistant prompts) ───────── */
+.dark-mode .upgrade-dialog-card    { background: #1e1e2e; }
+.dark-mode .upgrade-dialog-title   { color: #f0f0f0; }
+.dark-mode .upgrade-dialog-body    { color: #aaa; }
+.dark-mode .upgrade-dialog-perks   { background: #252535; }
+.dark-mode .upgrade-dialog-perks li { color: #ccc; }
+.dark-mode .upgrade-dialog-close   { background: #2e2e3e; color: #aaa; }
+.dark-mode .upgrade-dialog-close:hover { background: #3a3a4a; }
+.dark-mode .upgrade-dialog-btn-secondary { color: #888; }
+.dark-mode .upgrade-dialog-btn-secondary:hover { color: #ccc; }
+
+/* ── Dark mode: profile dialog missing overrides ─────────────────────────── */
+.dark-mode .profile-plan-features  { background: #252535; }
+.dark-mode .profile-plan-features li { color: #ccc; }
+.dark-mode .profile-plan-features .feature-locked { color: #555; }
+.dark-mode .profile-plan-desc      { color: #aaa; }
+.dark-mode .profile-divider        { border-color: #2e2e3e; }
+.dark-mode .profile-edit-label     { color: #888; }
+.dark-mode .profile-name-input     { background: #252535; border-color: #3a3a4a; color: #e0e0e0; }
+.dark-mode .profile-name-input:focus { border-color: var(--g-accent, #e94560); }
+.dark-mode .profile-name-input::placeholder { color: #666; }
+.dark-mode .plan-badge-basic       { background: #2e2e3e; color: #aaa; }
+.dark-mode .upgrade-dialog-close   { background: #2e2e3e; color: #aaa; }
 
