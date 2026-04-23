@@ -253,3 +253,58 @@
   .coll-grid { grid-template-columns: 1fr; }
   .coll-main { padding: 20px 16px; }
 }
+
+/* ── Dark mode ───────────────────────────────────────────────────────────── */
+.dark-mode.collections-shell {
+  background: #121212;
+}
+
+.dark-mode .coll-header {
+  background: #1e1e2e;
+  border-bottom-color: #2e2e3e;
+}
+
+.dark-mode .back-btn {
+  border-color: #444;
+  color: #bbb;
+  background: transparent;
+}
+.dark-mode .back-btn:hover { background: #2a2a3a; border-color: #666; }
+
+.dark-mode .coll-title-group h1 { color: #e0e0e0; }
+.dark-mode .coll-subtitle        { color: #888; }
+
+.dark-mode .coll-empty           { color: #888; }
+.dark-mode .coll-empty h2        { color: #aaa; }
+.dark-mode .empty-icon           { color: #444; }
+
+.dark-mode .coll-card {
+  background: #1e1e2e;
+  border-color: #2e2e3e;
+}
+.dark-mode .coll-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+
+.dark-mode .coll-img-placeholder { background: #2a2a3a; }
+
+.dark-mode .coll-story-title { color: #e0e0e0; }
+.dark-mode .coll-summary     { color: #aaa; }
+.dark-mode .coll-item-meta   { color: #666; }
+.dark-mode .coll-meta        { color: #666; }
+
+.dark-mode .coll-actions {
+  border-top-color: #2e2e3e;
+}
+
+.dark-mode .coll-share-btn {
+  border-color: #4a90d9;
+  color: #4a90d9;
+}
+.dark-mode .coll-share-btn:hover  { background: #1a2a3a; }
+
+.dark-mode .coll-remove-btn {
+  border-color: #e05555;
+  color: #e05555;
+}
+.dark-mode .coll-remove-btn:hover { background: #2a1a1a; }

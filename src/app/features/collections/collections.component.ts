@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { CollectionsService, SavedItem } from '../../services/collections.service';
 import { AuthService } from '../../services/auth.service';
+import { AppBuilderService } from '../../services/app-builder.service';
 
 @Component({
   selector: 'app-collections',
@@ -13,10 +14,15 @@ import { AuthService } from '../../services/auth.service';
 export class CollectionsComponent {
   protected readonly collections = inject(CollectionsService);
   private readonly auth     = inject(AuthService);
+  private readonly builder  = inject(AppBuilderService);
   private readonly router   = inject(Router);
   private readonly location = inject(Location);
 
   get currentUser() { return this.auth.currentUser(); }
+
+  get isDark(): boolean {
+    return this.builder.config().theme.mode === 'dark';
+  }
 
   removeItem(id: string): void {
     this.collections.remove(id);
