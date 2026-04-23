@@ -17,7 +17,6 @@ import { AppBuilderService } from '../../services/app-builder.service';
 import { AuthService } from '../../services/auth.service';
 import { CollectionsService, SavedItem } from '../../services/collections.service';
 import { NewsContentService } from '../../services/news-content.service';
-import { ThemeService } from '../../services/theme.service';
 import { PodcastService } from '../../services/podcast.service';
 import { VideoService } from '../../services/video.service';
 import { AppConfig, GeneratedApp } from '../../models/rone.model';
@@ -45,11 +44,6 @@ export class GeneratedAppComponent implements OnInit {
   protected readonly showAccountMenu       = signal(false);
   protected readonly showSubscriptionModal = signal(false);
   protected readonly showUpgradePrompt     = signal(false);
-  protected readonly showProfileModal      = signal(false);
-  protected readonly profileEditMode       = signal(false);
-  protected profileEditName  = '';
-  protected profileEditEmail = '';
-  protected profileSaveError = '';
   protected readonly savedToast            = signal<{title: string; removing: boolean} | null>(null);
   private toastTimer: ReturnType<typeof setTimeout> | null = null;
   protected assistantInput = '';
@@ -107,7 +101,6 @@ export class GeneratedAppComponent implements OnInit {
     if (this.activeVideo()) this.closeVideo();
     if (this.showSubscriptionModal()) this.closeSubscriptionModal();
     if (this.showUpgradePrompt()) this.showUpgradePrompt.set(false);
-    if (this.showProfileModal()) this.closeProfileModal();
   }
 
   @HostBinding('style')
@@ -135,7 +128,6 @@ export class GeneratedAppComponent implements OnInit {
     private readonly videoService: VideoService,
     private readonly sanitizer: DomSanitizer,
     private readonly location: Location,
-    private readonly themeService: ThemeService,
     @Inject(PLATFORM_ID) private platformId: object,
   ) {
     // afterNextRender must be called in an injection context (constructor).
@@ -167,7 +159,6 @@ export class GeneratedAppComponent implements OnInit {
     }
 
     this.app = loaded;
-    this.themeService.set(loaded.config.theme.mode === 'dark');
     this.loadContent();
     this.pushFloatAssistant(
       `Hi! I'm the Rone assistant for your **${this.appTitle}** app.\n\n` +
@@ -176,8 +167,7 @@ export class GeneratedAppComponent implements OnInit {
       `- Change the **accent colour** (e.g., "make it blue")\n` +
       `- Change the **layout** (grid, magazine, list)\n` +
       `- **Add a topic** — I'll ask where you want it placed\n` +
-      `- **Remove a topic** (e.g., "remove Markets")\n` +
-      `- **Add/remove content** (e.g., "add videos", "remove podcasts")`
+      `- **Remove a topic** (e.g., "remove Markets")`
     );
   }
 
@@ -245,7 +235,6 @@ export class GeneratedAppComponent implements OnInit {
       // Reload content after mutation
       if (this.app) {
         this.app = this.builder.loadApp(this.app.id);
-        this.themeService.set(this.app?.config.theme.mode === 'dark');
         this.loadContent();
         this.loadVideos();
         this.loadPodcasts();
@@ -274,37 +263,6 @@ export class GeneratedAppComponent implements OnInit {
 
   protected closeSubscriptionModal(): void {
     this.showSubscriptionModal.set(false);
-  }
-
-  // ── Profile modal ──────────────────────────────────────────────────────────
-
-  protected openProfileModal(): void {
-    const u = this.currentUser;
-    if (!u) return;
-    this.profileEditName  = u.name;
-    this.profileEditEmail = u.email;
-    this.profileSaveError = '';
-    this.profileEditMode.set(false);
-    this.showAccountMenu.set(false);
-    this.showProfileModal.set(true);
-  }
-
-  protected closeProfileModal(): void {
-    this.showProfileModal.set(false);
-    this.profileEditMode.set(false);
-    this.profileSaveError = '';
-  }
-
-  protected saveProfile(): void {
-    const name  = this.profileEditName.trim();
-    const email = this.profileEditEmail.trim().toLowerCase();
-    if (!name)  { this.profileSaveError = 'Name cannot be empty.'; return; }
-    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      this.profileSaveError = 'Please enter a valid email address.'; return;
-    }
-    this.auth.updateProfile(name, email);
-    this.profileSaveError = '';
-    this.profileEditMode.set(false);
   }
 
   /** Computed subscription details for the modal. */
@@ -336,7 +294,6 @@ export class GeneratedAppComponent implements OnInit {
   }
 
   protected signOut(): void {
-    this.themeService.reset();
     this.auth.logout();
     this.showAccountMenu.set(false);
     this.router.navigate(['/']);
@@ -432,8 +389,6 @@ export class GeneratedAppComponent implements OnInit {
       business: 'Business', world: 'World',
       technology: 'Technology', tech: 'Technology',
       politics: 'Politics', science: 'Science',
-      health: 'Health', sports: 'Sports',
-      energy: 'Energy', entertainment: 'Entertainment',
     };
     const key = (category ?? '').toLowerCase();
     return map[key] ?? (key ? key.charAt(0).toUpperCase() + key.slice(1) : 'General');

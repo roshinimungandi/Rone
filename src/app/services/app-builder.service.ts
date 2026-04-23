@@ -10,56 +10,6 @@ import {
   MutationType,
 } from '../models/rone.model';
 
-// ── Fuzzy matching utility ────────────────────────────────────────────────────
-/**
- * Compute Levenshtein edit distance between two lowercase strings.
- * Used to tolerate typos in user input.
- */
-function levenshtein(a: string, b: string): number {
-  const m = a.length, n = b.length;
-  const dp: number[][] = Array.from({ length: m + 1 }, (_, i) =>
-    Array.from({ length: n + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0))
-  );
-  for (let i = 1; i <= m; i++) {
-    for (let j = 1; j <= n; j++) {
-      dp[i][j] = a[i - 1] === b[j - 1]
-        ? dp[i - 1][j - 1]
-        : 1 + Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]);
-    }
-  }
-  return dp[m][n];
-}
-
-/**
- * Return the best matching key from `candidates` for the word `word`.
- * Returns null if no candidate is within `maxDist` edit distance.
- */
-function fuzzyMatch(word: string, candidates: string[], maxDist = 2): string | null {
-  let best: string | null = null;
-  let bestDist = maxDist + 1;
-  for (const c of candidates) {
-    const d = levenshtein(word, c);
-    if (d < bestDist) { bestDist = d; best = c; }
-  }
-  return bestDist <= maxDist ? best : null;
-}
-
-/**
- * Tokenise the input to individual words and fuzzy-match each one against
- * the provided candidates. Returns all unique matches found.
- */
-function fuzzyMatchAll(text: string, candidates: string[], maxDist = 2): string[] {
-  const words = text.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
-  const hits = new Set<string>();
-  for (const w of words) {
-    // Skip tiny words that create noise
-    if (w.length < 3) continue;
-    const m = fuzzyMatch(w, candidates, maxDist);
-    if (m) hits.add(m);
-  }
-  return [...hits];
-}
-
 // ── Safety gate patterns (PRS Section 3.2 – 3.5) ─────────────────────────────
 // Maps a regex to the BLOCK response the assistant must return.
 const BLOCKED_PATTERNS: ReadonlyArray<{ readonly pattern: RegExp; readonly message: string }> = [
@@ -266,18 +216,6 @@ export class AppBuilderService {
 
     const lower = command.toLowerCase();
 
-    // Pre-compute fuzzy action intent — tolerate typos in common action words
-    const inputWords = lower.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(w => w.length >= 3);
-    const ACTION_WORDS = ['add', 'remove', 'show', 'hide', 'enable', 'disable',
-                          'dark', 'light', 'grid', 'list', 'magazine', 'newspaper'];
-    const fuzzyActions = new Set<string>();
-    for (const w of inputWords) {
-      const hit = fuzzyMatch(w, ACTION_WORDS, 1);
-      if (hit) fuzzyActions.add(hit);
-    }
-    // Extend lower with fuzzy-resolved tokens so downstream regex also benefits
-    const lowerExtended = lower + (fuzzyActions.size ? ' ' + [...fuzzyActions].join(' ') : '');
-
     // ── PENDING: user is answering the "where?" question ─────────────────────
     const pending = this.pendingTopicAdd();
     if (pending) {
@@ -302,7 +240,7 @@ export class AppBuilderService {
     }
 
     // THEME mutations
-    if (/\bdark\s*(mode|theme)?\b/i.test(lowerExtended)) {
+    if (/\bdark\s*(mode|theme)?\b/i.test(lower)) {
       return this.applyMutation('update_slot', c => ({
         ...c,
         theme: {
@@ -312,7 +250,7 @@ export class AppBuilderService {
         },
       }), '✅ Switched to **dark mode**. Your app has been updated!');
     }
-    if (/\blight\s*(mode|theme)?\b/i.test(lowerExtended)) {
+    if (/\blight\s*(mode|theme)?\b/i.test(lower)) {
       return this.applyMutation('update_slot', c => ({
         ...c,
         theme: {
@@ -324,45 +262,32 @@ export class AppBuilderService {
     }
 
     // COLOUR mutations — accent
-    // Exact match first, then fuzzy fallback on individual words
-    let accentName: string | null = null;
-    let accentHex: string | null  = null;
     for (const [name, hex] of Object.entries(COLOUR_MAP)) {
-      if (lower.includes(name)) { accentName = name; accentHex = hex; break; }
-    }
-    if (!accentName) {
-      const colourKeys = Object.keys(COLOUR_MAP);
-      const words2 = lower.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(w => w.length >= 3);
-      for (const w of words2) {
-        const hit = fuzzyMatch(w, colourKeys, 2);
-        if (hit) { accentName = hit; accentHex = COLOUR_MAP[hit]; break; }
+      if (lower.includes(name)) {
+        return this.applyMutation('update_slot', c => ({
+          ...c,
+          theme: { ...c.theme, colors: { ...c.theme.colors, accent: hex } },
+        }), `✅ Accent colour updated to **${name}** (${hex}). App refreshed!`);
       }
-    }
-    if (accentName && accentHex) {
-      const _name = accentName, _hex = accentHex;
-      return this.applyMutation('update_slot', c => ({
-        ...c,
-        theme: { ...c.theme, colors: { ...c.theme.colors, accent: _hex } },
-      }), `✅ Accent colour updated to **${_name}** (${_hex}). App refreshed!`);
     }
 
     // LAYOUT mutations
-    if (/\bgrid\b/i.test(lowerExtended) || fuzzyMatchAll(lower, ['grid'], 1).length > 0) {
+    if (/\bgrid\b/i.test(lower)) {
       return this.applyMutation('update_slot', c => ({
         ...c, layout: { ...c.layout, style: 'grid' },
       }), '✅ Layout changed to **grid**. App refreshed!');
     }
-    if (/\bmagazine\b/i.test(lowerExtended) || fuzzyMatchAll(lower, ['magazine'], 2).length > 0) {
+    if (/\bmagazine\b/i.test(lower)) {
       return this.applyMutation('update_slot', c => ({
         ...c, layout: { ...c.layout, style: 'magazine' },
       }), '✅ Layout changed to **magazine**. App refreshed!');
     }
-    if (/\blist\b/i.test(lowerExtended) || fuzzyMatchAll(lower, ['list'], 1).length > 0) {
+    if (/\blist\b/i.test(lower)) {
       return this.applyMutation('update_slot', c => ({
         ...c, layout: { ...c.layout, style: 'list' },
       }), '✅ Layout changed to **list**. App refreshed!');
     }
-    if (/\bnewspaper\b/i.test(lowerExtended) || fuzzyMatchAll(lower, ['newspaper'], 2).length > 0) {
+    if (/\bnewspaper\b/i.test(lower)) {
       return this.applyMutation('update_slot', c => ({
         ...c, layout: { ...c.layout, style: 'newspaper' },
       }), '✅ Layout changed to **newspaper**. App refreshed!');
@@ -568,46 +493,6 @@ export class AppBuilderService {
       }), '✅ Thumbnails shown on video cards. App refreshed!');
     }
 
-    // ── CONTENT TYPE mutations (add/remove videos, podcasts, articles, markets) ──
-    const contentTypeMap: Record<string, keyof AppConfig['contentTypes']> = {
-      video: 'videos', videos: 'videos',
-      podcast: 'podcasts', podcasts: 'podcasts',
-      article: 'articles', articles: 'articles',
-      market: 'markets', markets: 'markets',
-      gallery: 'galleries', galleries: 'galleries',
-    };
-    const isAddContent  = /\badd\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b|\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b.*\badd\b|\bshow\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b|\benable\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b/i.test(lower);
-    const isRemoveContent = /\bremove\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b|\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b.*\bremove\b|\bhide\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets)\b|\bdisable\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b|\bno\b.*\b(video|videos|podcast|podcasts|article|articles|market|markets|gallery|galleries)\b/i.test(lower);
-
-    if (isAddContent || isRemoveContent) {
-      const ctKeys = Object.keys(contentTypeMap);
-      const detected = ctKeys.filter(k => lower.includes(k));
-      // Fuzzy fallback for typos like "vidoes", "podcst", "artcile"
-      if (detected.length === 0) {
-        const words3 = lower.replace(/[^a-z\s]/g, ' ').split(/\s+/).filter(w => w.length >= 4);
-        for (const w of words3) {
-          const hit = fuzzyMatch(w, ctKeys, 2);
-          if (hit) detected.push(hit);
-        }
-      }
-      const keys = [...new Set(detected.map(k => contentTypeMap[k]))];
-      if (keys.length > 0) {
-        const enabled = isAddContent;
-        const labels = keys.map(k => k.charAt(0).toUpperCase() + k.slice(1));
-        return this.applyMutation('update_slot', c => {
-          const ct = structuredClone(c.contentTypes);
-          for (const key of keys) ct[key].enabled = enabled;
-          // Redistribute weights
-          const active = Object.values(ct).filter(v => v.enabled);
-          if (active.length > 0) {
-            const share = parseFloat((1.0 / active.length).toFixed(2));
-            for (const v of Object.values(ct)) v.weight = v.enabled ? share : 0;
-          }
-          return { ...c, contentTypes: ct };
-        }, `✅ **${labels.join(', ')}** ${enabled ? 'added to' : 'removed from'} your app. App refreshed!`);
-      }
-    }
-
     // TOPIC mutations
     const topics = this.extractTopics(lower);
     if (topics.length > 0) {
@@ -643,8 +528,7 @@ export class AppBuilderService {
       `**Style:** "glass effect" / "shadow" / "round corners" / "sharp corners"\n` +
       `**Colors:** "background to black" / "section header to navy"\n` +
       `**Details:** "hide image" / "title only in videos" / "hide channel" / "hide summary"\n` +
-      `**Topics:** "add Sports" / "remove Markets"\n` +
-      `**Content:** "add videos" / "remove podcasts" / "add articles" / "remove markets"`
+      `**Topics:** "add Sports" / "remove Markets"`
     );
   }
 
@@ -687,12 +571,8 @@ export class AppBuilderService {
       `Now for **content types**. Your app can include:\n\n` +
       `- 📄 **Articles** — in-depth written coverage\n` +
       `- 🎥 **Videos** — news clips and reports\n` +
-      `- 🎙️ **Podcasts** — audio journalism\n\n` +
-      `All are enabled by default. You can:\n` +
-      `- Say **"all"** to keep everything\n` +
-      `- Say **"only articles"**, **"only videos"**, or **"only podcasts"** for a single type\n` +
-      `- Say **"no videos"**, **"no podcasts"** etc. to exclude specific types\n` +
-      `What would you like?`
+      `- 🎙️ **Podcasts** — audio journalism\n` +
+      `All are enabled by default. Tell me if you'd like to exclude any, or just say **"all good"** to keep everything.`
     );
     this._stage.set('content_types');
   }
@@ -704,32 +584,14 @@ export class AppBuilderService {
     if (!/all|everything|yes|fine|good|ok|keep|include all|no change/i.test(lower)) {
       this._config.update(c => {
         const ct = structuredClone(c.contentTypes);
-
-        // "only X" / "just X" / "X only" — enable exactly what is mentioned
-        const hasOnly = /\bonly\b|\bjust\b/i.test(lower) ||
-          /\barticles?\s+only\b|\bvideos?\s+only\b|\bpodcasts?\s+only\b|\bmarkets?\s+only\b/i.test(lower);
-        if (hasOnly) {
-          const wantsArticles = /\barticles?\b/i.test(lower);
-          const wantsVideos   = /\bvideos?\b/i.test(lower);
-          const wantsPodcasts = /\bpodcasts?\b/i.test(lower);
-          const wantsMarkets  = /\bmarkets?\b/i.test(lower);
-          // At least one type must be mentioned for "only" logic to apply
-          if (wantsArticles || wantsVideos || wantsPodcasts || wantsMarkets) {
-            ct.articles.enabled  = wantsArticles;
-            ct.videos.enabled    = wantsVideos;
-            ct.podcasts.enabled  = wantsPodcasts;
-            ct.markets.enabled   = wantsMarkets;
-            ct.galleries.enabled = false;
-          }
-        } else {
-          // Selective exclusion patterns
-          if (/no.*video|without.*video|exclude.*video/i.test(lower))      ct.videos.enabled    = false;
-          if (/no.*galleri|without.*galleri|exclude.*galleri/i.test(lower)) ct.galleries.enabled = false;
-          if (/no.*podcast|without.*podcast|exclude.*podcast/i.test(lower)) ct.podcasts.enabled  = false;
-          if (/no.*market|without.*market|exclude.*market/i.test(lower))   ct.markets.enabled   = false;
-          if (/no.*article|without.*article|exclude.*article/i.test(lower)) ct.articles.enabled  = false;
+        if (/no.*video|without.*video|exclude.*video/i.test(lower))     ct.videos.enabled    = false;
+        if (/no.*galleri|without.*galleri|exclude.*galleri/i.test(lower)) ct.galleries.enabled = false;
+        if (/no.*podcast|without.*podcast|exclude.*podcast/i.test(lower)) ct.podcasts.enabled  = false;
+        if (/no.*market|without.*market|exclude.*market/i.test(lower))   ct.markets.enabled   = false;
+        if (/no.*article|without.*article|exclude.*article/i.test(lower)) ct.articles.enabled  = false;
+        if (/only\s+articles?/i.test(lower)) {
+          ct.videos.enabled = ct.galleries.enabled = ct.podcasts.enabled = ct.markets.enabled = false;
         }
-
         // Redistribute weights
         const enabled = Object.values(ct).filter(v => v.enabled);
         if (enabled.length > 0) {
@@ -819,28 +681,11 @@ export class AppBuilderService {
     let style: AppConfig['layout']['style'] = 'magazine';
     let columns: 1 | 2 | 3 | 4 = 3;
 
-    // Exact matches first, then fuzzy fallback per word
-    const LAYOUT_KEYS: Array<[string, AppConfig['layout']['style']]> = [
-      ['grid', 'grid'], ['list', 'list'], ['newspaper', 'newspaper'],
-      ['magazine', 'magazine'], ['single', 'single-column'],
-    ];
-    const words = lower.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length >= 3);
-
-    let matched = false;
-    if (/\bgrid\b/i.test(lower))                          { style = 'grid';           matched = true; }
-    else if (/\blist\b/i.test(lower))                     { style = 'list';           matched = true; }
-    else if (/\bnewspaper\b/i.test(lower))                { style = 'newspaper';      matched = true; }
-    else if (/single.?col|one.?col|1.?col/i.test(lower)) { style = 'single-column';  columns = 1; matched = true; }
-    else if (/\bmagazine\b/i.test(lower))                 { style = 'magazine';       matched = true; }
-
-    if (!matched) {
-      // Fuzzy fallback
-      const layoutCandidates = LAYOUT_KEYS.map(([k]) => k);
-      for (const w of words) {
-        const hit = fuzzyMatch(w, layoutCandidates, 2);
-        if (hit) { style = LAYOUT_KEYS.find(([k]) => k === hit)![1]; matched = true; break; }
-      }
-    }
+    if (/\bgrid\b/i.test(lower))                        style = 'grid';
+    else if (/\blist\b/i.test(lower))                   style = 'list';
+    else if (/\bnewspaper\b/i.test(lower))              style = 'newspaper';
+    else if (/single.?col|one.?col|1.?col/i.test(lower)) { style = 'single-column'; columns = 1; }
+    else if (/\bmagazine\b/i.test(lower))               style = 'magazine';
 
     const colM = lower.match(/(\d).?col/);
     if (colM) columns = (Math.min(4, Math.max(1, parseInt(colM[1], 10))) as 1 | 2 | 3 | 4);
@@ -1058,32 +903,18 @@ export class AppBuilderService {
     return -1;
   }
 
-  /** Stage 3 — extract Reuters topic names from free-form text (with typo tolerance). */
+  /** Stage 3 — extract Reuters topic names from free-form text. */
   private extractTopics(text: string): string[] {
     const lower = text.toLowerCase();
     const found = new Set<string>();
 
-    // Exact keyword matches first
     for (const [kw, topic] of Object.entries(TOPIC_KEYWORD_MAP)) {
       if (lower.includes(kw)) found.add(topic);
     }
+    // Also accept properly-cased topic names directly
     for (const topic of ALL_VALID_TOPICS) {
       if (lower.includes(topic.toLowerCase())) found.add(topic);
     }
-
-    // Fuzzy fallback — match each word against all topic keywords and topic names
-    const kwKeys   = Object.keys(TOPIC_KEYWORD_MAP);
-    const topicLow = ALL_VALID_TOPICS.map(t => t.toLowerCase());
-    const words    = lower.replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(w => w.length >= 3);
-    for (const w of words) {
-      // Try topic keywords
-      const kwHit = fuzzyMatch(w, kwKeys, 2);
-      if (kwHit) found.add(TOPIC_KEYWORD_MAP[kwHit]);
-      // Try topic names directly
-      const tHit = fuzzyMatch(w, topicLow, 2);
-      if (tHit) found.add(ALL_VALID_TOPICS[topicLow.indexOf(tHit)]);
-    }
-
     return [...found];
   }
 

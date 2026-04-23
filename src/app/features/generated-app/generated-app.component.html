@@ -84,9 +84,10 @@
                     <span>{{ currentUser.subscription | titlecase }} subscriber</span>
                   </div>
                   <hr>
-                  <button role="menuitem" (click)="openProfileModal()">View Profile</button>
+                  <button role="menuitem" (click)="closeAccountMenu()">View Profile</button>
                   <button role="menuitem" (click)="openSubscriptionStatus()">Subscription Status</button>
                   <button role="menuitem" (click)="goToCollections()">My Collections</button>
+                  <button role="menuitem" (click)="manageApp()">Manage App</button>
                   <button role="menuitem" (click)="signOut()">Sign Out</button>
                 } @else {
                   <div class="acct-info">
@@ -378,9 +379,14 @@
 
         <!-- ───────── VIDEOS ───────── -->
         @if (section === 'videos') {
+          <section
+            id="section-videos"
+            class="gen-section"
+            aria-labelledby="sec-videos-title"
+          >
+            <h2 id="sec-videos-title" class="section-title">Videos</h2>
 
-          @if (loadingVideos()) {
-            <section id="section-videos" class="gen-section" aria-label="Loading videos">
+            @if (loadingVideos()) {
               <div class="video-grid">
                 @for (n of [1,2,3,4,5,6]; track n) {
                   <div class="video-card skeleton-card">
@@ -392,109 +398,98 @@
                   </div>
                 }
               </div>
-            </section>
-          } @else if (videoItems().length === 0) {
-            <section id="section-videos" class="gen-section" aria-label="No videos">
+            } @else if (videoItems().length === 0) {
               <p class="no-content">No videos found for your selected topics.</p>
-            </section>
-          } @else {
-            @for (group of groupedVideos; track group.topic; let first = $first) {
-              <section
-                [id]="first ? 'section-videos' : 'section-videos-' + group.topic.toLowerCase()"
-                class="gen-section"
-                [attr.aria-labelledby]="'sec-vid-' + group.topic.toLowerCase() + '-title'"
-              >
-                <h2
-                  [id]="'sec-vid-' + group.topic.toLowerCase() + '-title'"
-                  class="section-title"
-                  [style.background-color]="app.config.sectionHeaderColor || null"
-                >{{ group.topic }}</h2>
-                <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
-                  @for (item of group.items; track item.id) {
-                    <div [class]="'video-card ' + cardClasses">
-                      <!-- Clickable play area -->
-                      <div
-                        class="video-play-area"
-                        (click)="playVideo(item)"
-                        (keydown.enter)="playVideo(item)"
-                        (keydown.space)="$event.preventDefault(); playVideo(item)"
-                        role="button"
-                        tabindex="0"
-                        [attr.aria-label]="(item.embeddable === false ? 'Open on YouTube: ' : 'Play: ') + item.title"
-                      >
-                        @if (app.config.cardDetails.video.showThumbnail) {
-                          <div class="video-thumb" aria-hidden="true">
-                            @if (item.videoUrl) {
-                              <video
-                                [src]="item.videoUrl"
-                                [poster]="item.thumbnail"
-                                preload="metadata"
-                                muted
-                                playsinline
-                                class="video-thumb-preview"
-                              ></video>
-                            } @else if (item.thumbnail) {
-                              <img [src]="item.thumbnail" [alt]="" loading="lazy" />
+            } @else {
+              <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
+                @for (item of videoItems(); track item.id) {
+                  <div [class]="'video-card ' + cardClasses">
+                    <!-- Clickable play area -->
+                    <div
+                      class="video-play-area"
+                      (click)="playVideo(item)"
+                      (keydown.enter)="playVideo(item)"
+                      (keydown.space)="$event.preventDefault(); playVideo(item)"
+                      role="button"
+                      tabindex="0"
+                      [attr.aria-label]="(item.embeddable === false ? 'Open on YouTube: ' : 'Play: ') + item.title"
+                    >
+                      @if (app.config.cardDetails.video.showThumbnail) {
+                        <div class="video-thumb" aria-hidden="true">
+                          @if (item.videoUrl) {
+                            <video
+                              [src]="item.videoUrl"
+                              [poster]="item.thumbnail"
+                              preload="metadata"
+                              muted
+                              playsinline
+                              class="video-thumb-preview"
+                            ></video>
+                          } @else if (item.thumbnail) {
+                            <img [src]="item.thumbnail" [alt]="" loading="lazy" />
+                          }
+                          <div class="play-btn">
+                            @if (item.embeddable === false) {
+                              <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                                <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                              </svg>
+                            } @else {
+                              <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+                                <path d="M8 5v14l11-7L8 5z"/>
+                              </svg>
                             }
-                            <div class="play-btn">
-                              @if (item.embeddable === false) {
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
-                                  <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
-                                </svg>
-                              } @else {
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
-                                  <path d="M8 5v14l11-7L8 5z"/>
-                                </svg>
-                              }
-                            </div>
                           </div>
-                        }
-                        <div class="video-meta">
-                          @if (app.config.cardDetails.video.showMeta) {
-                            <p class="card-meta">{{ item.channelTitle }} · {{ item.publishedAt }}@if (item.embeddable === false) {&nbsp;·&nbsp;<span class="ext-badge">YouTube ↗</span>}</p>
-                          }
-                          <h3>{{ item.title }}</h3>
-                          @if (item.description) {
-                            <p class="card-desc">{{ item.description }}</p>
-                          }
                         </div>
-                      </div>
-                      <!-- Save / Share bar -->
-                      <div class="card-action-bar">
-                        <button type="button"
-                          [class]="'card-action-btn save-btn' + (isSaved(item.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
-                          (click)="toggleSave(videoToSavedItem(item), $event)"
-                          [attr.aria-label]="isSaved(item.id) ? 'Remove from collections' : 'Save video'"
-                          [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(item.id) ? 'Remove from collections' : 'Save video')">
-                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                            <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
-                          </svg>
-                        </button>
-                        <button type="button"
-                          [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
-                          (click)="shareItem(videoToSavedItem(item), $event)"
-                          aria-label="Share video"
-                          [title]="!canSaveShare ? 'Upgrade to share content' : 'Share video'">
-                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
-                          </svg>
-                        </button>
+                      }
+                      <div class="video-meta">
+                        @if (app.config.cardDetails.video.showMeta) {
+                          <p class="card-meta">{{ item.channelTitle }} · {{ item.publishedAt }}@if (item.embeddable === false) {&nbsp;·&nbsp;<span class="ext-badge">YouTube ↗</span>}</p>
+                        }
+                        <h3>{{ item.title }}</h3>
+                        @if (item.description) {
+                          <p class="card-desc">{{ item.description }}</p>
+                        }
                       </div>
                     </div>
-                  }
-                </div>
-              </section>
+                    <!-- Save / Share bar -->
+                    <div class="card-action-bar">
+                      <button type="button"
+                        [class]="'card-action-btn save-btn' + (isSaved(item.id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="toggleSave(videoToSavedItem(item), $event)"
+                        [attr.aria-label]="isSaved(item.id) ? 'Remove from collections' : 'Save video'"
+                        [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(item.id) ? 'Remove from collections' : 'Save video')">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                        </svg>
+                      </button>
+                      <button type="button"
+                        [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="shareItem(videoToSavedItem(item), $event)"
+                        aria-label="Share video"
+                        [title]="!canSaveShare ? 'Upgrade to share content' : 'Share video'">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                }
+              </div>
             }
-          }
+          </section>
         }
 
 
         <!-- ───────── PODCASTS ───────── -->
         @if (section === 'podcasts') {
-
-          @if (loadingPodcasts()) {
-            <section id="section-podcasts" class="gen-section" aria-label="Loading podcasts">
-              <div class="podcast-list">
+          <section
+            id="section-podcasts"
+            class="gen-section"
+            aria-labelledby="sec-podcasts-title"
+          >
+            <h2 id="sec-podcasts-title" class="section-title">Podcasts</h2>
+            <div class="podcast-list">
+              @if (loadingPodcasts()) {
                 @for (sk of [1,2,3]; track sk) {
                   <article class="podcast-card podcast-skeleton">
                     <div class="pod-row">
@@ -507,70 +502,54 @@
                     </div>
                   </article>
                 }
-              </div>
-            </section>
-          } @else if (podcastItems().length === 0) {
-            <section id="section-podcasts" class="gen-section" aria-label="No podcasts">
-              <p class="no-content-msg">No podcasts found for your selected topics.</p>
-            </section>
-          } @else {
-            @for (group of groupedPodcasts; track group.topic; let first = $first) {
-              <section
-                [id]="first ? 'section-podcasts' : 'section-podcasts-' + group.topic.toLowerCase()"
-                class="gen-section"
-                [attr.aria-labelledby]="'sec-pod-' + group.topic.toLowerCase() + '-title'"
-              >
-                <h2
-                  [id]="'sec-pod-' + group.topic.toLowerCase() + '-title'"
-                  class="section-title"
-                  [style.background-color]="app.config.sectionHeaderColor || null"
-                >{{ group.topic }}</h2>
-                <div class="podcast-list">
-                  @for (item of group.items; track item.id) {
-                    <article class="podcast-card">
-                      <!-- row: thumbnail + episode info -->
-                      <div class="pod-row">
-                        <div class="pod-thumb" aria-hidden="true">
-                          @if (item.imageUrl) {
-                            <img [src]="item.imageUrl" [alt]="item.title" style="width:56px;height:56px;object-fit:cover;border-radius:8px" loading="lazy" />
-                          } @else {
-                            🎙️
-                          }
-                        </div>
-                        <div class="pod-meta" style="flex:1">
-                          <span class="card-meta">{{ item.host }} · {{ item.duration }}</span>
-                          <h3>{{ item.title }}</h3>
-                          <p class="pod-desc">{{ item.description }}</p>
-                          <audio controls [src]="item.audioUrl" preload="none" class="pod-audio" [attr.aria-label]="'Listen to ' + item.title"></audio>
-                        </div>
+              } @else if (podcastItems().length === 0) {
+                <p class="no-content-msg">No podcasts found for your selected topics.</p>
+              } @else {
+                @for (item of podcastItems(); track item.id) {
+                  <article class="podcast-card">
+                    <!-- row: thumbnail + episode info -->
+                    <div class="pod-row">
+                      <div class="pod-thumb" aria-hidden="true">
+                        @if (item.imageUrl) {
+                          <img [src]="item.imageUrl" [alt]="item.title" style="width:56px;height:56px;object-fit:cover;border-radius:8px" loading="lazy" />
+                        } @else {
+                          🎙️
+                        }
                       </div>
-                      <!-- Save / Share bar -->
-                      <div class="card-action-bar">
-                        <button type="button"
-                          [class]="'card-action-btn save-btn' + (isSaved(podcastToSavedItem(item).id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
-                          (click)="toggleSave(podcastToSavedItem(item), $event)"
-                          [attr.aria-label]="isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast'"
-                          [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast')">
-                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                            <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
-                          </svg>
-                        </button>
-                        <button type="button"
-                          [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
-                          (click)="shareItem(podcastToSavedItem(item), $event)"
-                          aria-label="Share podcast"
-                          [title]="!canSaveShare ? 'Upgrade to share content' : 'Share podcast'">
-                          <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-                            <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
-                          </svg>
-                        </button>
+                      <div class="pod-meta" style="flex:1">
+                        <span class="card-meta">{{ item.host }} · {{ item.duration }}</span>
+                        <h3>{{ item.title }}</h3>
+                        <p class="pod-desc">{{ item.description }}</p>
+                        <audio controls [src]="item.audioUrl" preload="none" class="pod-audio" [attr.aria-label]="'Listen to ' + item.title"></audio>
+                        <p class="card-attr" style="text-transform:capitalize">{{ item.category }}</p>
                       </div>
-                    </article>
-                  }
-                </div>
-              </section>
-            }
-          }
+                    </div>
+                    <!-- Save / Share bar -->
+                    <div class="card-action-bar">
+                      <button type="button"
+                        [class]="'card-action-btn save-btn' + (isSaved(podcastToSavedItem(item).id) ? ' saved' : '') + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="toggleSave(podcastToSavedItem(item), $event)"
+                        [attr.aria-label]="isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast'"
+                        [title]="!canSaveShare ? 'Upgrade to save content' : (isSaved(podcastToSavedItem(item).id) ? 'Remove from collections' : 'Save podcast')">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M17 3H7a2 2 0 0 0-2 2v16l7-3 7 3V5a2 2 0 0 0-2-2z"/>
+                        </svg>
+                      </button>
+                      <button type="button"
+                        [class]="'card-action-btn share-btn' + (!canSaveShare ? ' action-disabled' : '')"
+                        (click)="shareItem(podcastToSavedItem(item), $event)"
+                        aria-label="Share podcast"
+                        [title]="!canSaveShare ? 'Upgrade to share content' : 'Share podcast'">
+                        <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
+                          <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                        </svg>
+                      </button>
+                    </div>
+                  </article>
+                }
+              }
+            </div>
+          </section>
         }
 
       }<!-- /for orderedSections -->
@@ -852,105 +831,6 @@
         </button>
       </div>
 
-    </div>
-  </div>
-}
-
-<!-- ── Profile Modal ──────────────────────────────────────────────────────── -->
-@if (showProfileModal() && currentUser) {
-  <div class="sub-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="profile-modal-title"
-       (click)="closeProfileModal()" (keydown.escape)="closeProfileModal()">
-    <div class="sub-modal-card profile-modal-card" (click)="$event.stopPropagation()">
-
-      <!-- Close -->
-      <button type="button" class="sub-modal-close" (click)="closeProfileModal()" aria-label="Close">
-        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18" aria-hidden="true">
-          <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
-        </svg>
-      </button>
-
-      <!-- Header -->
-      <div class="sub-modal-header profile-modal-header">
-        <div class="profile-avatar-lg" aria-hidden="true">{{ currentUser.avatarInitials }}</div>
-        <h2 id="profile-modal-title" class="sub-modal-title">{{ currentUser.name }}</h2>
-        <p class="sub-modal-sub">{{ currentUser.email }}</p>
-        <div class="profile-sub-badge" [class.pro]="currentUser.subscription === 'professional'">
-          @if (currentUser.subscription === 'professional') {
-            ✦ Professional
-          } @else {
-            Free Plan
-          }
-        </div>
-      </div>
-
-      <!-- Details / Edit -->
-      <div class="profile-body">
-
-        @if (!profileEditMode()) {
-          <!-- View mode -->
-          <div class="profile-field-group">
-            <div class="profile-field">
-              <span class="profile-field-label">Full Name</span>
-              <span class="profile-field-value">{{ currentUser.name }}</span>
-            </div>
-            <div class="profile-field">
-              <span class="profile-field-label">Email</span>
-              <span class="profile-field-value">{{ currentUser.email }}</span>
-            </div>
-            <div class="profile-field">
-              <span class="profile-field-label">Subscription</span>
-              <span class="profile-field-value profile-sub-text" [class.pro]="currentUser.subscription === 'professional'">
-                @if (currentUser.subscription === 'professional') { Professional — Full access }
-                @else { Free — Limited features }
-              </span>
-            </div>
-            <div class="profile-field">
-              <span class="profile-field-label">Member ID</span>
-              <span class="profile-field-value profile-id">{{ currentUser.id }}</span>
-            </div>
-          </div>
-
-          @if (currentUser.subscription === 'basic') {
-            <div class="profile-upgrade-banner">
-              <p>Upgrade to <strong>Professional</strong> to unlock save, share, collections and more.</p>
-              <button type="button" class="sub-upgrade-btn" style="margin-top:0.5rem" (click)="closeProfileModal()">
-                Upgrade Now →
-              </button>
-            </div>
-          }
-
-          <div class="profile-footer">
-            <button type="button" class="profile-edit-btn" (click)="profileEditMode.set(true)">
-              <svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14" aria-hidden="true">
-                <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04a1 1 0 0 0 0-1.41l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/>
-              </svg>
-              Edit Profile
-            </button>
-            <button type="button" class="sub-cancel-btn" (click)="closeProfileModal()">Close</button>
-          </div>
-
-        } @else {
-          <!-- Edit mode -->
-          <div class="profile-edit-form">
-            <div class="profile-form-field">
-              <label for="profile-name">Full Name</label>
-              <input id="profile-name" type="text" [(ngModel)]="profileEditName" placeholder="Your full name" />
-            </div>
-            <div class="profile-form-field">
-              <label for="profile-email">Email Address</label>
-              <input id="profile-email" type="email" [(ngModel)]="profileEditEmail" placeholder="you@example.com" />
-            </div>
-            @if (profileSaveError) {
-              <p class="profile-save-error">{{ profileSaveError }}</p>
-            }
-          </div>
-          <div class="profile-footer">
-            <button type="button" class="sub-renew-btn" (click)="saveProfile()">Save Changes</button>
-            <button type="button" class="sub-cancel-btn" (click)="profileEditMode.set(false); profileSaveError = ''">Cancel</button>
-          </div>
-        }
-
-      </div>
     </div>
   </div>
 }
