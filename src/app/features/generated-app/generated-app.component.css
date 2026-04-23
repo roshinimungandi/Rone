@@ -445,6 +445,25 @@
   color: var(--g-text);
 }
 
+/* Per-topic group heading inside Videos / Podcasts sections */
+.topic-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.topic-group-heading {
+  font-size: 0.95rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-left: 3px solid var(--g-accent, #e94560);
+  padding-left: 0.65rem;
+  margin: 0.5rem 0 0;
+  color: var(--g-text);
+  opacity: 0.85;
+}
+
 /* ── Article card grid (layout-aware) ───────────────────────────────────── */
 .article-grid {
   display: grid;

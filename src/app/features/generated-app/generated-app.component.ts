@@ -167,7 +167,9 @@ export class GeneratedAppComponent implements OnInit {
       `- Change the **accent colour** (e.g., "make it blue")\n` +
       `- Change the **layout** (grid, magazine, list)\n` +
       `- **Add a topic** — I'll ask where you want it placed\n` +
-      `- **Remove a topic** (e.g., "remove Markets")`
+      `- **Remove a topic** (e.g., "remove Markets")\n` +
+      `- **Add content** (e.g., "add videos" / "show podcasts")\n` +
+      `- **Remove content** (e.g., "remove articles" / "hide podcasts")`
     );
   }
 

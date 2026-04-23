@@ -401,8 +401,12 @@
             } @else if (videoItems().length === 0) {
               <p class="no-content">No videos found for your selected topics.</p>
             } @else {
-              <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
-                @for (item of videoItems(); track item.id) {
+              @for (group of groupedVideos; track group.topic) {
+                <div class="topic-group">
+                  <h3 class="topic-group-heading"
+                      [style.background-color]="app.config.sectionHeaderColor || null">{{ group.topic }} — Videos</h3>
+                  <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
+                @for (item of group.items; track item.id) {
                   <div [class]="'video-card ' + cardClasses">
                     <!-- Clickable play area -->
                     <div
@@ -474,7 +478,9 @@
                     </div>
                   </div>
                 }
-              </div>
+                  </div>
+                </div>
+              }
             }
           </section>
         }
@@ -488,8 +494,9 @@
             aria-labelledby="sec-podcasts-title"
           >
             <h2 id="sec-podcasts-title" class="section-title">Podcasts</h2>
-            <div class="podcast-list">
-              @if (loadingPodcasts()) {
+
+            @if (loadingPodcasts()) {
+              <div class="podcast-list">
                 @for (sk of [1,2,3]; track sk) {
                   <article class="podcast-card podcast-skeleton">
                     <div class="pod-row">
@@ -502,10 +509,16 @@
                     </div>
                   </article>
                 }
-              } @else if (podcastItems().length === 0) {
-                <p class="no-content-msg">No podcasts found for your selected topics.</p>
-              } @else {
-                @for (item of podcastItems(); track item.id) {
+              </div>
+            } @else if (podcastItems().length === 0) {
+              <p class="no-content-msg">No podcasts found for your selected topics.</p>
+            } @else {
+              @for (group of groupedPodcasts; track group.topic) {
+                <div class="topic-group">
+                  <h3 class="topic-group-heading"
+                      [style.background-color]="app.config.sectionHeaderColor || null">{{ group.topic }} — Podcasts</h3>
+                  <div class="podcast-list">
+                @for (item of group.items; track item.id) {
                   <article class="podcast-card">
                     <!-- row: thumbnail + episode info -->
                     <div class="pod-row">
@@ -547,8 +560,11 @@
                     </div>
                   </article>
                 }
+              
+                  </div>
+                </div>
               }
-            </div>
+            }
           </section>
         }
 

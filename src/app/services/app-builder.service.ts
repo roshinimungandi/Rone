@@ -493,6 +493,29 @@ export class AppBuilderService {
       }), '✅ Thumbnails shown on video cards. App refreshed!');
     }
 
+    // ── CONTENT SECTION mutations — add/remove articles, videos, podcasts ───
+    const SECTION_MAP: Record<string, string> = {
+      article: 'articles', articles: 'articles',
+      video: 'videos', videos: 'videos',
+      podcast: 'podcasts', podcasts: 'podcasts',
+      market: 'markets', markets: 'markets',
+    };
+    const detectedSection = Object.keys(SECTION_MAP).find(k => lower.includes(k));
+    if (detectedSection) {
+      const sec = SECTION_MAP[detectedSection] as keyof AppConfig['contentTypes'];
+      const isEnable  = /add|show|enable|include|turn\s*on/i.test(lower);
+      const isDisable = /remove|hide|disable|exclude|turn\s*off/i.test(lower);
+      if (isEnable || isDisable) {
+        return this.applyMutation('update_slot', c => {
+          const ct = structuredClone(c.contentTypes);
+          ct[sec].enabled = isEnable;
+          const order = c.sectionOrder.filter(s => s !== sec);
+          if (isEnable) order.push(sec);
+          return { ...c, contentTypes: ct, sectionOrder: order };
+        }, `✅ **${detectedSection}** ${isEnable ? 'added to' : 'removed from'} your page. App refreshed!`);
+      }
+    }
+
     // TOPIC mutations
     const topics = this.extractTopics(lower);
     if (topics.length > 0) {
@@ -528,7 +551,8 @@ export class AppBuilderService {
       `**Style:** "glass effect" / "shadow" / "round corners" / "sharp corners"\n` +
       `**Colors:** "background to black" / "section header to navy"\n` +
       `**Details:** "hide image" / "title only in videos" / "hide channel" / "hide summary"\n` +
-      `**Topics:** "add Sports" / "remove Markets"`
+      `**Topics:** "add Sports" / "remove Markets"\n` +
+      `**Content:** "add videos" / "remove podcasts" / "show articles"`
     );
   }
 
