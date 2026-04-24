@@ -19,8 +19,6 @@ export interface SavedItem {
   meta?: string;
 }
 
-const LS_KEY_LEGACY = 'rone_collections';
-
 @Injectable({ providedIn: 'root' })
 export class CollectionsService {
   private readonly platformId = inject(PLATFORM_ID);

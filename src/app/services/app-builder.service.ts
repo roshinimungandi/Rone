@@ -186,9 +186,9 @@ export class AppBuilderService {
     const live = this._generatedApp();
     if (live && live.id === appId) return live;
 
-    // Fall back to sessionStorage (POC – no real DB)
+    // Fall back to localStorage (persists across tabs and refreshes)
     if (!this.isBrowser) return null;
-    const raw = sessionStorage.getItem(`rone-app-${appId}`);
+    const raw = localStorage.getItem(`rone-app-${appId}`);
     if (!raw) return null;
     try {
       const app = JSON.parse(raw) as GeneratedApp;
@@ -626,8 +626,22 @@ export class AppBuilderService {
         if (/no.*podcast|without.*podcast|exclude.*podcast/i.test(lower)) ct.podcasts.enabled  = false;
         if (/no.*market|without.*market|exclude.*market/i.test(lower))   ct.markets.enabled   = false;
         if (/no.*article|without.*article|exclude.*article/i.test(lower)) ct.articles.enabled  = false;
-        if (/only\s+articles?/i.test(lower)) {
+
+        // Positive-only selection — disable everything except what the user named
+        if (/\bonly\s+articles?|articles?\s+only\b|just\s+articles?\b/i.test(lower)) {
           ct.videos.enabled = ct.galleries.enabled = ct.podcasts.enabled = ct.markets.enabled = false;
+        }
+        if (/\bonly\s+videos?|videos?\s+only\b|just\s+videos?\b/i.test(lower)) {
+          ct.articles.enabled = ct.galleries.enabled = ct.podcasts.enabled = ct.markets.enabled = false;
+        }
+        if (/\bonly\s+podcasts?|podcasts?\s+only\b|just\s+podcasts?\b/i.test(lower)) {
+          ct.articles.enabled = ct.videos.enabled = ct.galleries.enabled = ct.markets.enabled = false;
+        }
+        if (/\bonly\s+videos?\s+and\s+articles?|\bonly\s+articles?\s+and\s+videos?/i.test(lower)) {
+          ct.galleries.enabled = ct.podcasts.enabled = ct.markets.enabled = false;
+        }
+        if (/\bonly\s+podcasts?\s+and\s+articles?|\bonly\s+articles?\s+and\s+podcasts?/i.test(lower)) {
+          ct.videos.enabled = ct.galleries.enabled = ct.markets.enabled = false;
         }
         // Redistribute weights
         const enabled = Object.values(ct).filter(v => v.enabled);
@@ -834,7 +848,7 @@ export class AppBuilderService {
       };
 
       if (this.isBrowser) {
-        sessionStorage.setItem(`rone-app-${appId}`, JSON.stringify(app));
+        localStorage.setItem(`rone-app-${appId}`, JSON.stringify(app));
       }
 
       this.currentAppId = appId;
@@ -881,7 +895,7 @@ export class AppBuilderService {
     if (app && this.isBrowser) {
       const updated = { ...app, config: after };
       this._generatedApp.set(updated);
-      sessionStorage.setItem(`rone-app-${app.id}`, JSON.stringify(updated));
+      localStorage.setItem(`rone-app-${app.id}`, JSON.stringify(updated));
     }
 
     return successMsg;

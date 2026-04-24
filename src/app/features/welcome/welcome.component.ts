@@ -56,11 +56,26 @@ export class WelcomeComponent {
   // ── Sign in ───────────────────────────────────────────────────────────────
 
   protected submitSignIn(): void {
-    if (!this.siEmail.trim() || !this.siPassword.trim()) {
-      this.authError.set('Please enter your email and password.');
+    const email = this.siEmail.trim();
+    const pwd   = this.siPassword.trim();
+
+    if (!email) {
+      this.authError.set('Please enter your email address.');
       return;
     }
-    const ok = this.auth.loginWithEmail(this.siEmail);
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.authError.set('Please enter a valid email address.');
+      return;
+    }
+    if (!pwd) {
+      this.authError.set('Please enter your password.');
+      return;
+    }
+    if (pwd.length < 6) {
+      this.authError.set('Password must be at least 6 characters.');
+      return;
+    }
+    const ok = this.auth.loginWithEmail(email);
     if (!ok) {
       this.authError.set('No account found with that email. New here? Sign up instead.');
       return;
@@ -72,19 +87,48 @@ export class WelcomeComponent {
   // ── Sign up ───────────────────────────────────────────────────────────────
 
   protected submitSignUp(): void {
-    if (!this.suName.trim() || !this.suEmail.trim() || !this.suPassword.trim()) {
-      this.authError.set('Please fill in all required fields.');
+    const name    = this.suName.trim();
+    const email   = this.suEmail.trim();
+    const pwd     = this.suPassword.trim();
+    const confirm = this.suConfirm.trim();
+
+    if (!name) {
+      this.authError.set('Please enter your full name.');
       return;
     }
-    if (this.suPassword !== this.suConfirm) {
+    if (name.length < 2) {
+      this.authError.set('Name must be at least 2 characters.');
+      return;
+    }
+    if (!email) {
+      this.authError.set('Please enter your email address.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      this.authError.set('Please enter a valid email address.');
+      return;
+    }
+    if (!pwd) {
+      this.authError.set('Please enter a password.');
+      return;
+    }
+    if (pwd.length < 6) {
+      this.authError.set('Password must be at least 6 characters.');
+      return;
+    }
+    if (!confirm) {
+      this.authError.set('Please confirm your password.');
+      return;
+    }
+    if (pwd !== confirm) {
       this.authError.set('Passwords do not match.');
       return;
     }
-    if (this.auth.isEmailRegistered(this.suEmail)) {
+    if (this.auth.isEmailRegistered(email)) {
       this.authError.set('An account with this email already exists. Please sign in.');
       return;
     }
-    this.auth.register(this.suName, this.suEmail, this.suPlan);
+    this.auth.register(name, email, this.suPassword, this.suPlan);
     this.closeAuth();
     this.router.navigate(['/builder']);
   }

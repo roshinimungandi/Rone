@@ -18,6 +18,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    // Intentionally no auth guard: generated apps are shareable by URL.
+    // In production, per-app visibility settings would be enforced server-side.
     path: 'app/:appId',
     component: GeneratedAppComponent,
   },

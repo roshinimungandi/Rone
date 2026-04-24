@@ -4,6 +4,7 @@ import {
   HostListener,
   Inject,
   OnInit,
+  OnDestroy,
   PLATFORM_ID,
   signal,
   computed,
@@ -35,7 +36,7 @@ interface FloatingMessage {
   templateUrl: './generated-app.component.html',
   styleUrl: './generated-app.component.css',
 })
-export class GeneratedAppComponent implements OnInit {
+export class GeneratedAppComponent implements OnInit, OnDestroy {
   protected app: GeneratedApp | null = null;
   protected notFound = false;
 
@@ -48,6 +49,18 @@ export class GeneratedAppComponent implements OnInit {
   protected readonly showAssistantUpgrade  = signal(false);
   protected readonly savedToast            = signal<{title: string; removing: boolean} | null>(null);
   private toastTimer: ReturnType<typeof setTimeout> | null = null;
+  private assistantTimer: ReturnType<typeof setTimeout> | null = null;
+  private profileTimer: ReturnType<typeof setTimeout> | null = null;
+  // Stored so we can call removeEventListener with the same reference in ngOnDestroy
+  private readonly ytMessageHandler = (evt: MessageEvent): void => {
+    if (evt.origin !== 'https://www.youtube.com') return;
+    try {
+      const data = JSON.parse(evt.data as string);
+      if (data.event === 'onError' && [2, 100, 101, 150].includes(data.info as number)) {
+        this.videoEmbedError.set(true);
+      }
+    } catch { /* non-JSON postMessage — ignore */ }
+  };
   protected assistantInput = '';
   protected readonly floatMessages = signal<FloatingMessage[]>([]);
   protected assistantTyping = false;
@@ -87,6 +100,8 @@ export class GeneratedAppComponent implements OnInit {
   protected readonly safeVideoUrl = computed<SafeResourceUrl | null>(() => {
     const v = this.activeVideo();
     if (!v || !this.isDirectVideo()) return null;
+    // Security note: videoUrl originates from our own controlled assets/API only.
+    // It is never constructed from user input, making the bypass safe here.
     return this.sanitizer.bypassSecurityTrustResourceUrl(v.videoUrl);
   });
 
@@ -94,7 +109,9 @@ export class GeneratedAppComponent implements OnInit {
     if (this.isDirectVideo()) return null;
     const id = this.activeVideoId();
     if (!id) return null;
-    // enablejsapi=1 makes YouTube send postMessage events so we can detect errors
+    // enablejsapi=1 makes YouTube send postMessage events so we can detect errors.
+    // The URL is constructed entirely from a known YouTube embed pattern — no user input
+    // is interpolated into the origin or path, making the bypass safe here.
     return this.sanitizer.bypassSecurityTrustResourceUrl(
       `https://www.youtube.com/embed/${id}?autoplay=1&rel=0&modestbranding=1&enablejsapi=1`
     );
@@ -148,15 +165,7 @@ export class GeneratedAppComponent implements OnInit {
       this.loadPodcasts();
       // YouTube IFrame API sends postMessage events when a video errors.
       // Error codes 101 & 150 = owner blocked embedding; 100 = video not found.
-      window.addEventListener('message', (evt: MessageEvent) => {
-        if (evt.origin !== 'https://www.youtube.com') return;
-        try {
-          const data = JSON.parse(evt.data as string);
-          if (data.event === 'onError' && [2, 100, 101, 150].includes(data.info as number)) {
-            this.videoEmbedError.set(true);
-          }
-        } catch { /* non-JSON postMessage — ignore */ }
-      });
+      window.addEventListener('message', this.ytMessageHandler);
     });
   }
 
@@ -265,7 +274,8 @@ export class GeneratedAppComponent implements OnInit {
     this.pushFloatUser(text);
     this.assistantTyping = true;
 
-    setTimeout(() => {
+    if (this.assistantTimer) clearTimeout(this.assistantTimer);
+    this.assistantTimer = setTimeout(() => {
       this.assistantTyping = false;
       const response = this.builder.processEditCommand(text);
       this.pushFloatAssistant(response);
@@ -611,15 +621,23 @@ export class GeneratedAppComponent implements OnInit {
     }
     this.profileEmailError = '';
     this.profileSaving = true;
-    setTimeout(() => {
+    if (this.profileTimer) clearTimeout(this.profileTimer);
+    this.profileTimer = setTimeout(() => {
       this.auth.updateProfile(name, email);
       this.profileSaving = false;
       this.profileSaved  = true;
-      setTimeout(() => this.profileSaved = false, 2500);
+      this.profileTimer = setTimeout(() => { this.profileSaved = false; }, 2500);
     }, 400);
   }
 
   get planBadgeClass(): string {
     return this.currentUser?.subscription === 'professional' ? 'plan-badge-pro' : 'plan-badge-basic';
+  }
+
+  ngOnDestroy(): void {
+    if (this.toastTimer)     clearTimeout(this.toastTimer);
+    if (this.assistantTimer) clearTimeout(this.assistantTimer);
+    if (this.profileTimer)   clearTimeout(this.profileTimer);
+    window.removeEventListener('message', this.ytMessageHandler);
   }
 }

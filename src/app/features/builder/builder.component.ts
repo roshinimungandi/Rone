@@ -2,6 +2,7 @@ import {
   AfterViewChecked,
   Component,
   ElementRef,
+  OnDestroy,
   OnInit,
   ViewChild,
   computed,
@@ -20,12 +21,14 @@ import { BuilderStage } from '../../models/rone.model';
   templateUrl: './builder.component.html',
   styleUrl: './builder.component.css',
 })
-export class BuilderComponent implements OnInit, AfterViewChecked {
+export class BuilderComponent implements OnInit, AfterViewChecked, OnDestroy {
   @ViewChild('msgList') private msgList!: ElementRef<HTMLElement>;
 
   protected inputText    = '';
   private shouldScroll   = false;
   protected showProgress = false;
+  // TODO: replace with effect() in production
+  private completionCheck: ReturnType<typeof setInterval> | null = null;
 
   /** Reactive selectors from services */
   readonly messages     = computed(() => this.builder.messages());
@@ -64,6 +67,10 @@ export class BuilderComponent implements OnInit, AfterViewChecked {
     this.builder.startSession(user.name.split(' ')[0]);
   }
 
+  ngOnDestroy(): void {
+    if (this.completionCheck) clearInterval(this.completionCheck);
+  }
+
   ngAfterViewChecked(): void {
     if (this.shouldScroll) {
       this.scrollToBottom();
@@ -79,9 +86,11 @@ export class BuilderComponent implements OnInit, AfterViewChecked {
     this.builder.sendMessage(text);
 
     // Watch for completion so we can redirect (GEN step 5)
-    const check = setInterval(() => {
+    if (this.completionCheck) clearInterval(this.completionCheck);
+    this.completionCheck = setInterval(() => {
       if (this.builder.stage() === 'complete') {
-        clearInterval(check);
+        clearInterval(this.completionCheck!);
+        this.completionCheck = null;
         const app = this.builder.generatedApp();
         if (app) {
           setTimeout(() => this.router.navigate(['/app', app.id]), 2000);

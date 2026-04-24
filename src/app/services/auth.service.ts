@@ -61,14 +61,19 @@ export class AuthService {
     return this._currentUser() !== null;
   }
 
-  /** Simulate SSO login by selecting a mock user. */
+  /** Simulate SSO login by selecting a mock user.
+   * TODO (production): replace with Reuters SSO token exchange.
+   */
   login(userId: string): void {
     const user = this._users.find(u => u.id === userId) ?? null;
     this._currentUser.set(user);
     this.saveSession(user);
   }
 
-  /** Sign in by email. Returns true on success. */
+  /** Sign in by email. Returns true on success.
+   * TODO (production): replace with Reuters SSO / OAuth 2.0 PKCE flow.
+   * The email lookup here is a POC stub — no credentials are validated.
+   */
   loginWithEmail(email: string): boolean {
     const user = this._users.find(
       u => u.email.trim().toLowerCase() === email.trim().toLowerCase()
@@ -88,8 +93,11 @@ export class AuthService {
     );
   }
 
-  /** Register a new user and sign them in immediately. */
-  register(name: string, email: string, subscription: 'free' | 'professional'): void {
+  /** Register a new user and sign them in immediately.
+   * _password is accepted for API parity; in production it would be
+   * forwarded to Reuters SSO — never stored in plain text here.
+   */
+  register(name: string, email: string, _password: string, subscription: 'free' | 'professional'): void {
     const initials = name
       .split(' ')
       .filter(Boolean)
