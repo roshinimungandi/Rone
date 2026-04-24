@@ -535,7 +535,7 @@ export class GeneratedAppComponent implements OnInit {
       title: item.title,
       summary: item.description,
       imageUrl: item.thumbnail,
-      category: 'Video',
+      category: item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Video',
       timestamp: item.publishedAt,
       url: item.videoUrl,
       meta: item.channelTitle + (item.duration ? ' · ' + item.duration : ''),
@@ -559,7 +559,7 @@ export class GeneratedAppComponent implements OnInit {
       title: item.title,
       summary: item.description,
       imageUrl: item.imageUrl,
-      category: item.category,
+      category: item.category ? item.category.charAt(0).toUpperCase() + item.category.slice(1) : 'Podcast',
       meta: item.host + ' · ' + item.duration,
       url: item.audioUrl,
     };
