@@ -215,7 +215,7 @@
                 [attr.aria-labelledby]="'sec-' + ns.id + '-title'"
               >
                 <h2 [id]="'sec-' + ns.id + '-title'" class="section-title"
-                    [style.background-color]="app.config.sectionHeaderColor || null">{{ ns.title }}</h2>
+                    [style.background-color]="app.config.sectionHeaderColor || null">Articles — {{ ns.title }}</h2>
 
                 <!-- Article cards -->
                 <div class="article-grid" [attr.data-card-style]="app.config.cardStyles.article">
@@ -381,10 +381,8 @@
           <section
             id="section-videos"
             class="gen-section"
-            aria-labelledby="sec-videos-title"
+            aria-label="Videos"
           >
-            <h2 id="sec-videos-title" class="section-title">Videos</h2>
-
             @if (loadingVideos()) {
               <div class="video-grid">
                 @for (n of [1,2,3,4,5,6]; track n) {
@@ -403,7 +401,7 @@
               @for (group of groupedVideos; track group.topic) {
                 <div class="topic-group">
                   <h3 class="topic-group-heading"
-                      [style.background-color]="app.config.sectionHeaderColor || null">{{ group.topic }} — Videos</h3>
+                      [style.background-color]="app.config.sectionHeaderColor || null">Videos — {{ group.topic }}</h3>
                   <div class="video-grid" [attr.data-card-style]="app.config.cardStyles.video">
                 @for (item of group.items; track item.id) {
                   <div [class]="'video-card ' + cardClasses">
@@ -490,10 +488,8 @@
           <section
             id="section-podcasts"
             class="gen-section"
-            aria-labelledby="sec-podcasts-title"
+            aria-label="Podcasts"
           >
-            <h2 id="sec-podcasts-title" class="section-title">Podcasts</h2>
-
             @if (loadingPodcasts()) {
               <div class="podcast-list">
                 @for (sk of [1,2,3]; track sk) {
@@ -515,7 +511,7 @@
               @for (group of groupedPodcasts; track group.topic) {
                 <div class="topic-group">
                   <h3 class="topic-group-heading"
-                      [style.background-color]="app.config.sectionHeaderColor || null">{{ group.topic }} — Podcasts</h3>
+                      [style.background-color]="app.config.sectionHeaderColor || null">Podcasts — {{ group.topic }}</h3>
                   <div class="podcast-list">
                 @for (item of group.items; track item.id) {
                   <article class="podcast-card">

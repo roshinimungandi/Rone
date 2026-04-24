@@ -8,6 +8,11 @@
   color: #1a1a2e;
 }
 
+:host.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
 /* ── Top navigation bar ──────────────────────────────────────────────────── */
 .topbar {
   position: sticky;
@@ -32,9 +37,10 @@
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  background: transparent;
-  border: 1px solid #e2e8f0;
-  color: #475569;
+  background: #ff8000;
+  color: #ffffff;
+  border: 1px solid #444;
+ 
   padding: 0.4rem 0.85rem;
   border-radius: 999px;
   font-size: 0.82rem;
@@ -45,9 +51,9 @@
 }
 
 .back-btn:hover {
-  background: #f1f5f9;
-  border-color: #cbd5e1;
-  color: #1a1a2e;
+  background: #ff8000;
+  border-color: #444;
+  color: #ffffff;
 }
 
 .reuters-wordmark {
@@ -332,3 +338,53 @@ figcaption {
   .article-text p  { font-size: 0.98rem; line-height: 1.7; }
   .related-grid    { grid-template-columns: 1fr; }
 }
+
+/* -- Dark mode ------------------------------------------------------------- */
+.article-shell.dark-mode {
+  background: #121212;
+  color: #e0e0e0;
+}
+
+.dark-mode .topbar {
+  background: rgba(18, 18, 18, 0.97);
+  border-bottom-color: #2e2e3e;
+}
+
+.dark-mode .article-header {
+  border-bottom-color: #2e2e3e;
+}
+
+.dark-mode .article-header h1 { color: #e8e8f0; }
+.dark-mode .article-summary   { color: #b0b8c8; }
+.dark-mode .byline-author strong { color: #d0d8e8; }
+.dark-mode .byline-time,
+.dark-mode .byline-read,
+.dark-mode .byline-divider,
+.dark-mode .article-location { color: #667; }
+
+.dark-mode .article-text p      { color: #c8d0e0; }
+.dark-mode .article-text p.lede { color: #dde4f0; }
+
+.dark-mode figcaption { color: #556; }
+
+.dark-mode .article-footer {
+  border-top-color: #2e2e3e;
+}
+.dark-mode .footer-attr  { color: #889; }
+.dark-mode .footer-legal { color: #556; }
+
+.dark-mode .related {
+  border-top-color: #2e2e3e;
+}
+.dark-mode .related h2 { color: #778; }
+
+.dark-mode .related-card {
+  background: #1e1e2e;
+  border-color: #2e2e3e;
+}
+.dark-mode .related-card:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+}
+.dark-mode .rel-body h3 { color: #d8e0f0; }
+
+.dark-mode .not-found  { background: #121212; color: #aaa; }

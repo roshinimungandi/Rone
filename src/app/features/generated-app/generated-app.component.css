@@ -135,10 +135,12 @@
   padding: 0.22rem 0.65rem 0.22rem 0.45rem;
   white-space: nowrap;
   transition: background 0.15s, border-color 0.15s;
+  background: #ff8000;
+  border-color: #444;
+  color: #ffffff;
 }
-.back-btn:hover { background: rgba(0,0,0,0.05); border-color: rgba(0,0,0,0.3); }
-.gen-shell.dark-mode .back-btn { color: #d1d5db; border-color: rgba(255,255,255,0.2); }
-.gen-shell.dark-mode .back-btn:hover { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.35); }
+
+
 
 .app-title {
   font-size: 0.95rem;
@@ -1817,7 +1819,7 @@ a.story-card:hover, a.card-link:hover {
 }
 
 .profile-plan-features .feature-locked {
-  color: #bbb;
+  color: #333;
 }
 
 .profile-divider {

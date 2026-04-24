@@ -33,8 +33,11 @@
   transition: background 0.15s, border-color 0.15s;
   order: -1;          /* always first child */
   flex-shrink: 0;
+   background: #ff8000;
+  border-color: #444;
+  color: #ffffff;
 }
-.back-btn:hover { background: #f0f0f0; border-color: #aaa; }
+
 
 .coll-title-group {
   display: flex;
@@ -42,6 +45,8 @@
   gap: 10px;
   flex: 1;
   justify-content: center;
+  
+
 }
 
 .r-mark {
@@ -173,10 +178,18 @@
   border-radius: 4px;
   color: #fff;
 }
-.coll-type-article  { background: #e00000; }
-.coll-type-video    { background: #cc0066; }
-.coll-type-gallery  { background: #6600cc; }
-.coll-type-podcast  { background: #0055cc; }
+.coll-type-article  {  background: #ff8000;
+  border-color: #444;
+  color: #ffffff; }
+.coll-type-video    {  background: #ff8000;
+  border-color: #444;
+  color: #ffffff; }
+.coll-type-gallery  {  background: #ff8000;
+  border-color: #444;
+  color: #ffffff; }
+.coll-type-podcast  {  background: #ff8000;
+  border-color: #444;
+  color: #ffffff; }
 
 .coll-meta {
   font-size: 11px;
@@ -235,19 +248,19 @@
 }
 
 .coll-share-btn {
-  background: none;
-  border-color: #0066cc;
-  color: #0066cc;
+   background: #ff8000;
+  border-color: #444;
+  color: #ffffff;
 }
 .coll-share-btn:hover { background: #e6f0fb; }
 
 .coll-remove-btn {
-  background: none;
-  border-color: #e00000;
-  color: #e00000;
+  background: #ff8000;
+  border-color: #444;
+  color: #ffffff;
   margin-left: auto;
 }
-.coll-remove-btn:hover { background: #fff0f0; }
+
 
 @media (max-width: 600px) {
   .coll-grid { grid-template-columns: 1fr; }
@@ -265,11 +278,10 @@
 }
 
 .dark-mode .back-btn {
+   background: #ff8000;
   border-color: #444;
-  color: #bbb;
-  background: transparent;
+  color: #ffffff;
 }
-.dark-mode .back-btn:hover { background: #2a2a3a; border-color: #666; }
 
 .dark-mode .coll-title-group h1 { color: #e0e0e0; }
 .dark-mode .coll-subtitle        { color: #888; }
@@ -297,14 +309,4 @@
   border-top-color: #2e2e3e;
 }
 
-.dark-mode .coll-share-btn {
-  border-color: #4a90d9;
-  color: #4a90d9;
-}
-.dark-mode .coll-share-btn:hover  { background: #1a2a3a; }
 
-.dark-mode .coll-remove-btn {
-  border-color: #e05555;
-  color: #e05555;
-}
-.dark-mode .coll-remove-btn:hover { background: #2a1a1a; }

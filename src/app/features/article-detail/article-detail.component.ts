@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Location, TitleCasePipe } from '@angular/common';
 import { NewsContentService } from '../../services/news-content.service';
 import { ArticleService } from '../../services/article.service';
+import { AppBuilderService } from '../../services/app-builder.service';
 import { NewsStory } from '../../models/news.model';
 
 @Component({
@@ -23,7 +24,15 @@ export class ArticleDetailComponent implements OnInit {
     private readonly location: Location,
     private readonly contentService: NewsContentService,
     private readonly articleService: ArticleService,
+    private readonly builder: AppBuilderService,
   ) {}
+
+  get isDark(): boolean {
+    return this.builder.config().theme.mode === 'dark';
+  }
+
+  @HostBinding('class.dark-mode')
+  get hostDark(): boolean { return this.isDark; }
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id') ?? '';

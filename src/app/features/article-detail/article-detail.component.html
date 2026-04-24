@@ -1,7 +1,7 @@
 <!-- ── Article Detail Page ──────────────────────────────────────────────── -->
 
 @if (notFound) {
-  <div class="not-found">
+  <div class="not-found" [class.dark-mode]="isDark">
     <h2>Article not found</h2>
     <p>This article is no longer available in the feed.</p>
     <button type="button" class="back-btn" (click)="goBack()">← Go back</button>
@@ -9,7 +9,7 @@
 }
 
 @if (story) {
-  <div class="article-shell">
+  <div class="article-shell" [class.dark-mode]="isDark">
 
     <!-- ── Top bar ──────────────────────────────────────────────────────── -->
     <div class="topbar">

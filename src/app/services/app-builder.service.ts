@@ -150,10 +150,10 @@ export class AppBuilderService {
     this.pushAssistant(
       `Welcome to **Rone**, ${userName}! I'm your AI assistant, and I'll help you build your very own personalised Reuters news app from scratch.\n\n` +
       `Through our conversation I'll help you choose:\n` +
-      `- 📰 **Content** — topics, articles, videos, markets data and more\n` +
+      `- 📰 **Content** — podcasts, articles, videos\n` +
       `- 🎨 **Appearance** — theme, colours, and layout\n\n` +
       `Let's start with what matters most — **what news topics interest you?**\n\n` +
-      `Available topics: **World, Business, Technology, Markets, Politics, Science, Health, Sports, Energy, Entertainment**\n\n` +
+      `Available topics: **World, Business, Technology, Markets, Politics, Science**\n\n` +
       `Feel free to list several — the more you share, the better tailored your app will be!`
     );
     this._stage.set('topics');
@@ -639,18 +639,7 @@ export class AppBuilderService {
       });
     }
 
-    const marketsEnabled = this._config().contentTypes.markets.enabled;
-    if (marketsEnabled) {
-      this.pushAssistant(
-        `Content preferences set!\n\n` +
-        `Since you're including **markets data**, are there specific instruments you'd like to track?\n\n` +
-        `Examples: *"Apple, Tesla, Gold, EUR/USD, S&P 500"*\n\n` +
-        `Or say **"use defaults"** for the standard Reuters overview (Dow, S&P 500, Nasdaq, EUR/USD).`
-      );
-      this._stage.set('markets');
-    } else {
-      this.askTheme();
-    }
+    this.askTheme();
   }
 
   /** CHAT-020 Step 2: Personalisation — Markets watchlist. */
